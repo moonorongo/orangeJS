@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <!-- libs -->
+        <script src="js/underscore.js"></script> 
+        <!-- main lib -->
+        <script src="js/orange2.js"></script> 
+        <!-- classes -->
+        <script src="js/class.layer.js"></script> 
+        <script src="js/class.image_manager.js"></script> 
+        <script src="js/class.image_map.js"></script> 
+        <script src="js/class.sprite.js"></script> 
+</head>
+
+    <body>
+        <div id="frameNumber"></div>
+        <button onClick="Orange.start()">Start</button>
+        <button onClick="Orange.stop()">Stop</button>
+    </body>
+    
+<script>
+    Orange.init();
+    Orange.getImageManager().addImage(["img/bg.png","img/overfg.png", "img/pacman2.png"]);
+    var pacman_s, x=0;
+    
+    Orange.getImageManager().preload(function(){
+    
+        var pacman_im = new Orange.ImageMap(Orange.getImageManager().get("pacman"), 16,16);
+        pacman_s = new Orange.Sprite(pacman_im);
+        pacman_s.setX(0).setY(120);
+
+        var l = new Orange.Layer();
+        l.setBackground(Orange.getImageManager().get("bg.png"));
+        Orange.addLayer(l);
+        l.addSprite(pacman_s); 
+        
+        var m = new Orange.Layer();
+        m.setBackground(Orange.getImageManager().get("overfg"));
+        Orange.addLayer(m);
+        
+        Orange.setMainCallback(function() {
+            x += 1;
+            if (x > 344) x = 0;
+            pacman_s.setX(x).setY((Math.sin(x/10) * 20) + 120);
+            document.getElementById("frameNumber").innerHTML = Orange.getCounter();
+        });
+        
+        Orange.update();
+    }); // preload
+    
+
+    
+</script>
+</hmtl>

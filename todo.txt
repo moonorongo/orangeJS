@@ -1,0 +1,44 @@
+
+TANTO Animation COMO ImageMap deben implementar la misma interface para que pueda ser utilizada por el metodo _update de la clase Layer
+
+ARMAR ANIMATION
+
+Ir armando documentacion de esto.
+ANTES DE NADA PROSEGUIR CON ESTO.
+
+
+
+
+Sprite:
+un sprite es un bloque que se puede mover, y que va a recibir eventos.
+cada sprite puede tener asignada una ImageMap o una Animation.
+si recibe un imageMap pone por defecto el primer cuadro/estado
+si recibe un Animation, obtiene frame/estado y con la referencia al ImageMap pinta.
+
+
+
+ImageMap:
+Un ImageMap es un grafico con las distintas animaciones, 
+tiene asignado una Image
+unas propiedades que indican cuantos Movies tiene el imagemap (rows) y cuantos frames tiene cada estado.
+
+y un conjunto de methodos para obtener de un estado un frame, 
+una inicializacion automatica en base a la imagen seteada.
+y alguna otra cosita
+RESOLVED
+
+
+
+Animation:
+una animacion es una secuencia que se arma con un ImageMap, la animacion puede tener secuencias de programacion que me permita
+armar animaciones complejas, como por ejemplo:
+
+Loops, loops infinitos, rebotes, saltos a otros estados (util para hacer un inicio y un fin de la animacion),
+la posicion del frame va a depender de un contador interno global de Orange.
+
+cada estado tendra un step size, que sera algo asi como cada cuanto se avanzara un frame.
+
+cada animacion tiene un _frame interno, que es el que avanza, y se pone en 0 al cambiar de estado.
+
+tiene que tener un metodo interno para devolver un frame, estado, y una referencia al Imagemap asignado.
+
