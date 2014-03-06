@@ -25,7 +25,9 @@
     Orange.getImageManager().preload(function(){
     
         var pacman_im = new Orange.ImageMap(Orange.getImageManager().get("pacman"), 16,16);
-        pacman_s = new Orange.Sprite(pacman_im);
+        pacman_s = new Orange.Sprite({
+            src : pacman_im 
+        });
         pacman_s.setX(0).setY(120);
 
         var l = new Orange.Layer();

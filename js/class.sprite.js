@@ -1,25 +1,22 @@
 Orange = ( function( rootApp ){
     
-  // src puede ser ImageMap o Animation, ambos deben retornar un object con la referencia a la image, 
+  // customSettings.src puede ser ImageMap o Animation, ambos deben retornar un object con la referencia a la image, 
   // la posicion x,y y el width,height
-  rootApp.Sprite = function(src){
+  rootApp.Sprite = function(customSettings){
     var _layer,
         _x,
         _y,
         _pivot,
-        _src = src;
+        _src = customSettings.src;
     
-    
-    
-
-    
-    
-    return {
+    // settings por defecto
+    var settings = {
         _fnSetLayer : function (layer) {
             _layer = layer;
         },
         
         setX : function(x) {
+            // interesante que this aca es el objeto... 
             _x = x;
             return this;
         },
@@ -34,7 +31,17 @@ Orange = ( function( rootApp ){
             var imgData = _src.get(0,0);
             _layer.drawImage(imgData.image, imgData.px, imgData.py, imgData.pw, imgData.ph, _x,_y,imgData.pw, imgData.ph);
         }
+        
+        
     }
+    
+
+    customSettings || ( customSettings = {} );
+ 
+    _.extend( settings, customSettings );
+    
+    
+    return settings
   };
  
   
