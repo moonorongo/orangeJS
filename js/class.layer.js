@@ -13,7 +13,8 @@ Orange = ( function( rootApp ){
         _bgX,
         _bgY;
 
-    
+    var orangeRoot;
+        
     var _putInContext = function() {
         _update();
         _context.drawImage(_layer.canvas,0,0); // a futuro la posicion debera poder moverse. (o hacer scroll loop)
@@ -49,6 +50,7 @@ Orange = ( function( rootApp ){
         
         addSprite : function(sprite) {
             sprite._fnSetLayer(_layer);
+            sprite._fnSetRootContext(orangeRoot);
             _sprites.push(sprite);
         },
 /*        
@@ -62,6 +64,10 @@ Orange = ( function( rootApp ){
             _tmpCanvas.height = _height || _context.canvas.height;
             _layer = _tmpCanvas.getContext("2d");
             
+        },
+        
+        _fnSetRootContext : function(root) {
+            orangeRoot = root;
         }
     }
   };

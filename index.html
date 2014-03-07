@@ -9,6 +9,7 @@
         <script src="js/class.image_manager.js"></script> 
         <script src="js/class.image_map.js"></script> 
         <script src="js/class.sprite.js"></script> 
+        
 </head>
 
     <body>
@@ -28,22 +29,29 @@
         pacman_s = new Orange.Sprite({
             src : pacman_im 
         });
-        pacman_s.setX(0).setY(120);
 
         var l = new Orange.Layer();
         l.setBackground(Orange.getImageManager().get("bg.png"));
         Orange.addLayer(l);
         l.addSprite(pacman_s); 
+
+        pacman_s.setX(0).setY(120);
         
+        pacman_s.on("click", function(e) {
+            console.log(e);
+        })
+
         var m = new Orange.Layer();
         m.setBackground(Orange.getImageManager().get("overfg"));
         Orange.addLayer(m);
         
         Orange.setMainCallback(function() {
+
             x += 1;
             if (x > 344) x = 0;
             pacman_s.setX(x).setY((Math.sin(x/10) * 20) + 120);
             document.getElementById("frameNumber").innerHTML = Orange.getCounter();
+
         });
         
         Orange.update();

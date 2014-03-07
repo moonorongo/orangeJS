@@ -5,8 +5,10 @@ var Orange = (function(){
         _imageManager,
         _bPlay = false,
         _counter = 1,
+        _eventStack = [],
         _cbMainLoop;
 
+    var orangeRoot;
         
     var _init = function(el) {
         // aca chequear si el es undefined no ejecutar esto...
@@ -15,6 +17,12 @@ var Orange = (function(){
         canvasElement = el || domBody.getElementsByTagName("canvas")[0];
         _context = canvasElement.getContext("2d");
         _imageManager = new Orange.ImageManager();
+        
+        canvasElement.addEventListener("mousedown", function(e) {
+            _.each(_eventStack, function(s) {
+                s.notify(e);
+            });
+        });
     }
     
     
@@ -54,6 +62,7 @@ var Orange = (function(){
     return {
         addLayer : function(layer) {
             layer._fnInit(_context);
+            layer._fnSetRootContext(orangeRoot);
             _layers.push(layer);
         },
         
@@ -63,6 +72,8 @@ var Orange = (function(){
         
         init : function(el) {
             _init(el);
+            orangeRoot = this;
+            
         },
         
         getCanvasElement : function () {
@@ -88,6 +99,10 @@ var Orange = (function(){
         
         getCounter : function() {
             return _counter;
+        },
+        
+        addToEventStack : function(sprite) {
+            _eventStack.push(sprite);
         }
         
     };
