@@ -36,11 +36,18 @@
         l.addSprite(pacman_s); 
 
         pacman_s.setX(0).setY(120);
-        
-        pacman_s.on("click", function(e) {
-            console.log(e);
-        })
 
+/*        
+        pacman_s.on("mousedown", function(name, e, extra) {
+            console.log(name);
+            if(extra.clicked) console.log("clicked");
+        });
+*/
+        pacman_s.on("keydown", function(name, e, extra) {
+            console.log(e);
+        });
+        
+        
         var m = new Orange.Layer();
         m.setBackground(Orange.getImageManager().get("overfg"));
         Orange.addLayer(m);

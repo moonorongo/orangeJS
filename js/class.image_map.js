@@ -46,7 +46,15 @@ Orange = ( function( rootApp ){
     
        return {
            get : function(status, frame) {
-               return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * status, pw : _spriteWidth, ph : _spriteHeight};
+               return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * status};
+           },
+
+           getSpriteWidth : function() {
+                return _spriteWidth; 
+           },
+           
+           getSpriteHeight : function() {
+               return _spriteHeight;
            },
            
            type : function() {

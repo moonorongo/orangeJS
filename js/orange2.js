@@ -5,7 +5,10 @@ var Orange = (function(){
         _imageManager,
         _bPlay = false,
         _counter = 1,
-        _eventStack = [],
+        _eventStack = { 
+            mousedown : [],
+            keydown : []
+        },
         _cbMainLoop;
 
     var orangeRoot;
@@ -18,11 +21,15 @@ var Orange = (function(){
         _context = canvasElement.getContext("2d");
         _imageManager = new Orange.ImageManager();
         
-        canvasElement.addEventListener("mousedown", function(e) {
-            _.each(_eventStack, function(s) {
-                s.notify(e);
-            });
+        _.each(_eventStack, function(event, key) {
+            canvasElement.addEventListener(key, function(e) {
+                e.preventDefault();
+                _.each(event, function(s) {
+                    s.notify(key, e);
+                }); 
+            });            
         });
+
     }
     
     
@@ -73,7 +80,6 @@ var Orange = (function(){
         init : function(el) {
             _init(el);
             orangeRoot = this;
-            
         },
         
         getCanvasElement : function () {
@@ -101,8 +107,8 @@ var Orange = (function(){
             return _counter;
         },
         
-        addToEventStack : function(sprite) {
-            _eventStack.push(sprite);
+        addToEventStack : function(event,sprite) {
+            _eventStack[event].push(sprite);
         }
         
     };
