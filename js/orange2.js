@@ -7,7 +7,8 @@ var Orange = (function(){
         _counter = 1,
         _eventStack = { 
             mousedown : [],
-            keydown : []
+            keydown : [],
+            dblclick : []
         },
         _cbMainLoop;
 
@@ -20,18 +21,48 @@ var Orange = (function(){
         canvasElement = el || domBody.getElementsByTagName("canvas")[0];
         _context = canvasElement.getContext("2d");
         _imageManager = new Orange.ImageManager();
-        
-        _.each(_eventStack, function(event, key) {
-            canvasElement.addEventListener(key, function(e) {
-                e.preventDefault();
-                _.each(event, function(s) {
-                    s.notify(key, e);
-                }); 
-            });            
-        });
+    }
 
+    
+    
+    
+// EVENTS! ---------------------------    
+    //var _key,_event;
+    
+    var _listener = function(e) {
+        //e.preventDefault();
+        _.each(_eventStack, function(event, key) {
+            _.each(event, function(s) {
+                s.notify(key, e);
+            }); 
+        });
+    };
+    
+    var _unbindEvents = function() {
+        _.each(_eventStack, function(event, key) {
+//            _key = key;
+  //          _event = event;
+            var regExKey =  /key/g;
+            var _element = (regExKey.test(key))? window : canvasElement;
+            
+            if(event.length != 0) {
+                _element.removeEventListener(key, _listener);            
+            } // if event
+        });                
     }
     
+    var _bindEvents  = function() {
+        _.each(_eventStack, function(event, key) {
+//            _key = key;
+  //          _event = event;
+            var regExKey =  /key/g;
+            var _element = (regExKey.test(key))? window : canvasElement;
+            
+            if(event.length != 0) {
+                _element.addEventListener(key, _listener);            
+            } 
+        });        
+    }
     
     var _update = function() {
         _.each(_layers, function(l) {
@@ -92,11 +123,14 @@ var Orange = (function(){
         
         start : function() {
             _bPlay = true;
+            _bindEvents();
             _start();
         },
         
         stop : function() {
             _bPlay = false;
+            _unbindEvents();
+            
         },
         
         setMainCallback : function(callback) {

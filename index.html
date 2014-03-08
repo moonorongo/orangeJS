@@ -37,31 +37,33 @@
 
         pacman_s.setX(0).setY(120);
 
-/*        
+
         pacman_s.on("mousedown", function(name, e, extra) {
-            console.log(name);
+            if(e.type=="mousedown") console.log(e);
+            console.log(extra);
             if(extra.clicked) console.log("clicked");
         });
-*/
+/*
         pacman_s.on("keydown", function(name, e, extra) {
-            console.log(e);
+            if(e.type == "keydown") console.log(e);
         });
-        
+*/
         
         var m = new Orange.Layer();
         m.setBackground(Orange.getImageManager().get("overfg"));
         Orange.addLayer(m);
         
         Orange.setMainCallback(function() {
-
+/*
             x += 1;
             if (x > 344) x = 0;
             pacman_s.setX(x).setY((Math.sin(x/10) * 20) + 120);
+*/            
             document.getElementById("frameNumber").innerHTML = Orange.getCounter();
 
         });
         
-        Orange.update();
+        Orange.start();
     }); // preload
     
 
