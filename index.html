@@ -21,7 +21,7 @@
 <script>
     Orange.init();
     Orange.getImageManager().addImage(["img/bg.png","img/overfg.png", "img/pacman2.png"]);
-    var pacman_s, x=0;
+    var pacman_s, x=0, y=0, dx=0, dy=0;
     
     Orange.getImageManager().preload(function(){
     
@@ -39,27 +39,47 @@
 
 
         pacman_s.on("mousedown", function(name, e, extra) {
-            if(e.type=="mousedown") console.log(e);
             console.log(extra);
             if(extra.clicked) console.log("clicked");
         });
-/*
+
+        
         pacman_s.on("keydown", function(name, e, extra) {
-            if(e.type == "keydown") console.log(e);
+            switch(e.keyCode) {
+                case 38 :   dy = -3;
+                            break;
+                case 40 :   dy = 3;
+                            break;
+                case 39 :   dx = 3;
+                            break;
+                case 37 :   dx = -3;
+                            break;
+            }
         });
-*/
+
+        pacman_s.on("keyup", function(name, e, extra) {
+            switch(e.keyCode) {
+                case 38 :   dy = 0;
+                            break;
+                case 40 :   dy = 0;
+                            break;
+                case 39 :   dx = 0;
+                            break;
+                case 37 :   dx = 0;
+                            break;
+            }
+        });
+        
         
         var m = new Orange.Layer();
         m.setBackground(Orange.getImageManager().get("overfg"));
         Orange.addLayer(m);
         
         Orange.setMainCallback(function() {
-/*
-            x += 1;
-            if (x > 344) x = 0;
-            pacman_s.setX(x).setY((Math.sin(x/10) * 20) + 120);
-*/            
-            document.getElementById("frameNumber").innerHTML = Orange.getCounter();
+
+            x += dx;
+            y += dy;
+            pacman_s.setX(x).setY(y);
 
         });
         

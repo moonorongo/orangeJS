@@ -8,7 +8,7 @@ Orange = ( function( rootApp ){
         _x,
         _y,
         _pivot,
-        _eventCallback,
+        _eventCallback = {},
         _src = customSettings.src;
         _w = _src.getSpriteWidth();
         _h = _src.getSpriteHeight();
@@ -42,6 +42,14 @@ Orange = ( function( rootApp ){
         getY : function(y) {
             return _y;
         },
+        
+
+        decX : function(x) { _x--; },
+        decY : function(y) { _y--; },
+        incX : function(x) { _x++; },
+        incY : function(y) { _y++; },
+        
+        
 
         getWidth : function(x) {
             return _w;
@@ -62,7 +70,7 @@ Orange = ( function( rootApp ){
             orangeRoot.addToEventStack(event, this);
             // registrar el evento event en algun lugar por aca, para que la funcion que se llamara notificadora
             // sepa que eventos escuchar
-            _eventCallback = callback;
+            _eventCallback[event] = callback;
         },
         
         notify : function(eventName, e) {
@@ -80,7 +88,7 @@ Orange = ( function( rootApp ){
                  (rX <= _x + _w) && 
                  (rY <= _y + _h) ) extra.clicked = true;
             
-            _eventCallback(eventName, e, extra);    
+            _eventCallback[eventName](eventName, e, extra);    
         } // end notify
         
     }
