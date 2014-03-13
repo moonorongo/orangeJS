@@ -5,7 +5,8 @@ Orange = ( function( rootApp ){
     // Sprites del Layer
     var _sprites = [];
     // canvas layer
-    var _layer, 
+    var _layer,
+        _boundary,
         _context,
         _width = width,
         _height = height,
@@ -13,6 +14,8 @@ Orange = ( function( rootApp ){
         _bgX,
         _bgY;
 
+    var _tmpCanvas;
+    var _tmpCanvasBoundary;
     var orangeRoot;
         
     var _putInContext = function() {
@@ -53,13 +56,24 @@ Orange = ( function( rootApp ){
             sprite._fnSetRootContext(orangeRoot);
             _sprites.push(sprite);
         },
+        
+        setBoundary : function(img) {
+            _tmpCanvasBoundary = document.createElement("canvas");
+            _tmpCanvasBoundary.width = _tmpCanvas.width;
+            _tmpCanvasBoundary.height = _tmpCanvas.height;
+            _boundary = _tmpCanvasBoundary.getContext("2d");            
+        },
+        
+        getBoundary : function() {
+            return _boundary;
+        },
 /*        
         AGREGAR PROPERTY z-index, que me permita luego (mediante un setter y getter) ordenar en Orange el array _layers
         para que, al momento de dibujar, haya una estructura multicapa.
 */        
         _fnInit : function(context) {
             _context = context;
-            var _tmpCanvas = document.createElement("canvas");
+            _tmpCanvas = document.createElement("canvas");
             _tmpCanvas.width = _width || _context.canvas.width;
             _tmpCanvas.height = _height || _context.canvas.height;
             _layer = _tmpCanvas.getContext("2d");

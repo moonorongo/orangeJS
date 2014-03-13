@@ -32,8 +32,26 @@ var Orange = (function(){
 // EVENTS! ---------------------------    
     
     var _listener = function(e) {
-        e.preventDefault();
+/*
+                 case 38 :   dy = 0;
+                            break;
+                case 40 :   dy = 0;
+                            break;
+                case 39 :   dx = 0;
+                            break;
+                case 37 :   dx = 0;
+                            break;
+
+ **/        
         var key = e.type;
+        var keyCode = e.keyCode;
+        
+        if( (keyCode == 38) ||  
+            (keyCode == 40) ||  
+            (keyCode == 39) ||  
+            (keyCode == 37)
+        ) e.preventDefault();
+        
         _.each(_eventStack[key], function(s) {
             s.notify(key, e);
         }); 

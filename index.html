@@ -18,8 +18,9 @@
     
 <script>
     Orange.init();
-    Orange.getImageManager().addImage(["img/bg.png","img/overfg.png", "img/pacman2.png"]);
-    var pacman_s, x=0, y=0, dx=0, dy=0;
+    Orange.getImageManager().addImage(["img/bg.png","img/overfg.png", "img/pacman2.png", "img/floor.png"]);
+    var pacman_s, x=0, y=0, dx=0, dy=0, l;
+    
     
     Orange.getImageManager().preload(function(){
     
@@ -28,9 +29,11 @@
             src : pacman_im 
         });
 
-        var l = new Orange.Layer();
-        l.setBackground(Orange.getImageManager().get("bg.png"));
+        l = new Orange.Layer();
         Orange.addLayer(l);
+        l.setBackground(Orange.getImageManager().get("bg.png"));
+        l.setBoundary(Orange.getImageManager().get("floor.png"))
+        
         l.addSprite(pacman_s); 
 
         pacman_s.setX(0).setY(120);

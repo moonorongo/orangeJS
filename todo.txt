@@ -6,6 +6,16 @@ ARMAR ANIMATION
 Ir armando documentacion de esto.
 ANTES DE NADA PROSEGUIR CON ESTO.
 
+estoy:
+    layer boundary: ya se agrego
+    implementar methodos internos para Sprite, para que pueda checkear en el boundary del layer que es lo q puede hacer.
+    
+
+
+
+
+
+
 
 
 
