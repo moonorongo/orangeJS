@@ -9,6 +9,7 @@
         <script src="js/class.image_manager.js"></script> 
         <script src="js/class.image_map.js"></script> 
         <script src="js/class.sprite.js"></script> 
+        <script src="js/class.constant.js"></script> 
         
 </head>
 
@@ -31,19 +32,19 @@
 
         l = new Orange.Layer();
         Orange.addLayer(l);
-        l.setBackground(Orange.getImageManager().get("bg.png"));
+        l.setBackground(Orange.getImageManager().get("floor.png"));
         l.setBoundary(Orange.getImageManager().get("floor.png"))
         
         l.addSprite(pacman_s); 
 
         pacman_s.setX(0).setY(120);
 
-
+/*
         pacman_s.on("mousedown", function(name, e, extra) {
-            console.log(extra);
+            //console.log(extra);
             if(extra.clicked) console.log("clicked");
         });
-
+*/
         
         pacman_s.on("keydown", function(name, e, extra) {
             switch(e.keyCode) {
@@ -56,6 +57,7 @@
                 case 37 :   dx = -3;
                             break;
             }
+            
         });
 
         pacman_s.on("keyup", function(name, e, extra) {
@@ -71,20 +73,22 @@
             }
         });
         
-        
+/*        
         var m = new Orange.Layer();
         m.setBackground(Orange.getImageManager().get("overfg"));
         Orange.addLayer(m);
-        
+*/        
         Orange.setMainCallback(function() {
 
-            x += dx;
-            y += dy;
-            pacman_s.setX(x).setY(y);
+            // NO HACER ESTO ACA, 
+            // reescribir inc X,Y para que reciba dx,dy
+            
+            pacman_s.incX(dx).incY(dy);
 
         });
         
         Orange.start();
+        //Orange.stop();
     }); // preload
     
 

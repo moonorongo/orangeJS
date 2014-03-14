@@ -5,16 +5,60 @@ Orange = ( function( rootApp ){
   // la posicion x,y y el width,height
   rootApp.Sprite = function(customSettings){
     var _layer,
-        _x,
-        _y,
+        _x = 0,
+        _y = 0,
         _pivot,
         _eventCallback = {},
-        _src = customSettings.src;
-        _w = _src.getSpriteWidth();
-        _h = _src.getSpriteHeight();
+        _src = customSettings.src,
+        _w = _src.getSpriteWidth(),
+        _h = _src.getSpriteHeight(),
+        _pivotX = Math.floor(_w / 2),
+        _pivotY = Math.floor(_h / 2),
+        _dirX = 0,
+        _dirY = 0;
     
     var orangeRoot;         
+    
+    // setea la direccion de avance de acuerdo a la posicion suministrada
+    var _setDirX = function(x) {
+        if(x > _x) {
+            _dirX = Orange.SPRITE_MOVE_RIGHT;
+        } else if (x < _x) {
+            _dirX = Orange.SPRITE_MOVE_LEFT;
+        } else {
+            _dirX = Orange.SPRITE_MOVE_NONE;
+        }
+    }
         
+    // setea la direccion de avance de acuerdo a la posicion suministrada
+    var _setDirY = function(y) {
+        if(y > _y) {
+            _dirY = Orange.SPRITE_MOVE_UP;
+        } else if (y < _y) {
+            _dirY = Orange.SPRITE_MOVE_DOWN;
+        } else {
+            _dirY = Orange.SPRITE_MOVE_NONE;
+        }        
+    }   
+    
+    
+    var _setX = function(x) {
+        _setDirX(x);
+
+        if(_layer.getBoundaryStatus(x + _pivotX, _y + _pivotY).r != 0) {
+            _x = x;
+        }
+    };
+
+    
+    var _setY = function(y) {
+        _setDirY(y);
+        
+        if(_layer.getBoundaryStatus(_x + _pivotX, y + _pivotY).r != 0) {
+            _y = y;
+        }
+    }
+    
     // settings por defecto
     var settings = {
         _fnSetLayer : function (layer) {
@@ -26,12 +70,12 @@ Orange = ( function( rootApp ){
         },
         
         setX : function(x) {
-            _x = x;
+            _setX(x);
             return this;
         },
         
         setY : function(y) {
-            _y = y;
+            _setY(y);
             return this;
         },
 
@@ -43,11 +87,19 @@ Orange = ( function( rootApp ){
             return _y;
         },
         
-
-        decX : function(x) { _x--; },
-        decY : function(y) { _y--; },
-        incX : function(x) { _x++; },
-        incY : function(y) { _y++; },
+        incX : function(dx) { 
+            var x = _x;
+            x += dx;
+            _setX(x);
+            return this;
+        },
+           
+        incY : function(dy) { 
+            y = _y;
+            y += dy;
+            _setY(y);
+            return this;
+        },
         
         
 
@@ -63,7 +115,7 @@ Orange = ( function( rootApp ){
         update : function() {
             // aca en vez de src... ver de llamar a una fn de Animation, si lo que pase es una Animation
             var imgData = _src.get(0,0);
-            _layer.drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
+            _layer.getCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
         },
         
         on : function(event, callback) {
@@ -100,7 +152,7 @@ Orange = ( function( rootApp ){
     
     
     return settings
-  };
+  }; // sprite
  
   
   return rootApp;

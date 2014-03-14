@@ -5,6 +5,7 @@ var Orange = (function(){
         _imageManager,
         _bPlay = false,
         _counter = 1,
+        _speed = 20, // ms;
         _eventStack = { 
             mousedown : [],
             keydown : [],
@@ -32,17 +33,7 @@ var Orange = (function(){
 // EVENTS! ---------------------------    
     
     var _listener = function(e) {
-/*
-                 case 38 :   dy = 0;
-                            break;
-                case 40 :   dy = 0;
-                            break;
-                case 39 :   dx = 0;
-                            break;
-                case 37 :   dx = 0;
-                            break;
 
- **/        
         var key = e.type;
         var keyCode = e.keyCode;
         
@@ -93,7 +84,7 @@ var Orange = (function(){
         if(msLoop < 0) msLoop = 0; // Hack horrible para evitar el cambio de segundo
               
         if(_bPlay) {
-            setTimeout(_loop,20 - msLoop);
+            setTimeout(_loop,_speed - msLoop);
         }
     }
     
@@ -131,8 +122,6 @@ var Orange = (function(){
         
         stop : function() {
             _bPlay = false;
-            _unbindEvents();
-            
         },
         
         setMainCallback : function(callback) {
