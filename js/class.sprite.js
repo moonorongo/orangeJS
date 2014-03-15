@@ -8,13 +8,13 @@ Orange = ( function( rootApp ){
         _x = 0,
         _y = 0,
         _pivot,
-        _speed = 3,
+        _speed = customSettings.speed || 1,
         _eventCallback = {},
         _src = customSettings.src,
         _w = _src.getSpriteWidth(),
         _h = _src.getSpriteHeight(),
-        _pivotX = Math.floor(_w / 2),
-        _pivotY = Math.floor(_h / 2),
+        _pivotX = customSettings.pivotX || Math.floor(_w / 2),
+        _pivotY = customSettings.pivotY || Math.floor(_h / 2),
         _dirX = 0,name, e, extra
         _dirY = 0;
     
@@ -50,13 +50,13 @@ Orange = ( function( rootApp ){
             // si puede, lo actualiza
             _x = x;
         } else {
-            // si no, veo si puedo ir para arriba o abajo.
-            if(_layer.getBoundaryStatus(x + _pivotX, (_y + _pivotY) - 1).r != 0) { 
-                _y -= 1;
+            // si no, veo si puedo ir para arriba o abajo. (la cantidad de _speed pixels...)
+            if(_layer.getBoundaryStatus(x + _pivotX, (_y + _pivotY) - _speed).r != 0) { 
+                _y -= _speed;
             }
             
-            if(_layer.getBoundaryStatus(x + _pivotX, (_y + _pivotY) + 1).r != 0) { 
-                _y += 1;
+            if(_layer.getBoundaryStatus(x + _pivotX, (_y + _pivotY) + _speed).r != 0) { 
+                _y += _speed;
             }
         } // puedo posicionar
     }; // setX
@@ -68,13 +68,13 @@ Orange = ( function( rootApp ){
         if(_layer.getBoundaryStatus(_x + _pivotX, y + _pivotY).r != 0) {
             _y = y;
         } else {
-            // si no, veo si puedo ir para izq o der.
-            if(_layer.getBoundaryStatus(x + _pivotX - 1, _y + _pivotY).r != 0) { 
-                _x -= 1;
+            // si no, veo si puedo ir para izq o der. (la cantidad de _speed pixels...)
+            if(_layer.getBoundaryStatus(x + _pivotX - _speed, _y + _pivotY).r != 0) { 
+                _x -= _speed;
             }
             
-            if(_layer.getBoundaryStatus(x + _pivotX + 1, _y + _pivotY).r != 0) { 
-                _x += 1;
+            if(_layer.getBoundaryStatus(x + _pivotX + _speed, _y + _pivotY).r != 0) { 
+                _x += _speed;
             }
         }
     }

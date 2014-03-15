@@ -18,7 +18,7 @@ var Orange = (function(){
     var _init = function(el) {
         // aca chequear si el es undefined no ejecutar esto...
         var domBody = document.getElementsByTagName("body")[0];
-        domBody.innerHTML += '<canvas id="orange" width="360" height="240" style="border: 1px solid orange"></canvas>';
+        domBody.innerHTML += '<canvas id="orange" width="500" height="198" style="border: 1px solid orange"></canvas>';
         canvasElement = el || domBody.getElementsByTagName("canvas")[0];
         _context = canvasElement.getContext("2d");
         _imageManager = new Orange.ImageManager();

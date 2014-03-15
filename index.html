@@ -18,26 +18,45 @@
     </body>
     
 <script>
-    Orange.init();
-    Orange.getImageManager().addImage(["img/bg.png","img/overfg.png", "img/pacman2.png", "img/floor.png"]);
+    // basura global
     var pacman_s, x=0, y=0, dx=0, dy=0, l;
+
+    // Primero que nada: inicializar la libreria
+    Orange.init();
     
+    // agrego las imagenes que quiero precargar.
+    Orange.getImageManager().addImage(["img/bg.png","img/overfg.png", "img/pacman2.png", "img/floor.png", "img/gargamel.png"]);
     
+    // Inicio la precarga, cuando finalize llama al callback.
+    // mas adelante tengo que hacerlo mejor, con un objeto que tenga sucess, error, progress, etc.
     Orange.getImageManager().preload(function(){
-    
-        var pacman_im = new Orange.ImageMap(Orange.getImageManager().get("pacman"), 16,16);
+
+        // con la imagen de gargamel, armo un imageMap.
+        // Un imagemap es un TILE, que va a tiene metodos para obtener el tile deseado.
+        var pacman_im = new Orange.ImageMap(Orange.getImageManager().get("gargamel"), 70,70);
+        
+        // inicializo un sprite, le paso el imageMap recien creado, le especifico un punto de pivot (que sera utilizado para varias cosas)
+        // y una velocidad
         pacman_s = new Orange.Sprite({
-            src : pacman_im 
+            src : pacman_im,
+            pivotX : 36,
+            pivotY : 60,
+            speed : 2
         });
 
+        // creo un layer
         l = new Orange.Layer();
+        // lo agrego a la libreria
         Orange.addLayer(l);
-        l.setBackground(Orange.getImageManager().get("floor.png"));
+        // le especifico un fondo y una imagen delimitante (boundary)
+        l.setBackground(Orange.getImageManager().get("bg.png"));
         l.setBoundary(Orange.getImageManager().get("floor.png"))
         
+        // le agrego el sprite recien creado
         l.addSprite(pacman_s); 
 
-        pacman_s.setX(0).setY(120);
+        // posicion el sprite en 0,120
+        pacman_s.setX(0).setY(0);
 
 /*
         pacman_s.on("mousedown", function(eventData) {
@@ -46,6 +65,8 @@
         });
 */
         
+        // si pulso una tecla, que haga algo, en el callback especifico que quiero
+        // el callback recibe un objeto eventData, con varios valores, y una referencia al objeto
         pacman_s.on("keydown", function(eventData, s) {
             switch(eventData.e.keyCode) {
                 case 38 :   dy = -s.getSpeed();
@@ -73,17 +94,22 @@
             }
         });
         
-/*        
+
+        // otro layer mas, los layers se iran dibujando en el orden en que se van agregando
         var m = new Orange.Layer();
         m.setBackground(Orange.getImageManager().get("overfg"));
         Orange.addLayer(m);
-*/        
+
+        // especifico el bucle principal, este se ejecutara 60 veces por segundo.
         Orange.setMainCallback(function() {
             
+            
             pacman_s.incX(dx).incY(dy);
+            pacman_s.incY(1);
 
         });
         
+        // Inicio la ejecucion del bucle.
         Orange.start();
         //Orange.stop();
     }); // preload
