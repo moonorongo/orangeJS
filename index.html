@@ -40,28 +40,28 @@
         pacman_s.setX(0).setY(120);
 
 /*
-        pacman_s.on("mousedown", function(name, e, extra) {
+        pacman_s.on("mousedown", function(eventData) {
             //console.log(extra);
-            if(extra.clicked) console.log("clicked");
+            if(eventData.extra.clicked) console.log("clicked");
         });
 */
         
-        pacman_s.on("keydown", function(name, e, extra) {
-            switch(e.keyCode) {
-                case 38 :   dy = -3;
+        pacman_s.on("keydown", function(eventData, s) {
+            switch(eventData.e.keyCode) {
+                case 38 :   dy = -s.getSpeed();
                             break;
-                case 40 :   dy = 3;
+                case 40 :   dy = s.getSpeed();
                             break;
-                case 39 :   dx = 3;
+                case 39 :   dx = s.getSpeed();
                             break;
-                case 37 :   dx = -3;
+                case 37 :   dx = -s.getSpeed();
                             break;
             }
             
         });
 
-        pacman_s.on("keyup", function(name, e, extra) {
-            switch(e.keyCode) {
+        pacman_s.on("keyup", function(eventData, s) {
+            switch(eventData.e.keyCode) {
                 case 38 :   dy = 0;
                             break;
                 case 40 :   dy = 0;
@@ -79,9 +79,6 @@
         Orange.addLayer(m);
 */        
         Orange.setMainCallback(function() {
-
-            // NO HACER ESTO ACA, 
-            // reescribir inc X,Y para que reciba dx,dy
             
             pacman_s.incX(dx).incY(dy);
 

@@ -8,13 +8,14 @@ Orange = ( function( rootApp ){
         _x = 0,
         _y = 0,
         _pivot,
+        _speed = 3,
         _eventCallback = {},
         _src = customSettings.src,
         _w = _src.getSpriteWidth(),
         _h = _src.getSpriteHeight(),
         _pivotX = Math.floor(_w / 2),
         _pivotY = Math.floor(_h / 2),
-        _dirX = 0,
+        _dirX = 0,name, e, extra
         _dirY = 0;
     
     var orangeRoot;         
@@ -45,10 +46,20 @@ Orange = ( function( rootApp ){
     var _setX = function(x) {
         _setDirX(x);
 
-        if(_layer.getBoundaryStatus(x + _pivotX, _y + _pivotY).r != 0) {
+        if(_layer.getBoundaryStatus(x + _pivotX, _y + _pivotY).r != 0) { 
+            // si puede, lo actualiza
             _x = x;
-        }
-    };
+        } else {
+            // si no, veo si puedo ir para arriba o abajo.
+            if(_layer.getBoundaryStatus(x + _pivotX, (_y + _pivotY) - 1).r != 0) { 
+                _y -= 1;
+            }
+            
+            if(_layer.getBoundaryStatus(x + _pivotX, (_y + _pivotY) + 1).r != 0) { 
+                _y += 1;
+            }
+        } // puedo posicionar
+    }; // setX
 
     
     var _setY = function(y) {
@@ -56,8 +67,20 @@ Orange = ( function( rootApp ){
         
         if(_layer.getBoundaryStatus(_x + _pivotX, y + _pivotY).r != 0) {
             _y = y;
+        } else {
+            // si no, veo si puedo ir para izq o der.
+            if(_layer.getBoundaryStatus(x + _pivotX - 1, _y + _pivotY).r != 0) { 
+                _x -= 1;
+            }
+            
+            if(_layer.getBoundaryStatus(x + _pivotX + 1, _y + _pivotY).r != 0) { 
+                _x += 1;
+            }
         }
     }
+    
+    
+    
     
     // settings por defecto
     var settings = {
@@ -101,6 +124,13 @@ Orange = ( function( rootApp ){
             return this;
         },
         
+        setSpeed: function(speed) {
+            _speed = speed;
+        },
+        
+        getSpeed: function(speed) {
+            return _speed;
+        },
         
 
         getWidth : function(x) {
@@ -128,19 +158,21 @@ Orange = ( function( rootApp ){
         notify : function(eventName, e) {
             var rX = e.clientX - orangeRoot.getCanvasElement().offsetLeft;
             var rY = e.clientY - orangeRoot.getCanvasElement().offsetTop;
-            var extra = {
+            var eventData = {
                 relativeX : rX,
                 relativeY : rY,
-                clicked : false
+                clicked : false,
+                eventName : eventName,
+                e : e
             };
             
             // si esta dentro de la caja del sprite seteo propiedad "clicked" : true
             if ( (rX >= _x) && 
                  (rY >= _y) && 
                  (rX <= _x + _w) && 
-                 (rY <= _y + _h) ) extra.clicked = true;
+                 (rY <= _y + _h) ) eventData.clicked = true;
             
-            _eventCallback[eventName](eventName, e, extra);    
+            _eventCallback[eventName](eventData, this);    
         } // end notify
         
     }
