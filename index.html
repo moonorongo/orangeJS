@@ -19,7 +19,7 @@
     
 <script>
     // basura global
-    var pacman_s, x=0, y=0, dx=0, dy=0, l;
+    var pacman_im, pacman_s, x=0, y=0, dx=0, dy=0, l;
 
     // Primero que nada: inicializar la libreria
     Orange.init();
@@ -33,7 +33,7 @@
 
         // con la imagen de gargamel, armo un imageMap.
         // Un imagemap es un TILE, que va a tiene metodos para obtener el tile deseado.
-        var pacman_im = new Orange.ImageMap(Orange.getImageManager().get("gargamel"), 70,70);
+        pacman_im = new Orange.ImageMap(Orange.getImageManager().get("gargamel"), 70,70);
         
         // inicializo un sprite, le paso el imageMap recien creado, le especifico un punto de pivot (que sera utilizado para varias cosas)
         // y una velocidad

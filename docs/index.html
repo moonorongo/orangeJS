@@ -39,6 +39,13 @@
             
             <li><strong>setBackground(image, x, y):</strong> Especifica una imagen de fondo para el layer. Esta imagen es la primera que se dibuja, luego se dibujan los sprites del Layer. Ademas de la imagen tambien se puede especificar la posicion x e y (optativo).
             </li>
+            
+            <li><strong>setBoundary(image):</strong> Permite agregar una imagen en blanco y negro, que actua como limites de la capa. Util para definir areas por donde pueden moverse los sprites.
+            </li>            
+            
+            <li><strong>getBoundaryStatus(x,y):</strong> Obtiene el estado del pixel del Boundary, devuelve un objeto {r,g,b,a}.
+            </li>            
+            
         </ul>
     </li>
     

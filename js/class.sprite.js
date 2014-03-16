@@ -31,6 +31,8 @@ Orange = ( function( rootApp ){
         }
     }
         
+        
+        
     // setea la direccion de avance de acuerdo a la posicion suministrada
     var _setDirY = function(y) {
         if(y > _y) {
@@ -186,6 +188,19 @@ Orange = ( function( rootApp ){
     return settings
   }; // sprite
  
+
+ 
+// constantes utilizadas por la clase
+  rootApp.Sprite.MOVE_NONE = 0;
+  rootApp.Sprite.MOVE_UP = 1;
+  rootApp.Sprite.MOVE_UP_RIGHT = 2;
+  rootApp.Sprite.MOVE_RIGHT = 4;
+  rootApp.Sprite.MOVE_DOWN_RIGHT = 8;
+  rootApp.Sprite.MOVE_DOWN = 16;
+  rootApp.Sprite.MOVE_DOWN_LEFT = 32;
+  rootApp.Sprite.MOVE_LEFT = 64;
+  rootApp.Sprite.MOVE_UP_LEFT = 128;
+  
   
   return rootApp;
  
