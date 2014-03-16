@@ -1,4 +1,3 @@
-
 TANTO Animation COMO ImageMap deben implementar la misma interface para que pueda ser utilizada por el metodo _update de la clase Layer
 
 ARMAR ANIMATION
@@ -6,10 +5,20 @@ ARMAR ANIMATION
 Ir armando documentacion de esto.
 ANTES DE NADA PROSEGUIR CON ESTO.
 
-estoy:
-    layer boundary: ya se agrego
-    implementar methodos internos para Sprite, para que pueda checkear en el boundary del layer que es lo q puede hacer.
-    
+TODO:
+    Colisiones:
+        Una posible forma podria ser algo asi como
+        
+        pacman_s.on("collition", function(eventData, context) {
+            aca eventData podria traer algo que me diga contra que colisiono, asi decido que hacer
+        })
+
+        el tema que si el otro sprite tiene un evento asignado, y tambien salta... no se q puede pasar..
+        
+        ver de organizar en el loop cuando se ejecutan los eventos, ya que probablemente si quiero eliminar un objeto (por una colision)
+        tenga que esperar a que se dibuje todo... a lo mejor cada sprite deba tener un metodo destroy() que setee un flag, y que el sistema
+        pueda borrarlo cuando sea seguro.
+
 
 
 
