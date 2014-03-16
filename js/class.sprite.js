@@ -23,11 +23,11 @@ Orange = ( function( rootApp ){
     // setea la direccion de avance de acuerdo a la posicion suministrada
     var _setDirX = function(x) {
         if(x > _x) {
-            _dirX = Orange.SPRITE_MOVE_RIGHT;
+            _dirX = Orange.Sprite.MOVE_RIGHT;
         } else if (x < _x) {
-            _dirX = Orange.SPRITE_MOVE_LEFT;
+            _dirX = Orange.Sprite.MOVE_LEFT;
         } else {
-            _dirX = Orange.SPRITE_MOVE_NONE;
+            _dirX = Orange.Sprite.MOVE_NONE;
         }
     }
         
@@ -36,11 +36,11 @@ Orange = ( function( rootApp ){
     // setea la direccion de avance de acuerdo a la posicion suministrada
     var _setDirY = function(y) {
         if(y > _y) {
-            _dirY = Orange.SPRITE_MOVE_UP;
+            _dirY = Orange.Sprite.MOVE_UP;
         } else if (y < _y) {
-            _dirY = Orange.SPRITE_MOVE_DOWN;
+            _dirY = Orange.Sprite.MOVE_DOWN;
         } else {
-            _dirY = Orange.SPRITE_MOVE_NONE;
+            _dirY = Orange.Sprite.MOVE_NONE;
         }        
     }   
     
@@ -48,16 +48,16 @@ Orange = ( function( rootApp ){
     var _setX = function(x) {
         _setDirX(x);
 
-        if(_layer.getBoundaryStatus(x + _pivotX, _y + _pivotY).r != 0) { 
+        if(_layer._fnGetBoundaryStatus(x + _pivotX, _y + _pivotY).r != 0) { 
             // si puede, lo actualiza
             _x = x;
         } else {
             // si no, veo si puedo ir para arriba o abajo. (la cantidad de _speed pixels...)
-            if(_layer.getBoundaryStatus(x + _pivotX, (_y + _pivotY) - _speed).r != 0) { 
+            if(_layer._fnGetBoundaryStatus(x + _pivotX, (_y + _pivotY) - _speed).r != 0) { 
                 _y -= _speed;
             }
             
-            if(_layer.getBoundaryStatus(x + _pivotX, (_y + _pivotY) + _speed).r != 0) { 
+            if(_layer._fnGetBoundaryStatus(x + _pivotX, (_y + _pivotY) + _speed).r != 0) { 
                 _y += _speed;
             }
         } // puedo posicionar
@@ -67,15 +67,15 @@ Orange = ( function( rootApp ){
     var _setY = function(y) {
         _setDirY(y);
         
-        if(_layer.getBoundaryStatus(_x + _pivotX, y + _pivotY).r != 0) {
+        if(_layer._fnGetBoundaryStatus(_x + _pivotX, y + _pivotY).r != 0) {
             _y = y;
         } else {
             // si no, veo si puedo ir para izq o der. (la cantidad de _speed pixels...)
-            if(_layer.getBoundaryStatus(x + _pivotX - _speed, _y + _pivotY).r != 0) { 
+            if(_layer._fnGetBoundaryStatus(x + _pivotX - _speed, _y + _pivotY).r != 0) { 
                 _x -= _speed;
             }
             
-            if(_layer.getBoundaryStatus(x + _pivotX + _speed, _y + _pivotY).r != 0) { 
+            if(_layer._fnGetBoundaryStatus(x + _pivotX + _speed, _y + _pivotY).r != 0) { 
                 _x += _speed;
             }
         }
@@ -133,7 +133,6 @@ Orange = ( function( rootApp ){
         getSpeed: function(speed) {
             return _speed;
         },
-        
 
         getWidth : function(x) {
             return _w;
@@ -144,7 +143,7 @@ Orange = ( function( rootApp ){
         },
 
         
-        update : function() {
+        _fnUpdate : function() {
             // aca en vez de src... ver de llamar a una fn de Animation, si lo que pase es una Animation
             var imgData = _src.get(0,0);
             _layer.getCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
@@ -152,12 +151,10 @@ Orange = ( function( rootApp ){
         
         on : function(event, callback) {
             orangeRoot.addToEventStack(event, this);
-            // registrar el evento event en algun lugar por aca, para que la funcion que se llamara notificadora
-            // sepa que eventos escuchar
             _eventCallback[event] = callback;
         },
         
-        notify : function(eventName, e) {
+        _fnNotify : function(eventName, e) {
             var rX = e.clientX - orangeRoot.getCanvasElement().offsetLeft;
             var rY = e.clientY - orangeRoot.getCanvasElement().offsetTop;
             var eventData = {

@@ -44,7 +44,7 @@ var Orange = (function(){
         ) e.preventDefault();
         
         _.each(_eventStack[key], function(s) {
-            s.notify(key, e);
+            s._fnNotify(key, e);
         }); 
     };
 
@@ -111,7 +111,7 @@ var Orange = (function(){
             return canvasElement;
         },
         
-        update: function() {
+        _fnUpdate: function() {
             _update();
         },
         

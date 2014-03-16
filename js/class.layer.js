@@ -19,17 +19,17 @@ Orange = ( function( rootApp ){
     var orangeRoot;
         
     var _putInContext = function() {
-        _update();
+        _fnUpdate();
         _context.drawImage(_layer.canvas,0,0); // a futuro la posicion debera poder moverse. (o hacer scroll loop)
         //_context.drawImage(_boundary.canvas,0,0); // a futuro la posicion debera poder moverse. (o hacer scroll loop)
         
     }
 
     
-    var _update = function() {
+    var _fnUpdate = function() {
         _layer.drawImage(_bgLayer, _bgX, _bgY);
         _.each(_sprites, function(s) {
-            s.update();
+            s._fnUpdate();
         });
     }
     
@@ -71,7 +71,7 @@ Orange = ( function( rootApp ){
             return _boundary;
         },
         
-        getBoundaryStatus : function(x,y) {
+        _fnGetBoundaryStatus : function(x,y) {
             var data  = _boundary.getImageData(x, y,  1, 1).data;
             return {
                 r : data[0],
