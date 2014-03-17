@@ -37,8 +37,13 @@ Orange = ( function( rootApp ){
     
     
     return {
-        getCanvas : function() {
+        
+        _fnGetCanvas : function() {
             return _layer;
+        },
+        
+        _fnGetSprites : function() {
+            return _sprites;
         },
         
         setBackground : function(img, x,y) {

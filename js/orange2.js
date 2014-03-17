@@ -9,7 +9,8 @@ var Orange = (function(){
         _eventStack = { 
             mousedown : [],
             keydown : [],
-            keyup : []
+            keyup : [],
+            collision : []
         },
         _cbMainLoop;
 
@@ -51,9 +52,14 @@ var Orange = (function(){
     
     var _bindEvents  = function() {
         _.each(_eventStack, function(event, key) {
-            var regExKey =  /key/g;
-            var _element = (regExKey.test(key))? window : canvasElement;
-            _element.addEventListener(key, _listener);            
+            if(key!="collision") {
+                var regExKey =  /key/g;
+                var _element = (regExKey.test(key))? window : canvasElement;
+                _element.addEventListener(key, _listener);            
+            } else {
+                // si es collision, es un evento que se tiene que ejecutar en cada loop... 
+                // ver como carajo hago
+            }
         });        
     }
 

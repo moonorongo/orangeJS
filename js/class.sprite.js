@@ -146,7 +146,7 @@ Orange = ( function( rootApp ){
         _fnUpdate : function() {
             // aca en vez de src... ver de llamar a una fn de Animation, si lo que pase es una Animation
             var imgData = _src.get(0,0);
-            _layer.getCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
+            _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
         },
         
         on : function(event, callback) {
@@ -171,7 +171,22 @@ Orange = ( function( rootApp ){
                  (rX <= _x + _w) && 
                  (rY <= _y + _h) ) eventData.clicked = true;
             
-            _eventCallback[eventName](eventData, this);    
+            
+            var aCollision;
+            /* aca tengo este sprite... si eventName = "collision" , entonces tengo que calcular contra quienes esta colisionando
+            en _layer tengo el layer al que pertenece el sprite
+            necesitaria acceder al array de sprites, para recorrerlo
+            y revisar contra cual estoy chocando
+            
+            con el que este chocando lo agrego en el array aCollision.
+            entonces el callback va a recibir un arreglo con los sprites que esta chhocando.
+            */
+            
+            if(eventName=="collision") {
+                aCollision = 'lallaa';
+            }
+            
+            _eventCallback[eventName](eventData, this, aCollision);    
         } // end notify
         
     }
