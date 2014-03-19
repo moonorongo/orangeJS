@@ -105,8 +105,19 @@
         
 // los eventos se tienen q asignar LUEGO de agregar los sprites al layer...
 
-        pacman_t.on("collision", function(eventName, context, aCollision) {
-            console.log(aCollision.length);
+        pacman_s.on("collision", function(eventName, context, aCollision) {
+            _.each(aCollision, function(sprite) {
+                switch(context.getDir()) {
+                    case Orange.Sprite.MOVE_DOWN :    sprite.incY(-2);
+                                                      break
+                    case Orange.Sprite.MOVE_UP :    sprite.incY(2);
+                                                    break
+                    case Orange.Sprite.MOVE_LEFT :    sprite.incX(-2);
+                                                    break
+                    case Orange.Sprite.MOVE_RIGHT :    sprite.incX(2);
+                                                    break
+                }
+            })
         }); 
         
         
@@ -120,7 +131,7 @@
             
             
             pacman_s.incX(dx).incY(dy);
-            pacman_s.incY(1);
+            //pacman_s.incY(1);
 
         });
         

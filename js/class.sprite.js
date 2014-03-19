@@ -141,6 +141,10 @@ Orange = ( function( rootApp ){
         getHeight : function(y) {
             return _h;
         },
+        
+        getDir : function() {
+            return _dirX + _dirY;
+        },
 
         
         _fnUpdate : function() {
@@ -178,23 +182,13 @@ Orange = ( function( rootApp ){
                     (rY <= _y + _h) ) eventData.clicked = true;
                 
             } else { // es collision
-            
-            /* aca tengo este sprite... si eventName = "collision" , entonces tengo que calcular contra quienes esta colisionando
-            en _layer tengo el layer al que pertenece el sprite
-            necesitaria acceder al array de sprites, para recorrerlo
-            y revisar contra cual estoy chocando
-            obviamente, tengo que obviarme... con 
-            
-            con el que este chocando lo agrego en el array aCollision.
-            entonces el callback va a recibir un arreglo con los sprites que esta chhocando.
-            */
                 // ver si solo hay un sprite... ;P
                 _.each(_layer._fnGetSprites(), function(sprite) {
                     if(sprite !== _this) {
                         // esto muy simple, el vertice superior solamente.
                         if(
-                            (_x >= sprite.getX()) && (_x <= sprite.getX()) &&
-                            (_y >= sprite.getY()) && (_y <= sprite.getY()) 
+                            (_x >= sprite.getX()) && (_x <= sprite.getX() + sprite.getWidth()) &&
+                            (_y >= sprite.getY()) && (_y <= sprite.getY() + sprite.getHeight()) 
                         ) {
                          // se colisiona... 
                          aCollision.push(sprite);
@@ -222,13 +216,13 @@ Orange = ( function( rootApp ){
 // constantes utilizadas por la clase
   rootApp.Sprite.MOVE_NONE = 0;
   rootApp.Sprite.MOVE_UP = 1;
-  rootApp.Sprite.MOVE_UP_RIGHT = 2;
+  rootApp.Sprite.MOVE_UP_RIGHT = 5;
   rootApp.Sprite.MOVE_RIGHT = 4;
-  rootApp.Sprite.MOVE_DOWN_RIGHT = 8;
+  rootApp.Sprite.MOVE_DOWN_RIGHT = 20;
   rootApp.Sprite.MOVE_DOWN = 16;
-  rootApp.Sprite.MOVE_DOWN_LEFT = 32;
+  rootApp.Sprite.MOVE_DOWN_LEFT = 80;
   rootApp.Sprite.MOVE_LEFT = 64;
-  rootApp.Sprite.MOVE_UP_LEFT = 128;
+  rootApp.Sprite.MOVE_UP_LEFT = 65;
   
   
   return rootApp;
