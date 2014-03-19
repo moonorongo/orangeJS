@@ -104,8 +104,9 @@
         });
         
 // los eventos se tienen q asignar LUEGO de agregar los sprites al layer...
+
         pacman_t.on("collision", function(eventName, context, aCollision) {
-            console.log(aCollision);
+            console.log(aCollision.length);
         }); 
         
         

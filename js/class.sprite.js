@@ -155,36 +155,53 @@ Orange = ( function( rootApp ){
         },
         
         _fnNotify : function(eventName, e) {
-            var rX = e.clientX - orangeRoot.getCanvasElement().offsetLeft;
-            var rY = e.clientY - orangeRoot.getCanvasElement().offsetTop;
-            var eventData = {
-                relativeX : rX,
-                relativeY : rY,
-                clicked : false,
-                eventName : eventName,
-                e : e
-            };
+            var rX, rY, eventData, aCollision = [];
+            var _this = this;
             
-            // si esta dentro de la caja del sprite seteo propiedad "clicked" : true
-            if ( (rX >= _x) && 
-                 (rY >= _y) && 
-                 (rX <= _x + _w) && 
-                 (rY <= _y + _h) ) eventData.clicked = true;
+            // para cualquier evento que no sea collision voy a tomar algunos valores para enviar al objeto q le mando al callback
+            if(eventName!="collision") {
+                
+                var rX = e.clientX - orangeRoot.getCanvasElement().offsetLeft;
+                var rY = e.clientY - orangeRoot.getCanvasElement().offsetTop;
+                var eventData = {
+                    relativeX : rX,
+                    relativeY : rY,
+                    clicked : false,
+                    eventName : eventName,
+                    e : e
+                };
+                
+                // si esta dentro de la caja del sprite seteo propiedad "clicked" : true
+                if ( (rX >= _x) && 
+                    (rY >= _y) && 
+                    (rX <= _x + _w) && 
+                    (rY <= _y + _h) ) eventData.clicked = true;
+                
+            } else { // es collision
             
-            
-            var aCollision;
             /* aca tengo este sprite... si eventName = "collision" , entonces tengo que calcular contra quienes esta colisionando
             en _layer tengo el layer al que pertenece el sprite
             necesitaria acceder al array de sprites, para recorrerlo
             y revisar contra cual estoy chocando
+            obviamente, tengo que obviarme... con 
             
             con el que este chocando lo agrego en el array aCollision.
             entonces el callback va a recibir un arreglo con los sprites que esta chhocando.
             */
-            
-            if(eventName=="collision") {
-                aCollision = 'lallaa';
-            }
+                // ver si solo hay un sprite... ;P
+                _.each(_layer._fnGetSprites(), function(sprite) {
+                    if(sprite !== _this) {
+                        // esto muy simple, el vertice superior solamente.
+                        if(
+                            (_x >= sprite.getX()) && (_x <= sprite.getX()) &&
+                            (_y >= sprite.getY()) && (_y <= sprite.getY()) 
+                        ) {
+                         // se colisiona... 
+                         aCollision.push(sprite);
+                        }
+                    } // if
+                });
+            } // end if collision
             
             _eventCallback[eventName](eventData, this, aCollision);    
         } // end notify

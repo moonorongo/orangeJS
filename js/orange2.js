@@ -56,10 +56,7 @@ var Orange = (function(){
                 var regExKey =  /key/g;
                 var _element = (regExKey.test(key))? window : canvasElement;
                 _element.addEventListener(key, _listener);            
-            } else {
-                // si es collision, es un evento que se tiene que ejecutar en cada loop... 
-                // ver como carajo hago
-            }
+            } 
         });        
     }
 
@@ -80,7 +77,14 @@ var Orange = (function(){
         // incrementa counter interno, utilizado para Animation
         _counter++;
         if (_counter >= 256) _counter = 1; // se utiliza ^2 para facilitar la division con >>
-             
+        
+              
+        // evento collision: se ejecuta para cada sprite registrado.
+        _.each(_eventStack.collision, function(sprite) {
+            sprite._fnNotify("collision");
+        });                      
+              
+        
         // bloque para determinar el costo en ms del bloque _cbMainLoop.
         var msStart = new Date().getMilliseconds();
         _cbMainLoop();
@@ -89,6 +93,8 @@ var Orange = (function(){
         var msLoop = msStop - msStart; 
         if(msLoop < 0) msLoop = 0; // Hack horrible para evitar el cambio de segundo
               
+              
+        // _bPlay: propiedad que determina si el loop se ejecuta.
         if(_bPlay) {
             setTimeout(_loop,_speed - msLoop);
         }
