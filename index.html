@@ -41,12 +41,12 @@
             src : pacman_im,
             pivotX : 36,
             pivotY : 60,
-            speed : 2
+            speed : 1
         });
 
         pacman_t = new Orange.Sprite({
             src : pacman_im2,
-            speed : 1
+            speed : 2
         });
         
         
@@ -55,6 +55,7 @@
         // lo agrego a la libreria
         Orange.addLayer(l);
         // le especifico un fondo y una imagen delimitante (boundary)
+        // si tiene sprites, tiene q tener un boundary si o si... ARREGLAR ESTO
         l.setBackground(Orange.getImageManager().get("bg.png"));
         l.setBoundary(Orange.getImageManager().get("floor.png"))
         
@@ -64,8 +65,8 @@
         l.addSprite(pacman_t); 
 
         // posicion el sprite en 0,120
-        pacman_s.setX(0).setY(0);
-        pacman_t.setX(100).setY(50);
+        pacman_t.setX(0).setY(0);
+        pacman_s.setX(100).setY(50);
 
 /*
         pacman_s.on("mousedown", function(eventData) {
@@ -76,7 +77,7 @@
         
         // si pulso una tecla, que haga algo, en el callback especifico que quiero
         // el callback recibe un objeto eventData, con varios valores, y una referencia al objeto
-        pacman_s.on("keydown", function(eventData, s) {
+        pacman_t.on("keydown", function(eventData, s) {
             switch(eventData.e.keyCode) {
                 case 38 :   dy = -s.getSpeed();
                             break;
@@ -90,7 +91,7 @@
             
         });
 
-        pacman_s.on("keyup", function(eventData, s) {
+        pacman_t.on("keyup", function(eventData, s) {
             switch(eventData.e.keyCode) {
                 case 38 :   dy = 0;
                             break;
@@ -105,7 +106,7 @@
         
 // los eventos se tienen q asignar LUEGO de agregar los sprites al layer...
 
-        pacman_s.on("collision", function(eventName, context, aCollision) {
+        pacman_t.on("collision", function(eventName, context, aCollision) {
             _.each(aCollision, function(sprite) {
                 switch(context.getDir()) {
                     case Orange.Sprite.MOVE_DOWN :    sprite.incY(-2);
@@ -130,7 +131,7 @@
         Orange.setMainCallback(function() {
             
             
-            pacman_s.incX(dx).incY(dy);
+            pacman_t.incX(dx).incY(dy);
             //pacman_s.incY(1);
 
         });

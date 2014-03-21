@@ -185,10 +185,19 @@ Orange = ( function( rootApp ){
                 // ver si solo hay un sprite... ;P
                 _.each(_layer._fnGetSprites(), function(sprite) {
                     if(sprite !== _this) {
-                        // esto muy simple, el vertice superior solamente.
+                        var o1x = _x;
+                        var o1y = _y;
+                        var o2x = _x + _w;
+                        var o2y = _y + _h;
+                        
+                        var p1x = sprite.getX();
+                        var p1y = sprite.getY();
+                        var p2x = sprite.getX() + sprite.getWidth();
+                        var p2y = sprite.getY() + sprite.getHeight();
+                        
                         if(
-                            (_x >= sprite.getX()) && (_x <= sprite.getX() + sprite.getWidth()) &&
-                            (_y >= sprite.getY()) && (_y <= sprite.getY() + sprite.getHeight()) 
+                            ( (o1x >= p1x) && (o1y >= p1y) && (o1x <= p2x) && (o1y <= p2y) ) ||
+                            ( (o2x >= p1x) && (o2y >= p1y) && (o2x <= p2x) && (o2y <= p2y) )
                         ) {
                          // se colisiona... 
                          aCollision.push(sprite);
