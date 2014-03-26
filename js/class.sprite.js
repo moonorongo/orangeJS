@@ -146,10 +146,13 @@ Orange = ( function( rootApp ){
             return _dirX + _dirY;
         },
 
+        getAnimation : function() {
+            return _src;
+        },
         
         _fnUpdate : function() {
             // aca en vez de src... ver de llamar a una fn de Animation, si lo que pase es una Animation
-            var imgData = _src.get(0,0);
+            var imgData = _src.getFrame(0,0);
             _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
         },
         
@@ -185,19 +188,24 @@ Orange = ( function( rootApp ){
                 // ver si solo hay un sprite... ;P
                 _.each(_layer._fnGetSprites(), function(sprite) {
                     if(sprite !== _this) {
-                        var o1x = _x;
-                        var o1y = _y;
-                        var o2x = _x + _w;
-                        var o2y = _y + _h;
+                        var p1x = _x;
+                        var p1y = _y;
+                        var p2x = _x + _w;
+                        var p2y = _y + _h;
                         
-                        var p1x = sprite.getX();
-                        var p1y = sprite.getY();
-                        var p2x = sprite.getX() + sprite.getWidth();
-                        var p2y = sprite.getY() + sprite.getHeight();
+                        var o1x = sprite.getX();
+                        var o1y = sprite.getY();
+                        var o2x = sprite.getX() + sprite.getWidth();
+                        var o2y = sprite.getY() + sprite.getHeight();
+                        
+                        var totalWidth = _w + sprite.getWidth();
+                        var totalHeight = _h + sprite.getHeight();
+                        var restaX = o2x - p1x;
+                        var restaY = o2y - p1y;
                         
                         if(
-                            ( (o1x >= p1x) && (o1y >= p1y) && (o1x <= p2x) && (o1y <= p2y) ) ||
-                            ( (o2x >= p1x) && (o2y >= p1y) && (o2x <= p2x) && (o2y <= p2y) )
+                            (restaX > 0) && (restaX < totalWidth) &&
+                            (restaY > 0) && (restaY < totalHeight) 
                         ) {
                          // se colisiona... 
                          aCollision.push(sprite);

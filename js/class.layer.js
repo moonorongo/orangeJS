@@ -77,12 +77,21 @@ Orange = ( function( rootApp ){
         },
         
         _fnGetBoundaryStatus : function(x,y) {
-            var data  = _boundary.getImageData(x, y,  1, 1).data;
-            return {
-                r : data[0],
-                g : data[1],
-                b : data[2],
-                a : data[3]
+            if(_.isUndefined(_boundary)) {
+                return {
+                    r : 255,
+                    g : 255,
+                    b : 255,
+                    a : 255
+                }
+            } else {
+                var data  = _boundary.getImageData(x, y,  1, 1).data;
+                return {
+                    r : data[0],
+                    g : data[1],
+                    b : data[2],
+                    a : data[3]
+                }
             }
         },
         

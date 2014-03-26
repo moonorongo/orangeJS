@@ -1,20 +1,7 @@
-TANTO Animation COMO ImageMap deben implementar la misma interface para que pueda ser utilizada por el metodo _update de la clase Layer
-
-ARMAR ANIMATION
-
 Ir armando documentacion de esto.
 ANTES DE NADA PROSEGUIR CON ESTO.
 
 TODO:
-    Colisiones:
-        Una posible forma podria ser algo asi como
-        
-        pacman_s.on("collition", function(eventData, context, sprite_contra_colision) {
-            aca eventData podria traer algo que me diga contra que colisiono, asi decido que hacer
-        })
-
-        el tema que si el otro sprite tiene un evento asignado, y tambien salta... no se q puede pasar..
-        
         ver de organizar en el loop cuando se ejecutan los eventos, ya que probablemente si quiero eliminar un objeto (por una colision)
         tenga que esperar a que se dibuje todo... a lo mejor cada sprite deba tener un metodo destroy() que setee un flag, y que el sistema
         pueda borrarlo cuando sea seguro.
@@ -35,12 +22,27 @@ TODO:
         
 
 
+Colisiones: 
+    - agregar una propiedad que sea collisionPadding, en la que pueda especificar la cantidad de pixeles hacia adentro para restar
+a la formula de colision
+    - Agregar el tipo de colision que deseo detectar, si por boxes o por circles
+    - Optimizar: que solo detecte probables candidatos. VER COMO.
 
 
 
+Sprites: 
+    - Agregar una propiedad "class", que me permita especificar una o varias clases (para poder categorizar los objetos, y en base a eso proceder)
+    - Seria interesante agregar algo para permitir rotaciones. MAS ADELANTE.
 
+Demo:
+    Ir armando la demo SpaceInvaders
 
-
+    
+    
+    
+    
+DEFINICIONES.
+    
 Sprite:
 un sprite es un bloque que se puede mover, y que va a recibir eventos.
 cada sprite puede tener asignada una ImageMap o una Animation.

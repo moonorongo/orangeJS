@@ -9,12 +9,11 @@
         <script src="js/class.image_manager.js"></script> 
         <script src="js/class.image_map.js"></script> 
         <script src="js/class.sprite.js"></script> 
+        <script src="js/class.animation.js"></script> 
         
 </head>
 
-    <body>
-
-    </body>
+    <body></body>
     
 <script>
     // basura global
@@ -23,32 +22,47 @@
     // Primero que nada: inicializar la libreria
     Orange.init();
     
-    // agrego las imagenes que quiero precargar.
-    Orange.getImageManager().addImage(["img/bg.png","img/overfg.png", "img/pacman2.png", "img/floor.png", "img/gargamel.png"]);
+    // agrego las imagenes que quiero utilizar.
+    Orange.getImageManager().addImage(["img/bg.png","img/overfg.png", "img/pacman2.png", "img/floor.png", "img/enemigo.png"]);
     
     // Inicio la precarga, cuando finalize llama al callback.
     // mas adelante tengo que hacerlo mejor, con un objeto que tenga sucess, error, progress, etc.
     Orange.getImageManager().preload(function(){
 
-        // con la imagen de gargamel, armo un imageMap.
-        // Un imagemap es un TILE, que va a tiene metodos para obtener el tile deseado.
-        pacman_im = new Orange.ImageMap(Orange.getImageManager().get("gargamel"), 70,70);
+        // con la imagen de pacman, armo un imageMap.
+        // Un imagemap es una cuadricula de frames, que va a tiene metodos para obtener el frame deseado.
+        im = new Orange.ImageMap(Orange.getImageManager().get("enemigo"), 16,16);
         pacman_im2 = new Orange.ImageMap(Orange.getImageManager().get("pacman2"), 16,16);
+
         
+        // loopMode: L:loop, Jstatus: jump-to-status al final de la movie,  speed: velocidad particular, 
+        enemigo_animation = new Orange.Animation(pacman_im2, {
+            statusConfig : [ 
+                { loopMode : "L"},
+                { loopMode : "L"},
+                { loopMode : "L"},
+                { loopMode : "L"}
+            ],
+            speed : 1
+        });
+        
+        // falta implementar loopMode en Animation.
+        pacman_animation =  new Orange.Animation(im, {
+            statusConfig : [ 
+                { loopMode : "L"},
+                { loopMode : "L"},
+            ],
+            speed : 120
+        });
+
         // inicializo un sprite, le paso el imageMap recien creado, le especifico un punto de pivot (que sera utilizado para varias cosas)
         // y una velocidad
         pacman_s = new Orange.Sprite({
-            src : pacman_im,
-            pivotX : 36,
-            pivotY : 60,
-            speed : 1
-        });
-
-        pacman_t = new Orange.Sprite({
-            src : pacman_im2,
+            src : enemigo_animation,
             speed : 2
         });
-        
+
+
         
         // creo un layer
         l = new Orange.Layer();
@@ -57,16 +71,27 @@
         // le especifico un fondo y una imagen delimitante (boundary)
         // si tiene sprites, tiene q tener un boundary si o si... ARREGLAR ESTO
         l.setBackground(Orange.getImageManager().get("bg.png"));
-        l.setBoundary(Orange.getImageManager().get("floor.png"))
+        //l.setBoundary(Orange.getImageManager().get("floor.png"))
         
         // le agrego el sprite recien creado
         // estaria bueno que tome varios... (pacman, p2,p3...)
         l.addSprite(pacman_s); 
-        l.addSprite(pacman_t); 
+
+        
+        // creo una bocha de sprites, y los posiciono en cualquier parte
+        for(var i=0; i<10; i++) {
+            pacmanSprite = new Orange.Sprite({
+                src : pacman_animation,
+                speed : 1
+            });
+            l.addSprite(pacmanSprite); 
+            pacmanSprite.setX(parseInt(Math.random()*500)).setY(parseInt(Math.random()*200));
+        }
+
 
         // posicion el sprite en 0,120
-        pacman_t.setX(0).setY(0);
-        pacman_s.setX(100).setY(50);
+        pacman_s.setX(0).setY(0);
+
 
 /*
         pacman_s.on("mousedown", function(eventData) {
@@ -77,21 +102,25 @@
         
         // si pulso una tecla, que haga algo, en el callback especifico que quiero
         // el callback recibe un objeto eventData, con varios valores, y una referencia al objeto
-        pacman_t.on("keydown", function(eventData, s) {
+        pacman_s.on("keydown", function(eventData, s) {
             switch(eventData.e.keyCode) {
                 case 38 :   dy = -s.getSpeed();
+                            s.getAnimation().setStatus(2);
                             break;
                 case 40 :   dy = s.getSpeed();
+                            s.getAnimation().setStatus(3);
                             break;
                 case 39 :   dx = s.getSpeed();
+                            s.getAnimation().setStatus(1);
                             break;
                 case 37 :   dx = -s.getSpeed();
+                            s.getAnimation().setStatus(0);
                             break;
             }
             
         });
 
-        pacman_t.on("keyup", function(eventData, s) {
+        pacman_s.on("keyup", function(eventData, s) {
             switch(eventData.e.keyCode) {
                 case 38 :   dy = 0;
                             break;
@@ -106,34 +135,52 @@
         
 // los eventos se tienen q asignar LUEGO de agregar los sprites al layer...
 
-        pacman_t.on("collision", function(eventName, context, aCollision) {
+        pacman_s.on("collision", function(eventName, context, aCollision) {
             _.each(aCollision, function(sprite) {
+                // segun para donde este moviendose MI sprite (context), entonces voy a empujar para ese lado.
                 switch(context.getDir()) {
-                    case Orange.Sprite.MOVE_DOWN :    sprite.incY(-2);
+                    case Orange.Sprite.MOVE_DOWN : sprite.incY(-2);
+                                                   break
+                                                   
+                    case Orange.Sprite.MOVE_DOWN_LEFT : sprite.incY(-2);
+                                                        sprite.incX(-2);
+                                                        break
+                                                        
+                    case Orange.Sprite.MOVE_UP : sprite.incY(2);
+                                                 break
+                                                 
+                    case Orange.Sprite.MOVE_UP_LEFT : sprite.incY(2);
+                                                      sprite.incX(-2);
                                                       break
-                    case Orange.Sprite.MOVE_UP :    sprite.incY(2);
+                                                      
+                    case Orange.Sprite.MOVE_LEFT :  sprite.incX(-2);
                                                     break
-                    case Orange.Sprite.MOVE_LEFT :    sprite.incX(-2);
+                                                    
+                    case Orange.Sprite.MOVE_RIGHT : sprite.incX(2);
                                                     break
-                    case Orange.Sprite.MOVE_RIGHT :    sprite.incX(2);
-                                                    break
+                                                    
+                    case Orange.Sprite.MOVE_DOWN_RIGHT : sprite.incX(2);
+                                                         sprite.incY(-2);
+                                                         break
+                                                         
+                    case Orange.Sprite.MOVE_UP_RIGHT :  sprite.incX(2);
+                                                        sprite.incY(2);
+                                                        break
                 }
             })
         }); 
         
         
         // otro layer mas, los layers se iran dibujando en el orden en que se van agregando
-        var m = new Orange.Layer();
-        m.setBackground(Orange.getImageManager().get("overfg"));
-        Orange.addLayer(m);
+        //var m = new Orange.Layer();
+        //m.setBackground(Orange.getImageManager().get("overfg"));
+        //Orange.addLayer(m);
 
+        
+        
         // especifico el bucle principal, este se ejecutara 60 veces por segundo.
         Orange.setMainCallback(function() {
-            
-            
-            pacman_t.incX(dx).incY(dy);
-            //pacman_s.incY(1);
-
+            pacman_s.incX(dx).incY(dy);
         });
         
         // Inicio la ejecucion del bucle.
