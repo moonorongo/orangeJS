@@ -19,8 +19,14 @@ var Orange = (function(){
     var _init = function(el) {
         // aca chequear si el es undefined no ejecutar esto...
         var domBody = document.getElementsByTagName("body")[0];
-        domBody.innerHTML += '<canvas id="orange" width="500" height="198" style="border: 1px solid orange"></canvas>';
-        canvasElement = el || domBody.getElementsByTagName("canvas")[0];
+
+        if(_.isUndefined(el)) {
+            domBody.innerHTML += '<canvas id="orange" width="500" height="198" style="border: 1px solid orange"></canvas>';
+            canvasElement = domBody.getElementsByTagName("canvas")[0];
+        } else {
+            canvasElement = el;
+        }
+        
         _context = canvasElement.getContext("2d");
         _imageManager = new Orange.ImageManager();
         
