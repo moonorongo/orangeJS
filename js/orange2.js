@@ -10,7 +10,8 @@ var Orange = (function(){
             mousedown : [],
             keydown : [],
             keyup : [],
-            collision : []
+            collision : [],
+            enterFrame : []
         },
         _cbMainLoop;
 
@@ -90,6 +91,10 @@ var Orange = (function(){
             sprite._fnNotify("collision");
         });                      
               
+        _.each(_eventStack.enterFrame, function(sprite) {
+            sprite._fnNotify("enterFrame");
+        });                      
+
         
         // bloque para determinar el costo en ms del bloque _cbMainLoop.
         var msStart = new Date().getMilliseconds();

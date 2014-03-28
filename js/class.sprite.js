@@ -166,25 +166,7 @@ Orange = ( function( rootApp ){
             var _this = this;
             
             // para cualquier evento que no sea collision voy a tomar algunos valores para enviar al objeto q le mando al callback
-            if(eventName!="collision") {
-                
-                var rX = e.clientX - orangeRoot.getCanvasElement().offsetLeft;
-                var rY = e.clientY - orangeRoot.getCanvasElement().offsetTop;
-                var eventData = {
-                    relativeX : rX,
-                    relativeY : rY,
-                    clicked : false,
-                    eventName : eventName,
-                    e : e
-                };
-                
-                // si esta dentro de la caja del sprite seteo propiedad "clicked" : true
-                if ( (rX >= _x) && 
-                    (rY >= _y) && 
-                    (rX <= _x + _w) && 
-                    (rY <= _y + _h) ) eventData.clicked = true;
-                
-            } else { // es collision
+                if (eventName=="collision"){ 
                 // ver si solo hay un sprite... ;P
                 _.each(_layer._fnGetSprites(), function(sprite) {
                     if(sprite !== _this) {
@@ -212,8 +194,31 @@ Orange = ( function( rootApp ){
                         }
                     } // if
                 });
-            } // end if collision
+            } else  if(eventName=="enterFrame"){ // o enterFrame
+                eventData = {
+                    eventName : eventName
+                };
+                
+            } else { // si es lo demas (keypress, keydown, click)
+                
+                var rX = e.clientX - orangeRoot.getCanvasElement().offsetLeft;
+                var rY = e.clientY - orangeRoot.getCanvasElement().offsetTop;
+                eventData = {
+                    relativeX : rX,
+                    relativeY : rY,
+                    clicked : false,
+                    eventName : eventName,
+                    e : e
+                };
+                
+                // si esta dentro de la caja del sprite seteo propiedad "clicked" : true
+                if ( (rX >= _x) && 
+                    (rY >= _y) && 
+                    (rX <= _x + _w) && 
+                    (rY <= _y + _h) ) eventData.clicked = true;
+            } // end if keypress
             
+            // el callback del evento que se ejecuta, envia eventData, el sprite, y si es collision un array de sprites con los que esta colisionando
             _eventCallback[eventName](eventData, this, aCollision);    
         } // end notify
         

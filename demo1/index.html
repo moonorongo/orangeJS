@@ -15,16 +15,23 @@
 
     <body>
         <canvas id="main" width="256" height="224" style="background-color: black"></canvas>
+        <input type="text" id="pos" />
     </body>
     
 <script>
     // basura global
     var nave, 
+        aEnemy = [],
         x=0, 
         y=0, 
         dx=0, 
         dy=0;
-
+        
+    var global = {};
+    global.enemyDx = 1;
+    global.skipFrameCounter = 0; // este contador es para evitar que se ejecuten los eventos de los spr de las filas por debajo.
+    
+        
     // Primero que nada: inicializar la libreria
     Orange.init(document.getElementById("main"));
     
@@ -48,6 +55,7 @@
         var defensaImageMap = new Orange.ImageMap(Orange.getImageManager().get("defensa"), 22,16);
         var enemy3ImageMap = new Orange.ImageMap(Orange.getImageManager().get("enemy3"), 10,8);
         var enemy2ImageMap = new Orange.ImageMap(Orange.getImageManager().get("enemy2"), 13,8);
+        var enemy1ImageMap = new Orange.ImageMap(Orange.getImageManager().get("enemy1"), 14,8);
         
         // Animations
         var naveAnimation = new Orange.Animation(naveImageMap, {
@@ -68,6 +76,14 @@
 
         
         var enemy2Animation = new Orange.Animation(enemy2ImageMap, {
+            statusConfig : [ 
+                { loopMode : "L"},
+                { loopMode : "L"}
+            ],
+            speed : 1
+        });
+
+        var enemy1Animation = new Orange.Animation(enemy1ImageMap, {
             statusConfig : [ 
                 { loopMode : "L"},
                 { loopMode : "L"}
@@ -117,6 +133,15 @@
                 src : enemy3Animation
             });
             l.addSprite(enemy3); 
+            aEnemy.push(enemy3);
+
+            enemy3.on("enterFrame", function(eventData, s) { 
+                if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
+                    global.enemyDx = -global.enemyDx;
+                    global.skipFrameCounter = 10; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
+                }
+            });
+            
             enemy3.setX(i*16 + 49).setY(40);
         }
 
@@ -126,7 +151,41 @@
                     src : enemy2Animation
                 });
                 l.addSprite(enemy2); 
+                aEnemy.push(enemy2);
+
+                enemy2.on("enterFrame", function(eventData, s) { 
+                    if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
+                        global.enemyDx = -global.enemyDx;
+                        global.skipFrameCounter = 10; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
+                    }
+                });
+                
                 enemy2.setX(i*16 + 49).setY(56 + j*16);
+            }
+        }
+
+
+        for(var j=0; j<2; j++) {
+            for(var i=0; i<11; i++) {
+                var enemy1 = new Orange.Sprite({
+                    src : enemy1Animation
+                });
+                l.addSprite(enemy1); 
+                aEnemy.push(enemy1);
+                
+                // Bindings enemys 
+                // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
+                enemy1.on("enterFrame", function(eventData, s) { 
+                    if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
+                        global.enemyDx = -global.enemyDx;
+                        global.skipFrameCounter = 2; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
+                    }
+                });
+
+                
+                
+                // posicionamiento enemigos
+                enemy1.setX(i*16 + 49).setY(88 + j*16);
             }
         }
         
@@ -159,54 +218,19 @@
             }
         });
         
-// los eventos se tienen q asignar LUEGO de agregar los sprites al layer...
-/*
-        pacman_s.on("collision", function(eventName, context, aCollision) {
-            _.each(aCollision, function(sprite) {
-                // segun para donde este moviendose MI sprite (context), entonces voy a empujar para ese lado.
-                switch(context.getDir()) {
-                    case Orange.Sprite.MOVE_DOWN : sprite.incY(-2);
-                                                   break
-                                                   
-                    case Orange.Sprite.MOVE_DOWN_LEFT : sprite.incY(-2);
-                                                        sprite.incX(-2);
-                                                        break
-                                                        
-                    case Orange.Sprite.MOVE_UP : sprite.incY(2);
-                                                 break
-                                                 
-                    case Orange.Sprite.MOVE_UP_LEFT : sprite.incY(2);
-                                                      sprite.incX(-2);
-                                                      break
-                                                      
-                    case Orange.Sprite.MOVE_LEFT :  sprite.incX(-2);
-                                                    break
-                                                    
-                    case Orange.Sprite.MOVE_RIGHT : sprite.incX(2);
-                                                    break
-                                                    
-                    case Orange.Sprite.MOVE_DOWN_RIGHT : sprite.incX(2);
-                                                         sprite.incY(-2);
-                                                         break
-                                                         
-                    case Orange.Sprite.MOVE_UP_RIGHT :  sprite.incX(2);
-                                                        sprite.incY(2);
-                                                        break
-                }
-            })
-        }); 
-*/        
-        
-        // otro layer mas, los layers se iran dibujando en el orden en que se van agregando
-        //var m = new Orange.Layer();
-        //m.setBackground(Orange.getImageManager().get("overfg"));
-        //Orange.addLayer(m);
-
         
         
         // especifico el bucle principal, este se ejecutara 60 veces por segundo.
         Orange.setMainCallback(function() {
             nave.incX(dx);
+            
+            if (global.skipFrameCounter > 0) global.skipFrameCounter--; 
+            
+            _.each(aEnemy, function(enemy) {
+                document.getElementById("pos").value = global.enemyDx;
+                enemy.incX(global.enemyDx);
+            });
+            
         });
         
         // Inicio la ejecucion del bucle.
