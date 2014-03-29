@@ -133,7 +133,7 @@
                 src : enemy3Animation
             });
             l.addSprite(enemy3); 
-            aEnemy.push(enemy3);
+            //aEnemy.push(enemy3);
 
             enemy3.on("enterFrame", function(eventData, s) { 
                 if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
@@ -151,7 +151,7 @@
                     src : enemy2Animation
                 });
                 l.addSprite(enemy2); 
-                aEnemy.push(enemy2);
+                //aEnemy.push(enemy2);
 
                 enemy2.on("enterFrame", function(eventData, s) { 
                     if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
@@ -178,8 +178,9 @@
                 enemy1.on("enterFrame", function(eventData, s) { 
                     if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
                         global.enemyDx = -global.enemyDx;
-                        global.skipFrameCounter = 2; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
+                        global.skipFrameCounter = 55; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
                     }
+                    //s.incX(global.enemyDx);
                 });
 
                 
@@ -224,13 +225,15 @@
         Orange.setMainCallback(function() {
             nave.incX(dx);
             
+            // hack choto para que las naves enemigas no se vuelvan locas
             if (global.skipFrameCounter > 0) global.skipFrameCounter--; 
             
+/*            
             _.each(aEnemy, function(enemy) {
                 document.getElementById("pos").value = global.enemyDx;
                 enemy.incX(global.enemyDx);
             });
-            
+*/            
         });
         
         // Inicio la ejecucion del bucle.

@@ -62,8 +62,21 @@ Orange = ( function( rootApp ){
             sprite._fnSetRootContext(orangeRoot);
             _sprites.push(sprite);
         },
+        
+        
+        removeSprite : function(sprite) {
+            var i = _sprites.indexOf(sprite);
+            if(i != -1) {
+                _sprites.splice(i,1);
+                return true;
+            } else {
+                return false;
+            }
+            
+            // aca ver de retornar algo q indique si pudo hacerlo o no.
+        },
 
-
+        
         setBoundary : function(img) {
             _tmpCanvasBoundary = document.createElement("canvas");
             _tmpCanvasBoundary.width = _tmpCanvas.width;

@@ -1,8 +1,7 @@
 Orange = ( function( rootApp ){
 
     
-  // customSettings.src puede ser ImageMap o Animation, ambos deben retornar un object con la referencia a la image, 
-  // la posicion x,y y el width,height
+  // customSettings.src puede ser ImageMap o Animation
   rootApp.Sprite = function(customSettings){
     var _layer,
         _x = 0,
@@ -15,8 +14,13 @@ Orange = ( function( rootApp ){
         _h = _src.getSpriteHeight(),
         _pivotX = customSettings.pivotX || Math.floor(_w / 2),
         _pivotY = customSettings.pivotY || Math.floor(_h / 2),
-        _dirX = 0,name, e, extra
-        _dirY = 0;
+        _dirX = 0,
+        name, 
+        e, 
+        extra,
+        _dirY = 0,
+        _prepareToDestroy = false,
+        _muriendo = 0;
     
     var orangeRoot;         
     
@@ -150,10 +154,41 @@ Orange = ( function( rootApp ){
             return _src;
         },
         
+        destroy : function() {
+            _prepareToDestroy = true;
+        },
+        
         _fnUpdate : function() {
             // aca en vez de src... ver de llamar a una fn de Animation, si lo que pase es una Animation
-            var imgData = _src.getFrame(0,0);
-            _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
+            // esto funciona asi: _src puede ser una Animation o ImageMap... le paso (0,0) por si es un ImageMap, 
+            // y si es una Animation, no es tenido en cuenta.
+            // getFrame(), en Animation o ImageMap devuelven imgData.
+/*
+             1) quitar todos los bind del sprite, eso es, eliminar de Orange._eventStack.____ cada instancia.
+            2) quitar este sprite de todos los layers en que se encuentre... es muy loco, pero se puede poner el mismo
+            sprite en varios layers...
+            3) hacer algo asi como destroy this... sera posible? uhmm... esto pendiente... pero estaria bueno destruir la instancia...
+ */            
+            var imgData; 
+            if(_prepareToDestroy) {
+                _prepareToDestroy = false;
+                _src.setStatus(1); // luego ver como definir en la animation de alguna manera indicar cual es el status A MORIIIR
+                imgData = _src.getFrame(0);
+                _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
+                _muriendo = 10; // inicia un timer para destruir el sprite
+            } else {
+                imgData = _src.getFrame(0,0);
+                _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
+            }
+
+/*            
+            if(_muriendo > 0) { 
+                _muriendo--;
+            } else { // ya murio, lo reviento del todo.
+                orangeRoot.removeFromEventStack(this);
+                _layer.removeSprite(this);
+            }
+*/
         },
         
         on : function(event, callback) {

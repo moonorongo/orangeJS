@@ -22,6 +22,7 @@ Orange = ( function( rootApp ){
         var _spriteHeight = height;
         var _cantidadFrames = Math.ceil(_imagenWidth / _spriteWidth);
         var _statusLength =  Math.ceil(_imagenHeight / _spriteHeight);
+        var _status;
 
         for(var fila = 0; fila < _statusLength; fila++) {
         for(var columna = 0; columna < _cantidadFrames; columna++) {
@@ -45,13 +46,19 @@ Orange = ( function( rootApp ){
     
     
        return {
-           getFrame : function(status, frame) {
-               return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * status};
+           getFrame : function(frame, status) {
+               var s = status || _status;
+               return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * s};
+           },
+           
+           setStatus : function(s) {
+               _status = s;
            },
            
            getImage : function() {
                 return _image;
            },
+           
 
            getSpriteWidth : function() {
                 return _spriteWidth; 

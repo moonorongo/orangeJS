@@ -1,3 +1,6 @@
+Demo:
+    Ir armando la demo SpaceInvaders
+
 Ir armando documentacion de esto.
 ANTES DE NADA PROSEGUIR CON ESTO.
 
@@ -33,9 +36,6 @@ a la formula de colision
 Sprites: 
     - Agregar una propiedad "class", que me permita especificar una o varias clases (para poder categorizar los objetos, y en base a eso proceder)
     - Seria interesante agregar algo para permitir rotaciones. MAS ADELANTE.
-
-Demo:
-    Ir armando la demo SpaceInvaders
 
     
     
