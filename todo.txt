@@ -5,24 +5,7 @@ Ir armando documentacion de esto.
 ANTES DE NADA PROSEGUIR CON ESTO.
 
 TODO:
-        ver de organizar en el loop cuando se ejecutan los eventos, ya que probablemente si quiero eliminar un objeto (por una colision)
-        tenga que esperar a que se dibuje todo... a lo mejor cada sprite deba tener un metodo destroy() que setee un flag, y que el sistema
-        pueda borrarlo cuando sea seguro.
-
-
-        el loop se ejecuta de la siguiente manera:
-            
-            aca tendria que chequear si cada sprite tiene "destroyed" seteado.
-        1) ejecuta el mainCallback
-        2) update();
-        
-        entonces, si destruyo algo tiene q ser antes del mainCallback.
-        para destruir un sprite, llamo a un metodo destroy(), que se encargara de 
-            1) quitar todos los bind del sprite, eso es, eliminar de Orange._eventStack.____ cada instancia.
-            2) quitar este sprite de todos los layers en que se encuentre... es muy loco, pero se puede poner el mismo
-            sprite en varios layers...
-            3) hacer algo asi como destroy this... sera posible? uhmm... esto pendiente... pero estaria bueno destruir la instancia...
-        
+     que la propiedad muriendo de cada sprite sea el cantFrames del dieStatus.
 
 
 Colisiones: 

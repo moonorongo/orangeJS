@@ -20,7 +20,7 @@ Orange = ( function( rootApp ){
         extra,
         _dirY = 0,
         _prepareToDestroy = false,
-        _muriendo = 0;
+        _muriendo = 1;
     
     var orangeRoot;         
     
@@ -171,24 +171,21 @@ Orange = ( function( rootApp ){
  */            
             var imgData; 
             if(_prepareToDestroy) {
-                _prepareToDestroy = false;
-                _src.setStatus(1); // luego ver como definir en la animation de alguna manera indicar cual es el status A MORIIIR
+                _src.setStatusDie(); 
                 imgData = _src.getFrame(0);
                 _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
-                _muriendo = 10; // inicia un timer para destruir el sprite
+
+                if(_muriendo > 0) { 
+                    _muriendo--;
+                } else { // ya murio, lo reviento del todo.
+                    orangeRoot.removeFromEventStack(this);
+                    _layer.removeSprite(this);
+                }                
             } else {
                 imgData = _src.getFrame(0,0);
                 _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
             }
 
-/*            
-            if(_muriendo > 0) { 
-                _muriendo--;
-            } else { // ya murio, lo reviento del todo.
-                orangeRoot.removeFromEventStack(this);
-                _layer.removeSprite(this);
-            }
-*/
         },
         
         on : function(event, callback) {

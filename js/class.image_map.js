@@ -1,8 +1,8 @@
 Orange = ( function( rootApp ){
     
-  rootApp.ImageMap = function(image,width,height){
+  rootApp.ImageMap = function(imgData){
     
-    var _image = image,
+    var _image = imgData.image,
         _nFrames = [];
 
         // obtencion automatica de frames en base a la transparencia del frame
@@ -18,11 +18,12 @@ Orange = ( function( rootApp ){
 
         var _imagenWidth = _image.width;
         var _imagenHeight = _image.height;
-        var _spriteWidth  = width;
-        var _spriteHeight = height;
+        var _spriteWidth  = imgData.width;
+        var _spriteHeight = imgData.height;
+        var _dieStatus = imgData.dieStatus;
         var _cantidadFrames = Math.ceil(_imagenWidth / _spriteWidth);
         var _statusLength =  Math.ceil(_imagenHeight / _spriteHeight);
-        var _status;
+        var _status = 0;
 
         for(var fila = 0; fila < _statusLength; fila++) {
         for(var columna = 0; columna < _cantidadFrames; columna++) {
@@ -47,12 +48,20 @@ Orange = ( function( rootApp ){
     
        return {
            getFrame : function(frame, status) {
-               var s = status || _status;
+               var s = (_.isUndefined(status))? _status : status;
                return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * s};
            },
            
            setStatus : function(s) {
                _status = s;
+           },
+           
+           _fnGetDieStatus : function() {
+                return _dieStatus;
+           },
+           
+           setStatusDie : function() {
+                _status = _dieStatus;
            },
            
            getImage : function() {

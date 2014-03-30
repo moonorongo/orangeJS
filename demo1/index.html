@@ -49,13 +49,52 @@
     // mas adelante tengo que hacerlo mejor, con un objeto que tenga sucess, error, progress, etc.
     Orange.getImageManager().preload(function(){
 
-        
+        // Layers
+        var l = new Orange.Layer();
+        Orange.addLayer(l);
+    
         // ImageMaps
-        var naveImageMap = new Orange.ImageMap(Orange.getImageManager().get("nave"), 16,8);
-        var defensaImageMap = new Orange.ImageMap(Orange.getImageManager().get("defensa"), 22,16);
-        var enemy3ImageMap = new Orange.ImageMap(Orange.getImageManager().get("enemy3"), 10,8);
-        var enemy2ImageMap = new Orange.ImageMap(Orange.getImageManager().get("enemy2"), 13,8);
-        var enemy1ImageMap = new Orange.ImageMap(Orange.getImageManager().get("enemy1"), 14,8);
+        var naveImageMap = new Orange.ImageMap({
+            image : Orange.getImageManager().get("nave"),
+            width : 16,
+            height : 8,
+            dieStatus : 1 // el status que seleccionara al momento de hacer destroy en el sprite
+        });
+        
+        var defensaImageMap = new Orange.ImageMap({
+            image : Orange.getImageManager().get("defensa"), 
+            width : 22,
+            height : 16
+        });
+        
+        var enemy3ImageMap = new Orange.ImageMap({
+            image : Orange.getImageManager().get("enemy3"), 
+            width : 10,
+            height : 8,
+            dieStatus : 1
+        });
+        
+        var enemy2ImageMap = new Orange.ImageMap({
+            image : Orange.getImageManager().get("enemy2"), 
+            width : 13,
+            height : 8,
+            dieStatus : 1
+        });
+        
+        var enemy1ImageMap = new Orange.ImageMap({
+            image : Orange.getImageManager().get("enemy1"), 
+            width : 14,
+            height : 8,
+            dieStatus : 1
+        });
+        
+        
+        var balaEnemyImageMap = new Orange.ImageMap({
+            image : Orange.getImageManager().get("bala_enemy"), 
+            width : 5,
+            height : 8
+        });
+        
         
         // Animations
         var naveAnimation = new Orange.Animation(naveImageMap, {
@@ -65,38 +104,41 @@
             ],
             speed : 1
         });
-        
-        var enemy3Animation = new Orange.Animation(enemy3ImageMap, {
-            statusConfig : [ 
-                { loopMode : "L"},
-                { loopMode : "L"}
-            ],
-            speed : 1
-        });
 
-        
-        var enemy2Animation = new Orange.Animation(enemy2ImageMap, {
-            statusConfig : [ 
-                { loopMode : "L"},
-                { loopMode : "L"}
-            ],
-            speed : 1
-        });
-
-        var enemy1Animation = new Orange.Animation(enemy1ImageMap, {
-            statusConfig : [ 
-                { loopMode : "L"},
-                { loopMode : "L"}
-            ],
-            speed : 1
-        });
-        
-        
         // Sprites
         nave = new Orange.Sprite({
             src : naveAnimation,
             speed : 1
         });
+        
+        // esto es asi, para despues hacer new, new new ... es un pequeño constructor de tiros.
+        var Shot = function(x,y) {
+            var spr = new Orange.Sprite({
+                src : balaEnemyImageMap
+            });
+            
+            l.addSprite(spr);
+            spr.setX(x).setY(y);
+            
+            spr.on("enterFrame", function(eventData, s) { 
+                if (s.getY() > 10) {
+                    s.incY(-3);
+                } else {
+                    s.destroy();
+                }
+            });            
+            
+            spr.on("collision", function(eventName, context, aCollision) {
+                if(aCollision.length > 0) {
+                    aCollision[0].destroy();
+                    context.destroy();
+                }
+            });
+            
+            return spr;
+        }
+        
+        
         
         var defensa1 = new Orange.Sprite({
             src : defensaImageMap
@@ -115,9 +157,6 @@
         });
         
         
-        // Layers
-        var l = new Orange.Layer();
-        Orange.addLayer(l);
         l.setBackground(Orange.getImageManager().get("screenShotSI"))
         l.addSprite(nave); 
         l.addSprite(defensa1);
@@ -126,40 +165,57 @@
         l.addSprite(defensa4);
 
         
-        // creo una bocha de sprites, y los posiciono en cualquier parte
-
+        // creo las filas de enemigos
         for(var i=0; i<11; i++) {
+            var enemy3Animation = new Orange.Animation(enemy3ImageMap, {
+                statusConfig : [ 
+                    { loopMode : "L"},
+                    { loopMode : "L"}
+                ],
+                speed : 1
+            });
+        
             var enemy3 = new Orange.Sprite({
                 src : enemy3Animation
             });
             l.addSprite(enemy3); 
-            //aEnemy.push(enemy3);
-
+            
+/*
             enemy3.on("enterFrame", function(eventData, s) { 
                 if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
                     global.enemyDx = -global.enemyDx;
                     global.skipFrameCounter = 10; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
                 }
             });
-            
+*/            
             enemy3.setX(i*16 + 49).setY(40);
         }
 
+        
+        
         for(var j=0; j<2; j++) {
             for(var i=0; i<11; i++) {
+            
+                var enemy2Animation = new Orange.Animation(enemy2ImageMap, {
+                    statusConfig : [ 
+                        { loopMode : "L"},
+                        { loopMode : "L"}
+                    ],
+                    speed : 1
+                });
+            
                 var enemy2 = new Orange.Sprite({
                     src : enemy2Animation
                 });
                 l.addSprite(enemy2); 
-                //aEnemy.push(enemy2);
-
+/*
                 enemy2.on("enterFrame", function(eventData, s) { 
                     if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
                         global.enemyDx = -global.enemyDx;
                         global.skipFrameCounter = 10; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
                     }
                 });
-                
+*/                
                 enemy2.setX(i*16 + 49).setY(56 + j*16);
             }
         }
@@ -167,12 +223,21 @@
 
         for(var j=0; j<2; j++) {
             for(var i=0; i<11; i++) {
+            
+                var enemy1Animation = new Orange.Animation(enemy1ImageMap, {
+                    statusConfig : [ 
+                        { loopMode : "L"},
+                        { loopMode : "L"}
+                    ],
+                    speed : 1
+                });
+            
                 var enemy1 = new Orange.Sprite({
                     src : enemy1Animation
                 });
-                l.addSprite(enemy1); 
-                aEnemy.push(enemy1);
                 
+                l.addSprite(enemy1); 
+/*                
                 // Bindings enemys 
                 // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
                 enemy1.on("enterFrame", function(eventData, s) { 
@@ -182,9 +247,7 @@
                     }
                     //s.incX(global.enemyDx);
                 });
-
-                
-                
+*/
                 // posicionamiento enemigos
                 enemy1.setX(i*16 + 49).setY(88 + j*16);
             }
@@ -202,10 +265,13 @@
         // Bind
         nave.on("keydown", function(eventData, s) {
             switch(eventData.e.keyCode) {
-                case 39 :   dx = s.getSpeed();
+                case 39 :   dx = 2 * s.getSpeed();
                             break;
-                case 37 :   dx = -s.getSpeed();
+                case 37 :   dx = 2 * -s.getSpeed();
                             break;
+                case 32 :   var spr = new Shot(s.getX() + 6, s.getY() - 10);
+                            break;
+                default : console.log(eventData.e.keyCode);
             }
             
         });
@@ -223,7 +289,8 @@
         
         // especifico el bucle principal, este se ejecutara 60 veces por segundo.
         Orange.setMainCallback(function() {
-            nave.incX(dx);
+            nave.incX(dx); // hack pedorro para que la nave se mueva... mejorar esta mierda.
+            // este callback inmundo no deberia ser necesario, solo para algunas pelotudeces...
             
             // hack choto para que las naves enemigas no se vuelvan locas
             if (global.skipFrameCounter > 0) global.skipFrameCounter--; 

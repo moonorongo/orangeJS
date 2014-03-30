@@ -48,7 +48,12 @@ Orange = ( function( rootApp ){
            
            setStatus : function(s) {
                _status = s;
+           },
+           
+           setStatusDie : function() {
+                _status = _imageMap._fnGetDieStatus();
            }
+           
        }
   };
  
