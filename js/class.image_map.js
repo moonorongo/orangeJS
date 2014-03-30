@@ -77,12 +77,16 @@ Orange = ( function( rootApp ){
                return _spriteHeight;
            },
            
-           type : function() {
+           getType : function() {
                 return "ImageMap";
            },
             
            getCantFrames : function(status) {
                return _nFrames[status];
+           },
+           
+           _fnGetStatusDieCantFrames : function() {
+               return _nFrames[_dieStatus];
            }
        }
   };

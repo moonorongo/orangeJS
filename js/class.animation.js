@@ -42,17 +42,29 @@ Orange = ( function( rootApp ){
                return _imagenHeight;
            },
            
-           type : function() {
+           getType : function() {
                 return "Animation";
            },
-           
+/*           
+           _fnGetStatusSpeed : function(i) {
+               var speed = ( _.isUndefined(_config.statusConfig[i].speed) )? _speed : _config.statusConfig[i].speed;
+               return speed;
+           },
+*/           
            setStatus : function(s) {
                _status = s;
            },
            
            setStatusDie : function() {
                 _status = _imageMap._fnGetDieStatus();
-           }
+           },
+           
+           // retorna la cantidad de frames que vamos a necesitar para la propiedad _muriendo en Sprite.
+           _fnGetStatusDieCantFrames : function() {
+               var i = _imageMap._fnGetDieStatus();
+               var speed = ( _.isUndefined(_config.statusConfig[i].speed) )? _speed : _config.statusConfig[i].speed;
+               return _imageMap._fnGetStatusDieCantFrames() * (speed - 1);
+           }           
            
        }
   };

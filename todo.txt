@@ -5,7 +5,11 @@ Ir armando documentacion de esto.
 ANTES DE NADA PROSEGUIR CON ESTO.
 
 TODO:
-     que la propiedad muriendo de cada sprite sea el cantFrames del dieStatus.
+
+    Corregir la parte en que toca la animacion de fin... ver los valores de speed y testear a bajas velocidades, para
+    corroborar que esta haciendo bien... para SI esta bien, pero para otros games seguramente sera problematico.
+    
+ANTES DE SEGUIR CON LO DEMAS, DOCUMENTAR Y COMENTAR.    
 
 
 Colisiones: 
@@ -17,7 +21,6 @@ a la formula de colision
 
 
 Sprites: 
-    - Agregar una propiedad "class", que me permita especificar una o varias clases (para poder categorizar los objetos, y en base a eso proceder)
     - Seria interesante agregar algo para permitir rotaciones. MAS ADELANTE.
 
     

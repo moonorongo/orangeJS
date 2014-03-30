@@ -14,13 +14,15 @@ Orange = ( function( rootApp ){
         _h = _src.getSpriteHeight(),
         _pivotX = customSettings.pivotX || Math.floor(_w / 2),
         _pivotY = customSettings.pivotY || Math.floor(_h / 2),
+        _class = customSettings.class || 0,
         _dirX = 0,
+        _dirY = 0,
         name, 
         e, 
         extra,
-        _dirY = 0,
         _prepareToDestroy = false,
-        _muriendo = 1;
+        _removeFromLayer = false,
+        _muriendo = (_src.getType() == "Animation")?  _src._fnGetStatusDieCantFrames() : 1;
     
     var orangeRoot;         
     
@@ -154,21 +156,25 @@ Orange = ( function( rootApp ){
             return _src;
         },
         
-        destroy : function() {
+        destroy : function(removeFromLayer) {
             _prepareToDestroy = true;
+            _removeFromLayer = (_.isUndefined(removeFromLayer))? true : removeFromLayer;
+        },
+        
+        getClass : function() {
+            return _class;
+        },
+        
+        setClass : function(c) {
+            _class = c;
         },
         
         _fnUpdate : function() {
-            // aca en vez de src... ver de llamar a una fn de Animation, si lo que pase es una Animation
-            // esto funciona asi: _src puede ser una Animation o ImageMap... le paso (0,0) por si es un ImageMap, 
+            // esto funciona asi: _src puede ser una Animation o ImageMap... le paso (0) por si es un ImageMap, 
+            // ImageMap.getFrame puede tomar (frame) o (frame, status): si no especifico status, toma el status interno (esto es para compatibilidad con Animation)
             // y si es una Animation, no es tenido en cuenta.
             // getFrame(), en Animation o ImageMap devuelven imgData.
-/*
-             1) quitar todos los bind del sprite, eso es, eliminar de Orange._eventStack.____ cada instancia.
-            2) quitar este sprite de todos los layers en que se encuentre... es muy loco, pero se puede poner el mismo
-            sprite en varios layers...
-            3) hacer algo asi como destroy this... sera posible? uhmm... esto pendiente... pero estaria bueno destruir la instancia...
- */            
+
             var imgData; 
             if(_prepareToDestroy) {
                 _src.setStatusDie(); 
@@ -179,7 +185,7 @@ Orange = ( function( rootApp ){
                     _muriendo--;
                 } else { // ya murio, lo reviento del todo.
                     orangeRoot.removeFromEventStack(this);
-                    _layer.removeSprite(this);
+                    if(_removeFromLayer) _layer.removeSprite(this);
                 }                
             } else {
                 imgData = _src.getFrame(0,0);
@@ -268,15 +274,24 @@ Orange = ( function( rootApp ){
 
  
 // constantes utilizadas por la clase
-  rootApp.Sprite.MOVE_NONE = 0;
-  rootApp.Sprite.MOVE_UP = 1;
-  rootApp.Sprite.MOVE_UP_RIGHT = 5;
-  rootApp.Sprite.MOVE_RIGHT = 4;
-  rootApp.Sprite.MOVE_DOWN_RIGHT = 20;
-  rootApp.Sprite.MOVE_DOWN = 16;
-  rootApp.Sprite.MOVE_DOWN_LEFT = 80;
-  rootApp.Sprite.MOVE_LEFT = 64;
-  rootApp.Sprite.MOVE_UP_LEFT = 65;
+    rootApp.Sprite.MOVE_NONE = 0;
+    rootApp.Sprite.MOVE_UP = 1;
+    rootApp.Sprite.MOVE_UP_RIGHT = 5;
+    rootApp.Sprite.MOVE_RIGHT = 4;
+    rootApp.Sprite.MOVE_DOWN_RIGHT = 20;
+    rootApp.Sprite.MOVE_DOWN = 16;
+    rootApp.Sprite.MOVE_DOWN_LEFT = 80;
+    rootApp.Sprite.MOVE_LEFT = 64;
+    rootApp.Sprite.MOVE_UP_LEFT = 65;
+
+    
+    // clases predefinidas.
+    // se pueden agregar las que quiera el usuario, siempre que sean potencias de 2
+    rootApp.Sprite.Classes = { 
+        "NONE" : 0,
+        "FRIEND" : 1,
+        "ENEMY" : 2
+    }
   
   
   return rootApp;
