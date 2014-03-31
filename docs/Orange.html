@@ -1,0 +1,314 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title>Orange - JS Docs</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="header">
+<h5>JS Docs</h5>
+</div>
+
+<h1>Orange</h1>
+
+
+<div class="detail class">
+<div class="params">
+<h4 id="Orange"> <em>Orange</em></h4>
+
+</div>
+
+<p>Clase Principal, contiene todos los metodos para inicializar la libreria, precargar imagenes, arrancar el loop, etc.</p>
+
+</div>
+
+<h2 id="summary">Summary</h2><h3 id="properties-summary">Properties</h3>
+
+<div class="summary property">
+<div class="params">
+<h4>private boolean <em><a href="#_bPlay">_bPlay</a></em></h4>
+
+</div>
+
+<p>Estado del videojuego, puede ser ejecutandose o en pausa.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private callback <em><a href="#_cbMainLoop">_cbMainLoop</a></em></h4>
+
+</div>
+
+<p>Callback asignado por el usuario, el cual es llamado al final de la ejecucion de los eventos, y el d...</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private canvasContext <em><a href="#_context">_context</a></em></h4>
+
+</div>
+
+<p>El contexto 2D creado al inicializar la libreria, y donde se dibuja todo.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_counter">_counter</a></em></h4>
+
+</div>
+
+<p>Contador interno de 1 a 256, que por ahora no sirve para nada, pero seguramente servira para algo.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private object <em><a href="#_eventStack">_eventStack</a></em></h4>
+
+</div>
+
+<p>Aqui se guardan las instancias de los sprites a los que se asignaron eventos.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private ImageManager <em><a href="#_imageManager">_imageManager</a></em></h4>
+
+</div>
+
+<p>Una instancia de ImageManager, encargada de la precarga de imagenes y todo lo que necesite el juego.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private array <em><a href="#_layers">_layers</a></em></h4>
+
+</div>
+
+<p>Los layers que contiene el videojuego.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_speed">_speed</a></em></h4>
+
+</div>
+
+<p>el intervalo de ms entre llamadas al loop, 20ms son 60 fps.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private canvas <em><a href="#canvasElement">canvasElement</a></em></h4>
+
+</div>
+
+<p>El elemento canvas en el DOM.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Orange <em><a href="#orangeRoot">orangeRoot</a></em></h4>
+
+</div>
+
+<p>Referencia a Orange, utilizado en diferentes lugares.</p>
+</div>
+
+<h3 id="constructors-summary">Constructors</h3>
+
+<div class="summary constructor">
+<div class="params">
+<h4> <em><a href="#Orange">Orange</a></em></h4>
+
+</div>
+
+<p></p>
+</div>
+
+<h3 id="functions-summary">Functions</h3>
+
+<div class="summary function">
+<div class="params">
+<h4> <em><a href="#_init">_init</a></em></h4>
+<p>(optional <em>el</em>)</p>
+</div>
+
+<p>Inicializa la libreria, en el elemento DOM que le pasemos.</p>
+</div>
+
+<h2 id="details">Details</h2><h3 id="properties">Properties</h3>
+
+<div class="detail property">
+<div class="params">
+<h4 id="_bPlay">private boolean <em>_bPlay</em></h4>
+
+</div>
+
+<p>Estado del videojuego, puede ser ejecutandose o en pausa.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_cbMainLoop">private callback <em>_cbMainLoop</em></h4>
+
+</div>
+
+<p>Callback asignado por el usuario, el cual es llamado al final de la ejecucion de los eventos, y el dibujado de la pantalla.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_context">private canvasContext <em>_context</em></h4>
+
+</div>
+
+<p>El contexto 2D creado al inicializar la libreria, y donde se dibuja todo.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_counter">private int <em>_counter</em></h4>
+
+</div>
+
+<p>Contador interno de 1 a 256, que por ahora no sirve para nada, pero seguramente servira para algo.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_eventStack">private object <em>_eventStack</em></h4>
+
+</div>
+
+<p>Aqui se guardan las instancias de los sprites a los que se asignaron eventos.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_imageManager">private ImageManager <em>_imageManager</em></h4>
+
+</div>
+
+<p>Una instancia de ImageManager, encargada de la precarga de imagenes y todo lo que necesite el juego.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_layers">private array <em>_layers</em></h4>
+
+</div>
+
+<p>Los layers que contiene el videojuego.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_speed">private int <em>_speed</em></h4>
+
+</div>
+
+<p>el intervalo de ms entre llamadas al loop, 20ms son 60 fps.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="canvasElement">private canvas <em>canvasElement</em></h4>
+
+</div>
+
+<p>El elemento canvas en el DOM.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="orangeRoot">private Orange <em>orangeRoot</em></h4>
+
+</div>
+
+<p>Referencia a Orange, utilizado en diferentes lugares.</p>
+
+</div>
+
+<h3 id="constructors">Constructors</h3>
+
+<div class="detail constructor">
+<div class="params">
+<h4 id="Orange"> <em>Orange</em></h4>
+
+</div>
+
+<p></p>
+
+</div>
+
+<h3 id="functions">Functions</h3>
+
+<div class="detail function">
+<div class="params">
+<h4 id="_init"> <em>_init</em></h4>
+<p>(optional <em>el</em>)</p>
+</div>
+
+<p>Inicializa la libreria, en el elemento DOM que le pasemos. Si no especificamos el elemento lo crea. Tambien crea una instancia del ImageManager, y asigna los eventos a los sprites registrados.</p>
+
+<h5 id="_init-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>optional <em>el</em></dt>
+    <dd>El elemento opcional sobre el que se desarrollara la accion</dd>
+
+</dl>
+
+</div>
+
+
+</body>
+</html>

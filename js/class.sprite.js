@@ -188,7 +188,7 @@ Orange = ( function( rootApp ){
                     if(_removeFromLayer) _layer.removeSprite(this);
                 }                
             } else {
-                imgData = _src.getFrame(0,0);
+                imgData = _src.getFrame(0);
                 _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
             }
 

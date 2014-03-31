@@ -1,151 +1,36 @@
 <html>
 <head>
-  <title>Orange Docs</title>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <style>
-        body { font-family: arial }
-        h2 { background-color: orange; margin-bottom: 5px; }
-    </style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title>Index - JS Docs</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<h1> Orange: Libreria HTML5 para desarrollar juegos en 2d</h1>
 
-<ul>
-    <li><h2>Orange</h2>
-        <em>orange2.js</em><br />
-        Clase principal. Esta clase contiene los diferentes Layers con los que va a contar el juego, inicializa el ImageManager(para poder precargar las imagenes, y contiene el timer que ejecuta el ciclo principal de ejecucion.
-        <h3>Metodos</h3>
-        <ul>
-            <li><strong>init(el):</strong> inicializa la libreria, toma un <em>el</em> que es el elemento canvas en que se dibujara todo.<br />
-            si no se proporciona un elemento, lo crea automaticamente dentro del cuerpo del documento, con tamaño 360x240.
-            </li>
-            <li><strong>addLayer(Layer):</strong> Agrega un objeto Layer. Un Layer es una capa, util para representar cosas en diferentes planos, o para hacer scroll parallax, o efectos visuales.
-            </li>
-            <li><strong>_fnUpdate():</strong> Recorre el array de Layers y lo dibuja en el canvas
-            </li>
-        </ul>
-    </li>
-    
-    <li><h2>Orange.Layer(width, height)</h2>
-        <em>class.layer.js</em><br />
-        La clase Layer es un canvas que contiene sprites. Util para generar planos de objetos, generar profundidad, scrolles parallax, y cualquier cosa que se te ocurra. Recibe como parametros del constructor el ancho y alto del Layer, y si no se proporciona se asume el ancho y el alto del canvas.
-        <h3>Metodos</h3>
-        <ul>
-            <li><strong>addSprite(Sprite):</strong> Agrega un objeto Sprite dentro del Layer. Un Sprite es un objeto movil, que tiene asignada un ImageMap o un Animation.
-            </li>
-            
-            <li><strong>update():</strong> Recorre el array de Sprites y los dibuja en el Layer.
-            </li>
-            
-            <li><strong>setBackground(image, x, y):</strong> Especifica una imagen de fondo para el layer. Esta imagen es la primera que se dibuja, luego se dibujan los sprites del Layer. Ademas de la imagen tambien se puede especificar la posicion x e y (optativo).
-            </li>
-            
-            <li><strong>setBoundary(image):</strong> Permite agregar una imagen en blanco y negro, que actua como limites de la capa. Util para definir areas por donde pueden moverse los sprites.
-            </li>            
-            
-            <li><strong>_fnGetBoundaryStatus(x,y):</strong> Obtiene el estado del pixel del Boundary, devuelve un objeto {r,g,b,a}.
-            </li>            
-            
-        </ul>
-    </li>
-    
-    <li><h2>Orange.Sprite(image)</h2>
-        <em>class.sprite.js</em><br />
-        Un Sprite es un objeto movil, que al momento de inicializar su constructor recibe un ImageMap o Animation. Tiene posicion x e y, punto de pivot, scaling, y algunas cosas mas asignadas. Se le podra asignar listeners, que responderan a eventos de mouse o teclado. 
-        <h3>Metodos</h3>
-        <ul>
-            <li><strong>setX(), setY():</strong>  especifica horizontal del sprite.
-            </li>
-            
-            <li><strong>getX(), getY():</strong>  obtiene posicion del sprite.
-            </li>
-            
-            <li><strong>incX(x), incY(y):</strong>  incrementa posicion, si el parametro es negativo entonces decrementa.
-            </li>
-            
-            <li><strong>setSpeed(speed), getSpeed():</strong> Speed es un parametro interno que es util para indicarle de a cuantos pixels avanzará el sprite... seguramente a futuro cambie esto por algo mejor, pero de momento es esto.
-            </li>
+<div class="header">
+<h5>JS Docs</h5>
+</div>
 
-            <li><strong>on(event, callback):</strong> Registra un evento, y le asigna un callback. El callback recibe como parametro (eventData, context), siendo eventData un objeto, y context es el sprite que recibio el evento. <br />
-            El objeto eventData tiene las siguientes propiedades: <br />
-                <ul>
-                    <li><strong>relativeX, relativeY:</strong> Posicion dentro del canvas donde se realizo un click</li>
-                    <li><strong>clicked: </strong> TRUE si el click ocurrio dentro del Sprite.</li>
-                    <li><strong>eventName: </strong> El nombre del evento.</li>
-                    <li><strong>e: </strong> El evento HTML.</li>
-                </ul>
-            </li>
-            
-            
-            <li><strong>_fnUpdate():</strong>  Dibuja el Sprite en el Layer que lo contiene.
-            </li>
-        </ul>
-    </li>
+<h1>Index</h1>
 
-    <li><h2>Orange.ImageMap(image, width, height)</h2>
-        <em>class.image_map.js</em><br />
-        Un ImageMap es una imagen, que contiene los frames de cada animacion, organizado en filas, que representan el estado/movie, y columnas, que representan los frames de la animacion.<br />
-        
-        Al inicializar el ImageMap es necesario pasarle una imagen, y el ancho y alto del sprite. Provee metodos para acceder a cada frame, indicando el <em>status</em> (fila), y el <em>frame</em>.<br />
-        Al inicializar calcula automaticamente la cantidad de frames de cada <em>status</em>, tomando como fin de la animacion un frame totalmente transparente (de lo que se deduce que la animacion no puede tener un frame intermedio totalmente transparente)
-        <h3>Metodos</h3>
-        <ul>
-            <li><strong>get(status, frame):</strong> devuelve un objeto, que contiene una referencia a la imagen, y la posicion x,y,w,h que sera utilizada por drawImage.<br />
-            <em>retorna:  { image, px, py, pw, ph} </em>
-            </li>
-            
-            <li><strong>getCantFrames(status):</strong>  devuelve el numero de frames de ese status.
-            </li>
-        </ul>
-    </li>    
 
-    
-    <li><h2>Orange.ImageManager()</h2>
-        <em>class.image_manager.js</em><br />
-        Esta clase se instancia automaticamente al inicializar Orange.init(). Se encarga de precargar las imagenes, y ejecutar un callback al finalizar la carga.
-        <h3>Metodos</h3>
-        <ul>
-            <li><strong>addImage(src):</strong> Toma un string o un array de string, y lo agrega al array de imagenes a precargar.
-            </li>
-            
-            <li><strong>preload(callback):</strong> Inicializa la precarga de las imagenes agregadas, y al finalizar llama a callback.
-            </li>
-            
-            <li><strong>get(src):</strong> Obtiene del ImageManager la imagen especificada, a traves del nombre de archivo. Hace una busqueda con una expresion regular, asi que se puede poner solo el nombre, o nombre y extension, o si es necesario se tendra que poner el nombre completo (por ejemplo, si existe el mismo nombre, pero en directorios diferentes)
-            </li>
-        </ul>
-    </li>    
+<div class="detail project">
+<div class="params">
+<h4 id="JS Docs"> <em>JS Docs</em></h4>
 
-    
-    <li><h2>Orange.Animation(imageMap)</h2>
-        <em>class.animation.js</em><br />
-        Un Animation es un objeto animado, que recibe un imageMap, y que va tocando una secuencia de dicho imageMap en funcion de una configuracion especificada.    
+</div>
 
-        <h3>Metodos</h3>
-        <ul>
-            <li><strong>get(status):</strong> devuelve un objeto, que contiene una referencia a la imagen, y la posicion x,y,w,h que sera utilizada por drawImage.<br />
-            <em>retorna:  { image, px, py, pw, ph} </em>
-            </li>
-            
-            <li><strong>setProperties(props):</strong> Setea un monton de propiedades que detallare a continuacion
-            </li>
-            
-            <li><strong>():</strong> 
-            </li>
-            
-            <li><strong>():</strong> 
-            </li>
-            
-            <li><strong>():</strong> 
-            </li>
-            
-            <li><strong>():</strong> 
-            </li>
-            
-        </ul>
-    </li>    
-    
-</ul>
+<p></p>
+
+</div>
+
+
+
+<h2>Namespaces</h2>
+
+
+    <h4>class <a href="Orange.html">Orange</a></h4>
+    <p>Clase Principal, contiene todos los metodos para inicializar la libreria, precargar imagenes, arranc...</p>
 
 </body>
 </html>
