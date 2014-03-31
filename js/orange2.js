@@ -39,7 +39,7 @@ var Orange = (function(){
     var orangeRoot;
  
 /**
- * @function {} _init Inicializa la libreria, en el elemento DOM que le pasemos. Si no especificamos el elemento lo crea. 
+ * @function {private void} _init Inicializa la libreria, en el elemento DOM que le pasemos. Si no especificamos el elemento lo crea. 
  * Tambien crea una instancia del ImageManager, y asigna los eventos a los sprites registrados.
  * @param {optional} el El elemento opcional sobre el que se desarrollara la accion
  */    
@@ -64,9 +64,11 @@ var Orange = (function(){
     
     
 // EVENTS! ---------------------------    
-    
+/**
+ * @function {private void} _listener con _bindEvents, funcion para el control de eventos. 
+ * La Funcion se ejecuta con cada evento registrado, y le transmite al evento, a traves de _fnNotify(), a cada uno de los sprites
+ */        
     var _listener = function(e) {
-
         var key = e.type;
         var keyCode = e.keyCode;
         
@@ -81,30 +83,44 @@ var Orange = (function(){
         }); 
     };
 
-    
+/**
+ * @function {private void} _bindEvents Llamada al inicializar la libreria, esta funcion recorre _eventStack, y registra en cada tipo de evento un callback
+ * _listener, que sera ejecutado cada vez que ocurran los eventos registrados
+ * 
+ */    
     var _bindEvents  = function() {
         _.each(_eventStack, function(event, key) {
             if(key!="collision") {
                 var regExKey =  /key/g;
                 var _element = (regExKey.test(key))? window : canvasElement;
-                _element.addEventListener(key, _listener);            
+                _element.addEventListener(key, _listener);
             } 
         });        
     }
 
-    
+
+/**
+ * @function {private void} _update Es llamada en cada actualizacion del frame, desde el _loop, recorre todos los Layers en _layer, y les ejecuta Layer.update()
+ */    
     var _update = function() {
         _.each(_layers, function(l) {
             l.update();
         });
     }
     
-    
+/**
+ * @function {private void} _start Inicia el _loop
+ */    
     var _start = function() {
         _loop();
     }
     
     
+/**
+ * @function {private void} _loop Llamada cada _speed ms, se encarga de redibujar el canvas. Tambien realiza el checkeo de colisiones para los sprites
+ * que tengan registrado el evento 'collision', y tambien notifica a los que estan registrados en 'enterFrame'.
+ * Ejecuta el main Callback asignado, y determina la cantidad de ms derrochados, para garantizar la fluidez del movimiento.
+ */    
     var _loop = function() {
         // incrementa counter interno, utilizado para Animation
         _counter++;
@@ -140,6 +156,10 @@ var Orange = (function(){
 
 /* ------------- Public Section ------------- */
     return {
+/**
+ * @function {public void} addLayer Permite agregar una capa de sprites en el _context. Las capas se dibujaran en el orden en que fueron agregadas.
+ * @param {Layer} layer Instancia de Orange.Layer que quiero agregar
+ */    
         addLayer : function(layer) {
             layer._fnInit(_context);
             layer._fnSetRootContext(orangeRoot);

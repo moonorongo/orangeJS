@@ -149,11 +149,77 @@
 
 <div class="summary function">
 <div class="params">
-<h4> <em><a href="#_init">_init</a></em></h4>
+<h4>private void <em><a href="#_bindEvents">_bindEvents</a></em></h4>
+
+</div>
+
+<p>Llamada al inicializar la libreria, esta funcion recorre _eventStack, y registra en cada tipo de eve...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_init">_init</a></em></h4>
 <p>(optional <em>el</em>)</p>
 </div>
 
 <p>Inicializa la libreria, en el elemento DOM que le pasemos.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_listener">_listener</a></em></h4>
+
+</div>
+
+<p>con _bindEvents, funcion para el control de eventos.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_loop">_loop</a></em></h4>
+
+</div>
+
+<p>Llamada cada _speed ms, se encarga de redibujar el canvas.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_start">_start</a></em></h4>
+
+</div>
+
+<p>Inicia el _loop</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_update">_update</a></em></h4>
+
+</div>
+
+<p>Es llamada en cada actualizacion del frame, desde el _loop, recorre todos los Layers en _layer, y le...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#addLayer">addLayer</a></em></h4>
+<p>(Layer <em>layer</em>)</p>
+</div>
+
+<p>Permite agregar una capa de sprites en el _context.</p>
 </div>
 
 <h2 id="details">Details</h2><h3 id="properties">Properties</h3>
@@ -292,7 +358,19 @@
 
 <div class="detail function">
 <div class="params">
-<h4 id="_init"> <em>_init</em></h4>
+<h4 id="_bindEvents">private void <em>_bindEvents</em></h4>
+
+</div>
+
+<p>Llamada al inicializar la libreria, esta funcion recorre _eventStack, y registra en cada tipo de evento un callback _listener, que sera ejecutado cada vez que ocurran los eventos registrados</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_init">private void <em>_init</em></h4>
 <p>(optional <em>el</em>)</p>
 </div>
 
@@ -304,6 +382,75 @@
 
     <dt>optional <em>el</em></dt>
     <dd>El elemento opcional sobre el que se desarrollara la accion</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_listener">private void <em>_listener</em></h4>
+
+</div>
+
+<p>con _bindEvents, funcion para el control de eventos. La Funcion se ejecuta con cada evento registrado, y le transmite al evento, a traves de _fnNotify(), a cada uno de los sprites</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_loop">private void <em>_loop</em></h4>
+
+</div>
+
+<p>Llamada cada _speed ms, se encarga de redibujar el canvas. Tambien realiza el checkeo de colisiones para los sprites que tengan registrado el evento 'collision', y tambien notifica a los que estan registrados en 'enterFrame'. Ejecuta el main Callback asignado, y determina la cantidad de ms derrochados, para garantizar la fluidez del movimiento.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_start">private void <em>_start</em></h4>
+
+</div>
+
+<p>Inicia el _loop</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_update">private void <em>_update</em></h4>
+
+</div>
+
+<p>Es llamada en cada actualizacion del frame, desde el _loop, recorre todos los Layers en _layer, y les ejecuta Layer.update()</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="addLayer">public void <em>addLayer</em></h4>
+<p>(Layer <em>layer</em>)</p>
+</div>
+
+<p>Permite agregar una capa de sprites en el _context. Las capas se dibujaran en el orden en que fueron agregadas.</p>
+
+<h5 id="addLayer-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Layer <em>layer</em></dt>
+    <dd>Instancia de Orange.Layer que quiero agregar</dd>
 
 </dl>
 
