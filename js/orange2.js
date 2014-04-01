@@ -166,44 +166,80 @@ var Orange = (function(){
             _layers.push(layer);
         },
         
+/**
+ * @function {public ImageManager} getImageManager devuelve una instancia de ImageManager
+ */    
         getImageManager : function() {
             return _imageManager;
         },
         
+/**
+ * @function {public void} init Expone publicamente a _init
+ * @param {Canvas} el Elemento Canvas en el que se desarrollara el juego.
+ */    
         init : function(el) {
             _init(el);
             orangeRoot = this;
         },
         
+/**
+ * @function {public Canvas} getCanvasElement Retorna el elemento Canvas donde se desarrolla el juego.
+ */    
         getCanvasElement : function () {
             return canvasElement;
         },
         
+/**
+ * @function {public void} getCanvasElement Fuerza la actualizacion de un frame.
+ */    
         _fnUpdate: function() {
             _update();
         },
+
         
+/**
+ * @function {public void} start Inicia el loop.
+ */    
         start : function() {
             _bPlay = true;
             _start();
         },
         
+/**
+ * @function {public void} stop Pausa el loop.
+ */    
         stop : function() {
             _bPlay = false;
         },
         
+/**
+ * @function {public void} setMainCallback Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones)
+ * y de la actualizaccion del canvas.
+ */    
         setMainCallback : function(callback) {
             _cbMainLoop = callback;
         },
         
+/**
+ * @function {public int} getCounter Devuelve el estado del contador interno (no demasiado util, de momento),
+ */    
         getCounter : function() {
             return _counter;
         },
-        
+
+/**
+ * @function {public void} addToEventStack Funcion de uso interno. Guarda una referencia del sprite en el array de eventos que le indiquemos. 
+ * @param {Event} event El evento en el que quiero agregar el sprite.
+ * @param {Sprite} sprite El sprite que quiero agregar.
+ */    
         addToEventStack : function(event,sprite) {
             _eventStack[event].push(sprite);
         },
-        
+
+/**
+ * @function {public boolean} removeFromEventStack Funcion de uso interno. Quita el sprite que le pasamos de todos los eventStacks en que lo encuentre.
+ * @param {Sprite} sprite El sprite que quiero remover.
+ */    
         removeFromEventStack : function(sprite) {
             _.each(_eventStack, function(e, key) {
                 var i = e.indexOf(sprite);

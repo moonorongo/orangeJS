@@ -1,8 +1,24 @@
+/*
+ * Declares {@link Layer} class etc.
+ * @file class.layer.js
+ * @version 0.1
+  */
+
+/**
+ * @class Layer 
+ * Un Layer es un contenedor de Sprites. Un Layer puede tener un ancho/alto superior al del canvas que lo contiene, y puede desplazarse 
+ * con un scroll.
+ * Tambien se le puede asignar una imagen que actue como limite para los sprites (boundary), y se le puede asignar un background.
+ * 
+ * @constructor Layer
+ * @param {optional int} width El ancho del Layer, si no se especifica toma el del canvas.
+ * @param {optional int} height El alto del Layer, idem.
+ */
 Orange = ( function( rootApp ){
     
-    
   rootApp.Layer = function(width, height){
-    // Sprites del Layer
+
+/** @property {private aSprites} _sprites Array que contiene los Sprites del layer. */
     var _sprites = [];
     // canvas layer
     var _layer,

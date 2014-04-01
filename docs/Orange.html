@@ -216,10 +216,109 @@
 <div class="summary function">
 <div class="params">
 <h4>public void <em><a href="#addLayer">addLayer</a></em></h4>
-<p>(Layer <em>layer</em>)</p>
+<p>(<a href="Layer.html">Layer</a> <em>layer</em>)</p>
 </div>
 
 <p>Permite agregar una capa de sprites en el _context.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#addToEventStack">addToEventStack</a></em></h4>
+<p>(Event <em>event</em>, Sprite <em>sprite</em>)</p>
+</div>
+
+<p>Funcion de uso interno.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Canvas void <em><a href="#getCanvasElement">getCanvasElement</a></em></h4>
+
+</div>
+
+<p>Retorna el elemento Canvas donde se desarrolla el juego.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#getCounter">getCounter</a></em></h4>
+
+</div>
+
+<p>Devuelve el estado del contador interno (no demasiado util, de momento),</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public ImageManager <em><a href="#getImageManager">getImageManager</a></em></h4>
+
+</div>
+
+<p>devuelve una instancia de ImageManager</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#init">init</a></em></h4>
+<p>(Canvas <em>el</em>)</p>
+</div>
+
+<p>Expone publicamente a _init</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public boolean <em><a href="#removeFromEventStack">removeFromEventStack</a></em></h4>
+<p>(Sprite <em>sprite</em>)</p>
+</div>
+
+<p>Funcion de uso interno.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setMainCallback">setMainCallback</a></em></h4>
+
+</div>
+
+<p>Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones) y d...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#start">start</a></em></h4>
+
+</div>
+
+<p>Inicia el loop.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#stop">stop</a></em></h4>
+
+</div>
+
+<p>Pausa el loop.</p>
 </div>
 
 <h2 id="details">Details</h2><h3 id="properties">Properties</h3>
@@ -440,7 +539,7 @@
 <div class="detail function">
 <div class="params">
 <h4 id="addLayer">public void <em>addLayer</em></h4>
-<p>(Layer <em>layer</em>)</p>
+<p>(<a href="Layer.html">Layer</a> <em>layer</em>)</p>
 </div>
 
 <p>Permite agregar una capa de sprites en el _context. Las capas se dibujaran en el orden en que fueron agregadas.</p>
@@ -449,10 +548,148 @@
 
 <dl>
 
-    <dt>Layer <em>layer</em></dt>
+    <dt><a href="Layer.html">Layer</a> <em>layer</em></dt>
     <dd>Instancia de Orange.Layer que quiero agregar</dd>
 
 </dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="addToEventStack">public void <em>addToEventStack</em></h4>
+<p>(Event <em>event</em>, Sprite <em>sprite</em>)</p>
+</div>
+
+<p>Funcion de uso interno. Guarda una referencia del sprite en el array de eventos que le indiquemos.</p>
+
+<h5 id="addToEventStack-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Event <em>event</em></dt>
+    <dd>El evento en el que quiero agregar el sprite.</dd>
+
+    <dt>Sprite <em>sprite</em></dt>
+    <dd>El sprite que quiero agregar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getCanvasElement">public Canvas void <em>getCanvasElement</em></h4>
+
+</div>
+
+<p>Retorna el elemento Canvas donde se desarrolla el juego. Fuerza la actualizacion de un frame.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getCounter">public int <em>getCounter</em></h4>
+
+</div>
+
+<p>Devuelve el estado del contador interno (no demasiado util, de momento),</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getImageManager">public ImageManager <em>getImageManager</em></h4>
+
+</div>
+
+<p>devuelve una instancia de ImageManager</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="init">public void <em>init</em></h4>
+<p>(Canvas <em>el</em>)</p>
+</div>
+
+<p>Expone publicamente a _init</p>
+
+<h5 id="init-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Canvas <em>el</em></dt>
+    <dd>Elemento Canvas en el que se desarrollara el juego.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="removeFromEventStack">public boolean <em>removeFromEventStack</em></h4>
+<p>(Sprite <em>sprite</em>)</p>
+</div>
+
+<p>Funcion de uso interno. Quita el sprite que le pasamos de todos los eventStacks en que lo encuentre.</p>
+
+<h5 id="removeFromEventStack-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Sprite <em>sprite</em></dt>
+    <dd>El sprite que quiero remover.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setMainCallback">public void <em>setMainCallback</em></h4>
+
+</div>
+
+<p>Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones) y de la actualizaccion del canvas.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="start">public void <em>start</em></h4>
+
+</div>
+
+<p>Inicia el loop.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="stop">public void <em>stop</em></h4>
+
+</div>
+
+<p>Pausa el loop.</p>
 
 </div>
 
