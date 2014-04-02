@@ -1,0 +1,557 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title>Sprite - JS Docs</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="header">
+<h5>JS Docs</h5>
+</div>
+
+<h1>Sprite</h1>
+
+
+<div class="detail class">
+<div class="params">
+<h4 id="Sprite"> <em>Sprite</em></h4>
+
+</div>
+
+<p>un sprite es un bloque que se puede mover, y que va a recibir eventos. Cada sprite puede tener asignada una ImageMap o una Animation. Si recibe un imageMap pone por defecto el primer cuadro/estado</p>
+
+</div>
+
+<h2 id="summary">Summary</h2><h3 id="properties-summary">Properties</h3>
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_class">_class</a></em></h4>
+
+</div>
+
+<p>Numero interno para clasificar de alguna manera al Sprite.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_dirX">_dirX</a></em></h4>
+
+</div>
+
+<p>Direccion horizontal hacia donde esta yendo el Sprite.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_dirY">_dirY</a></em></h4>
+
+</div>
+
+<p>Direccion vertical hacia donde esta yendo el Sprite.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Object <em><a href="#_eventCallback">_eventCallback</a></em></h4>
+
+</div>
+
+<p>Objecto interno con los distintos callbacks de los eventos asignados al Sprite.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_h">_h</a></em></h4>
+
+</div>
+
+<p>Alto del Sprite.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private <a href="Layer.html">Layer</a> <em><a href="#_layer">_layer</a></em></h4>
+
+</div>
+
+<p>Referencia al Layer que pertenece.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_muriendo">_muriendo</a></em></h4>
+
+</div>
+
+<p>Numero que tiene la cantidad de frames que dura la animacion que se ejecuta cuando destruyo al Sprit...</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_pivotX">_pivotX</a></em></h4>
+
+</div>
+
+<p>Punto utilizado para ver si se puede colocar el sprite en esa posicion.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_pivotY">_pivotY</a></em></h4>
+
+</div>
+
+<p>Punto utilizado para ver si se puede colocar el sprite en esa posicion.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private boolean <em><a href="#_prepareToDestroy">_prepareToDestroy</a></em></h4>
+
+</div>
+
+<p>Flag, se pone en true cuando llamo a Sprite.destroy().</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private boolean <em><a href="#_removeFromLayer">_removeFromLayer</a></em></h4>
+
+</div>
+
+<p>Flag, cuando llamo a Sprite.destroy() indica si debo, ademas, quitar del Layer el sprite.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_speed">_speed</a></em></h4>
+
+</div>
+
+<p>Velocidad interna.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private ImageMap <em><a href="#_src">_src</a></em></h4>
+
+</div>
+
+<p>Imagen asociada al Sprite, puede ser un ImageMap o una Animation.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_w">_w</a></em></h4>
+
+</div>
+
+<p>Ancho del Sprite.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_x">_x</a></em></h4>
+
+</div>
+
+<p>Posicion x del Sprite.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_y">_y</a></em></h4>
+
+</div>
+
+<p>Posicion y del Sprite.</p>
+</div>
+
+<h3 id="constructors-summary">Constructors</h3>
+
+<div class="summary constructor">
+<div class="params">
+<h4> <em><a href="#Sprite">Sprite</a></em></h4>
+<p>(Object <em>customSettings</em>)</p>
+</div>
+
+<p></p>
+</div>
+
+<h3 id="functions-summary">Functions</h3>
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_setDirX">_setDirX</a></em></h4>
+<p>(int <em>x</em>)</p>
+</div>
+
+<p>Establece la direccion de movimiento del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_setDirY">_setDirY</a></em></h4>
+<p>(int <em>y</em>)</p>
+</div>
+
+<p>Establece la direccion de movimiento del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_setX">_setX</a></em></h4>
+<p>(int <em>x</em>)</p>
+</div>
+
+<p>Posiciona el Sprite en la pantalla.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_setY">_setY</a></em></h4>
+<p>(int <em>y</em>)</p>
+</div>
+
+<p>Posiciona el Sprite en la pantalla.</p>
+</div>
+
+<h2 id="details">Details</h2><h3 id="properties">Properties</h3>
+
+<div class="detail property">
+<div class="params">
+<h4 id="_class">private int <em>_class</em></h4>
+
+</div>
+
+<p>Numero interno para clasificar de alguna manera al Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_dirX">private int <em>_dirX</em></h4>
+
+</div>
+
+<p>Direccion horizontal hacia donde esta yendo el Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_dirY">private int <em>_dirY</em></h4>
+
+</div>
+
+<p>Direccion vertical hacia donde esta yendo el Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_eventCallback">private Object <em>_eventCallback</em></h4>
+
+</div>
+
+<p>Objecto interno con los distintos callbacks de los eventos asignados al Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_h">private int <em>_h</em></h4>
+
+</div>
+
+<p>Alto del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_layer">private <a href="Layer.html">Layer</a> <em>_layer</em></h4>
+
+</div>
+
+<p>Referencia al Layer que pertenece.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_muriendo">private int <em>_muriendo</em></h4>
+
+</div>
+
+<p>Numero que tiene la cantidad de frames que dura la animacion que se ejecuta cuando destruyo al Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_pivotX">private int <em>_pivotX</em></h4>
+
+</div>
+
+<p>Punto utilizado para ver si se puede colocar el sprite en esa posicion.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_pivotY">private int <em>_pivotY</em></h4>
+
+</div>
+
+<p>Punto utilizado para ver si se puede colocar el sprite en esa posicion.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_prepareToDestroy">private boolean <em>_prepareToDestroy</em></h4>
+
+</div>
+
+<p>Flag, se pone en true cuando llamo a Sprite.destroy().</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_removeFromLayer">private boolean <em>_removeFromLayer</em></h4>
+
+</div>
+
+<p>Flag, cuando llamo a Sprite.destroy() indica si debo, ademas, quitar del Layer el sprite. Esto es util para cuando quiero destruir un Sprite, pero quiero dejar el "cadaver" como imagen.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_speed">private int <em>_speed</em></h4>
+
+</div>
+
+<p>Velocidad interna.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_src">private ImageMap <em>_src</em></h4>
+
+</div>
+
+<p>Imagen asociada al Sprite, puede ser un ImageMap o una Animation.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_w">private int <em>_w</em></h4>
+
+</div>
+
+<p>Ancho del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_x">private int <em>_x</em></h4>
+
+</div>
+
+<p>Posicion x del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_y">private int <em>_y</em></h4>
+
+</div>
+
+<p>Posicion y del Sprite.</p>
+
+</div>
+
+<h3 id="constructors">Constructors</h3>
+
+<div class="detail constructor">
+<div class="params">
+<h4 id="Sprite"> <em>Sprite</em></h4>
+<p>(Object <em>customSettings</em>)</p>
+</div>
+
+<p></p>
+
+<h5 id="Sprite-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Object <em>customSettings</em></dt>
+    <dd>Un objeto de inicializacion del Sprite. El objeto debera tener las siguientes propiedades: <br> <em>src</em> : ImageMap o Animation utilizada por el Sprite <br> optional int <em>pivotX</em>: el punto utilizado como limite contra el _boundary Layer.<br> optional int <em>pivotY</em>: idem <br> optional int <em>class</em>: Un identificador que indica a que clase pertenece. Puedes utilizar algunos de los identificadores predefinidos internamente, o  crear indicadores propios<br> optional <em>speed</em>: la velocidad con la que avanzara... no demasiado util, todavia<br></dd>
+
+</dl>
+
+</div>
+
+<h3 id="functions">Functions</h3>
+
+<div class="detail function">
+<div class="params">
+<h4 id="_setDirX">private void <em>_setDirX</em></h4>
+<p>(int <em>x</em>)</p>
+</div>
+
+<p>Establece la direccion de movimiento del Sprite.</p>
+
+<h5 id="_setDirX-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>x</em></dt>
+    <dd>nueva posicion.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_setDirY">private void <em>_setDirY</em></h4>
+<p>(int <em>y</em>)</p>
+</div>
+
+<p>Establece la direccion de movimiento del Sprite.</p>
+
+<h5 id="_setDirY-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>y</em></dt>
+    <dd>nueva posicion.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_setX">private void <em>_setX</em></h4>
+<p>(int <em>x</em>)</p>
+</div>
+
+<p>Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento.</p>
+
+<h5 id="_setX-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>x</em></dt>
+    <dd>nueva posicion.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_setY">private void <em>_setY</em></h4>
+<p>(int <em>y</em>)</p>
+</div>
+
+<p>Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento.</p>
+
+<h5 id="_setY-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>y</em></dt>
+    <dd>nueva posicion.</dd>
+
+</dl>
+
+</div>
+
+
+</body>
+</html>

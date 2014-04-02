@@ -112,6 +112,149 @@
 <p></p>
 </div>
 
+<h3 id="functions-summary">Functions</h3>
+
+<div class="summary function">
+<div class="params">
+<h4>public Object <em><a href="#_fnGetBoundaryStatus">_fnGetBoundaryStatus</a></em></h4>
+<p>(int <em>x</em>, int <em>y</em>)</p>
+</div>
+
+<p>Obtiene un valor de un pixel determinado, del _boundary.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public canvas <em><a href="#_fnGetCanvas">_fnGetCanvas</a></em></h4>
+
+</div>
+
+<p>Devuelve el contexto del canvas</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Sprites <em><a href="#_fnGetSprites">_fnGetSprites</a></em></h4>
+
+</div>
+
+<p>Retorna el Array de Sprites.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#_fnInit">_fnInit</a></em></h4>
+<p>(canvas <em>context</em>)</p>
+</div>
+
+<p>Utilizado por Orange.addLayer, crea una referencia _context al contexto general, e instancia el _lay...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#_fnSetRootContext">_fnSetRootContext</a></em></h4>
+<p>(<a href="Orange.html">Orange</a> <em>root</em>)</p>
+</div>
+
+<p>Crea una referencia interna de Orange para uso general.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_fnUpdate">_fnUpdate</a></em></h4>
+
+</div>
+
+<p>Actualiza el Layer, pintando el fondo, y los Sprites asignados.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_putInContext">_putInContext</a></em></h4>
+
+</div>
+
+<p>ejecuta _fnUpdate (que dibuja los sprites), y se encarga de pintar el layer en el canvas principal.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#_update">_update</a></em></h4>
+
+</div>
+
+<p>Actualiza el Layer, y lo dibuja en el context principal.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#addSprite">addSprite</a></em></h4>
+<p>(<a href="Sprite.html">Sprite</a> <em>sprite</em>)</p>
+</div>
+
+<p>Agrega un Sprite al array interno de Sprites, del Layer.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public canvas <em><a href="#getBoundary">getBoundary</a></em></h4>
+
+</div>
+
+<p>Obtiene el limite asignado al Layer...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public boolean <em><a href="#removeSprite">removeSprite</a></em></h4>
+<p>(<a href="Sprite.html">Sprite</a> <em>sprite</em>)</p>
+</div>
+
+<p>Quita la referencia del sprite del array interno de Sprites.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setBackround">setBackround</a></em></h4>
+<p>(Imagen <em>img</em>, optional <em>x</em>, optional <em>y</em>)</p>
+</div>
+
+<p>Especifica una imagen de fondo para el Layer.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setBoundary">setBoundary</a></em></h4>
+<p>(Image <em>img</em>)</p>
+</div>
+
+<p>Asigna una imagen y genera un canvas, que es utilizado para proporcionar limites de movimiento dentr...</p>
+</div>
+
 <h2 id="details">Details</h2><h3 id="properties">Properties</h3>
 
 <div class="detail property">
@@ -215,6 +358,234 @@
 
     <dt>optional int <em>height</em></dt>
     <dd>El alto del Layer, idem.</dd>
+
+</dl>
+
+</div>
+
+<h3 id="functions">Functions</h3>
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnGetBoundaryStatus">public Object <em>_fnGetBoundaryStatus</em></h4>
+<p>(int <em>x</em>, int <em>y</em>)</p>
+</div>
+
+<p>Obtiene un valor de un pixel determinado, del _boundary. Devuelve un objeto {r, g, b, a}. Se utiliza para determinar si puedo posicionar un Sprite en ese lugar.</p>
+
+<h5 id="_fnGetBoundaryStatus-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>x</em></dt>
+    <dd>Posicion x.</dd>
+
+    <dt>int <em>y</em></dt>
+    <dd>Posicion y.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnGetCanvas">public canvas <em>_fnGetCanvas</em></h4>
+
+</div>
+
+<p>Devuelve el contexto del canvas</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnGetSprites">public Sprites <em>_fnGetSprites</em></h4>
+
+</div>
+
+<p>Retorna el Array de Sprites. Realmente no se si se utiliza en algun lado...</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnInit">public void <em>_fnInit</em></h4>
+<p>(canvas <em>context</em>)</p>
+</div>
+
+<p>Utilizado por Orange.addLayer, crea una referencia _context al contexto general, e instancia el _layer interno, donde se dibujaran los Sprites.</p>
+
+<h5 id="_fnInit-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>canvas <em>context</em></dt>
+    <dd>El canvas principal del juego.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnSetRootContext">public void <em>_fnSetRootContext</em></h4>
+<p>(<a href="Orange.html">Orange</a> <em>root</em>)</p>
+</div>
+
+<p>Crea una referencia interna de Orange para uso general.</p>
+
+<h5 id="_fnSetRootContext-parameters">Parameters</h5>
+
+<dl>
+
+    <dt><a href="Orange.html">Orange</a> <em>root</em></dt>
+    <dd></dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnUpdate">private void <em>_fnUpdate</em></h4>
+
+</div>
+
+<p>Actualiza el Layer, pintando el fondo, y los Sprites asignados.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_putInContext">private void <em>_putInContext</em></h4>
+
+</div>
+
+<p>ejecuta _fnUpdate (que dibuja los sprites), y se encarga de pintar el layer en el canvas principal. A FUTURO: Seguramente habra algo que me permita hacer scrolles... que no se como voy a implementar, si con algo asi como una camara, o lo que sea.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_update">public void <em>_update</em></h4>
+
+</div>
+
+<p>Actualiza el Layer, y lo dibuja en el context principal.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="addSprite">public void <em>addSprite</em></h4>
+<p>(<a href="Sprite.html">Sprite</a> <em>sprite</em>)</p>
+</div>
+
+<p>Agrega un Sprite al array interno de Sprites, del Layer.</p>
+
+<h5 id="addSprite-parameters">Parameters</h5>
+
+<dl>
+
+    <dt><a href="Sprite.html">Sprite</a> <em>sprite</em></dt>
+    <dd>El Sprite que quiero agregar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getBoundary">public canvas <em>getBoundary</em></h4>
+
+</div>
+
+<p>Obtiene el limite asignado al Layer... No se si lo utilizo en algun lado.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="removeSprite">public boolean <em>removeSprite</em></h4>
+<p>(<a href="Sprite.html">Sprite</a> <em>sprite</em>)</p>
+</div>
+
+<p>Quita la referencia del sprite del array interno de Sprites. Retorna true si la operacion se concreta exitosamente.</p>
+
+<h5 id="removeSprite-parameters">Parameters</h5>
+
+<dl>
+
+    <dt><a href="Sprite.html">Sprite</a> <em>sprite</em></dt>
+    <dd>El Sprite que quiero quitar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setBackround">public void <em>setBackround</em></h4>
+<p>(Imagen <em>img</em>, optional <em>x</em>, optional <em>y</em>)</p>
+</div>
+
+<p>Especifica una imagen de fondo para el Layer. Tambien se puede asignar (optativamente) una posicion inicial x e y, que es la posicion donde dibujara la imagen (por defecto: 0,0).</p>
+
+<h5 id="setBackround-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Imagen <em>img</em></dt>
+    <dd>La imagen de fondo a especificar</dd>
+
+    <dt>optional <em>x</em></dt>
+    <dd>Posicion x a dibujar.</dd>
+
+    <dt>optional <em>y</em></dt>
+    <dd>Posicion y a dibujar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setBoundary">public void <em>setBoundary</em></h4>
+<p>(Image <em>img</em>)</p>
+</div>
+
+<p>Asigna una imagen y genera un canvas, que es utilizado para proporcionar limites de movimiento dentro del Layer (util para laberintos, plataformas y casi todo lo que se te ocurra). Por donde este en blanco la imagen se podra posicionar un Sprite, donde este en negro no sera posible.</p>
+
+<h5 id="setBoundary-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Image <em>img</em></dt>
+    <dd>La imagen a asignar.</dd>
 
 </dl>
 
