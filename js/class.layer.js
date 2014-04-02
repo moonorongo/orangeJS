@@ -8,7 +8,7 @@
  * @class Layer 
  * Un Layer es un contenedor de Sprites. Un Layer puede tener un ancho/alto superior al del canvas que lo contiene, y puede desplazarse 
  * con un scroll.
- * Tambien se le puede asignar una imagen que actue como limite para los sprites (boundary), y se le puede asignar un background.
+ * Tambien se le puede asignar una imagen que actue como limite para los sprites (boundary), y se le puede asignar una imagen de background.
  * 
  * @constructor Layer
  * @param {optional int} width El ancho del Layer, si no se especifica toma el del canvas.
@@ -18,14 +18,24 @@ Orange = ( function( rootApp ){
     
   rootApp.Layer = function(width, height){
 
-/** @property {private aSprites} _sprites Array que contiene los Sprites del layer. */
+/** @property {private Sprites} _sprites Array que contiene los Sprites del layer. */
     var _sprites = [];
-    // canvas layer
+    
+/** @property {private Canvas} _layer El "canvas context" (interno) del layer, donde seran dibujados los sprites. */
     var _layer,
+    
+/** @property {private Canvas} _boundary El "canvas context" (interno) del limite del _layer, es utilizado para proporcionar limites (ej crear laberintos, plataformas, etc) dentro del Layer. */
         _boundary,
+        
+/** @property {private Canvas} _context Referencia al canvas inicializado en Orange.init(), donde se dibuja todo. */
         _context,
+        
+/** @property {private int} _width Ancho del canvas, si no se proporciona toma el ancho del _context del juego. */
         _width = width,
+/** @property {private int} _height Alto del canvas, idem anterior. */
         _height = height,
+        
+/** @property {private image} __bgLayer Imagen background del Layer. */
         _bgLayer,
         _bgX,
         _bgY;
@@ -43,7 +53,12 @@ Orange = ( function( rootApp ){
 
     
     var _fnUpdate = function() {
-        _layer.drawImage(_bgLayer, _bgX, _bgY);
+        // solo pinta la imagen de fondo si esta asignada.
+        if(!_.isUndefined(_bgLayer)) { 
+            _layer.drawImage(_bgLayer, _bgX, _bgY);
+        } else {
+            _layer.fillRect(0,0,_context.canvas.width,_context.canvas.height);
+        }
         _.each(_sprites, function(s) {
             s._fnUpdate();
         });

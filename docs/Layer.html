@@ -20,7 +20,7 @@
 
 </div>
 
-<p>Un Layer es un contenedor de Sprites. Un Layer puede tener un ancho/alto superior al del canvas que lo contiene, y puede desplazarse con un scroll. Tambien se le puede asignar una imagen que actue como limite para los sprites (boundary), y se le puede asignar un background.</p>
+<p>Un Layer es un contenedor de Sprites. Un Layer puede tener un ancho/alto superior al del canvas que lo contiene, y puede desplazarse con un scroll. Tambien se le puede asignar una imagen que actue como limite para los sprites (boundary), y se le puede asignar una imagen de background.</p>
 
 </div>
 
@@ -28,11 +28,77 @@
 
 <div class="summary property">
 <div class="params">
-<h4>private aSprites <em><a href="#_sprites">_sprites</a></em></h4>
+<h4>private image <em><a href="#__bgLayer">__bgLayer</a></em></h4>
+
+</div>
+
+<p>Imagen background del Layer.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Canvas <em><a href="#_boundary">_boundary</a></em></h4>
+
+</div>
+
+<p>El "canvas context" (interno) del limite del _layer, es utilizado para proporcionar limites (ej crea...</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Canvas <em><a href="#_context">_context</a></em></h4>
+
+</div>
+
+<p>Referencia al canvas inicializado en Orange.init(), donde se dibuja todo.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_height">_height</a></em></h4>
+
+</div>
+
+<p>Alto del canvas, idem anterior.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Canvas <em><a href="#_layer">_layer</a></em></h4>
+
+</div>
+
+<p>El "canvas context" (interno) del layer, donde seran dibujados los sprites.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Sprites <em><a href="#_sprites">_sprites</a></em></h4>
 
 </div>
 
 <p>Array que contiene los Sprites del layer.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_width">_width</a></em></h4>
+
+</div>
+
+<p>Ancho del canvas, si no se proporciona toma el ancho del _context del juego.</p>
 </div>
 
 <h3 id="constructors-summary">Constructors</h3>
@@ -50,11 +116,83 @@
 
 <div class="detail property">
 <div class="params">
-<h4 id="_sprites">private aSprites <em>_sprites</em></h4>
+<h4 id="__bgLayer">private image <em>__bgLayer</em></h4>
+
+</div>
+
+<p>Imagen background del Layer.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_boundary">private Canvas <em>_boundary</em></h4>
+
+</div>
+
+<p>El "canvas context" (interno) del limite del _layer, es utilizado para proporcionar limites (ej crear laberintos, plataformas, etc) dentro del Layer.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_context">private Canvas <em>_context</em></h4>
+
+</div>
+
+<p>Referencia al canvas inicializado en Orange.init(), donde se dibuja todo.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_height">private int <em>_height</em></h4>
+
+</div>
+
+<p>Alto del canvas, idem anterior.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_layer">private Canvas <em>_layer</em></h4>
+
+</div>
+
+<p>El "canvas context" (interno) del layer, donde seran dibujados los sprites.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_sprites">private Sprites <em>_sprites</em></h4>
 
 </div>
 
 <p>Array que contiene los Sprites del layer.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_width">private int <em>_width</em></h4>
+
+</div>
+
+<p>Ancho del canvas, si no se proporciona toma el ancho del _context del juego.</p>
 
 </div>
 
