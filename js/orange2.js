@@ -90,7 +90,7 @@ var Orange = (function(){
  */    
     var _bindEvents  = function() {
         _.each(_eventStack, function(event, key) {
-            if(key!="collision") {
+            if((key!="collision") && (key != "enterFrame")) {
                 var regExKey =  /key/g;
                 var _element = (regExKey.test(key))? window : canvasElement;
                 _element.addEventListener(key, _listener);
