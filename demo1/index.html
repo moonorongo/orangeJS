@@ -21,7 +21,7 @@
 <script>
     // basura global
     var nave, 
-        aEnemy = [],
+        
         x=0, 
         y=0, 
         dx=0, 
@@ -29,7 +29,8 @@
         
     var global = {};
     global.enemyDx = 1;
-    global.skipFrameCounter = 0; // este contador es para evitar que se ejecuten los eventos de los spr de las filas por debajo.
+    global.downCounter = 0;
+    global.changeDir = false; 
     
         
     // Primero que nada: inicializar la libreria
@@ -196,15 +197,19 @@
             });
             l.addSprite(enemy3); 
             
-/*
-            enemy3.on("enterFrame", function(eventData, s) { 
-                if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
-                    global.enemyDx = -global.enemyDx;
-                    global.skipFrameCounter = 10; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
-                }
-            });
-*/            
             enemy3.setX(i*16 + 49).setY(40);
+
+            enemy3.on("enterFrame", function(eventData, s) { 
+                    s.incX(global.enemyDx);
+                    
+                    if(((s.getX() < 0) || (s.getX() > 240))&& (!global.changeDir)) {
+                        global.changeDir = true; 
+                    } 
+                    
+                    if(global.downCounter > 0) {
+                        s.incY(1);
+                    }
+            });
         }
 
         
@@ -225,15 +230,18 @@
                     class : Orange.Sprite.Classes.ENEMY
                 });
                 l.addSprite(enemy2); 
-/*
-                enemy2.on("enterFrame", function(eventData, s) { 
-                    if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
-                        global.enemyDx = -global.enemyDx;
-                        global.skipFrameCounter = 10; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
-                    }
-                });
-*/                
+                
                 enemy2.setX(i*16 + 49).setY(56 + j*16);
+
+                enemy2.on("enterFrame", function(eventData, s) { 
+                    s.incX(global.enemyDx);
+                    
+                    if(((s.getX() < 0) || (s.getX() > 240))&& (!global.changeDir)) {
+                        global.changeDir = true; 
+                    }
+                    
+                    if(global.downCounter > 0) s.incY(1);
+                });
             }
         }
 
@@ -255,31 +263,45 @@
                 });
                 
                 l.addSprite(enemy1); 
-/*                
+                
+                // posicionamiento enemigos
+                enemy1.setX(i*16 + 49).setY(88 + j*16);
+                
                 // Bindings enemys 
                 // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
                 enemy1.on("enterFrame", function(eventData, s) { 
-                    if( ((s.getX() <= 0) || (s.getX() >= 240)) && global.skipFrameCounter <= 0) {
-                        global.enemyDx = -global.enemyDx;
-                        global.skipFrameCounter = 55; // esto para evitar q las naves por debajo de esta fila me cambien el estado.
+                    s.incX(global.enemyDx);
+                    
+                    if(((s.getX() < 0) || (s.getX() > 240))&& (!global.changeDir)) {
+                        global.changeDir = true; 
                     }
-                    //s.incX(global.enemyDx);
+                    
+                    if(global.downCounter > 0) {
+                        s.incY(1);
+                    }                    
                 });
-*/
-                // posicionamiento enemigos
-                enemy1.setX(i*16 + 49).setY(88 + j*16);
             }
+
         }
         
         
         
         // especifico el bucle principal, este se ejecutara 60 veces por segundo.
+        // esto reescribirlo como un evento, mejor
+        // algo asi como Orange.onUpdate... lalala
         Orange.setMainCallback(function() {
             nave.incX(dx); // hack pedorro para que la nave se mueva... mejorar esta mierda.
             // este callback inmundo no deberia ser necesario, solo para algunas pelotudeces...
+                document.getElementById("pos").value = global.changeDir;
             
-            // hack choto para que las naves enemigas no se vuelvan locas
-            if (global.skipFrameCounter > 0) global.skipFrameCounter--; 
+            // ya se actualizo, y si se cambio de direccion no lo necesito mas... lo vuelvo a false
+            if(global.changeDir) { 
+                global.enemyDx = -global.enemyDx;
+                global.downCounter = 8;
+                global.changeDir = false;
+            }
+            
+            if(global.downCounter > 0) global.downCounter--;
             
         });
         

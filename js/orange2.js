@@ -127,22 +127,22 @@ var Orange = (function(){
         if (_counter >= 256) _counter = 1; // se utiliza ^2 para facilitar la division con >>
         // bloque para determinar el costo en ms del bloque _cbMainLoop.
         var msStart = new Date().getMilliseconds();
+
+        // evento collision: se ejecuta para cada sprite registrado.
+        _.each(_eventStack.collision, function(sprite) {
+            sprite._fnNotify("collision");
+        });                      
+        
+        _.each(_eventStack.enterFrame, function(sprite) {
+            sprite._fnNotify("enterFrame");
+        });                      
+              
+        _cbMainLoop();
               
         // _update: se encarga de recorrer el array _layers y pintar cada layer en el canvas
         // nota para recordar: a su vez, cada layer tiene un metodo _update, que se encarga de pintar los sprites que tiene sobre si mismo.
         _update();      
         
-        // evento collision: se ejecuta para cada sprite registrado.
-        _.each(_eventStack.collision, function(sprite) {
-            sprite._fnNotify("collision");
-        });                      
-              
-        _.each(_eventStack.enterFrame, function(sprite) {
-            sprite._fnNotify("enterFrame");
-        });                      
-
-        _cbMainLoop();
-              
         var msStop = new Date().getMilliseconds();
         var msLoop = msStop - msStart; 
         if(msLoop < 0) msLoop = 0; // Hack horrible para evitar el cambio de segundo
