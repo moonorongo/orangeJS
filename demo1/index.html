@@ -43,6 +43,7 @@
         "img/enemy3.png", 
         "img/ufo.png", 
         "img/nave.png", 
+        "img/bala_nave.png", 
         "img/borrar/screenShotSI.png"
     ]);
     
@@ -95,7 +96,7 @@
                             break;
                 case 37 :   dx = 2 * -s.getSpeed();
                             break;
-                case 32 :   var spr = new Shot(s.getX() + 6, s.getY());
+                case 17 :   var spr = new Shot(s.getX() + 8, s.getY());
                             break;
                 default :   console.log(eventData.e.keyCode);
             }
@@ -120,9 +121,9 @@
         
         // Definicion del tiro de la nave ---------------------------------------
         var balaEnemyImageMap = new Orange.ImageMap({
-            image : Orange.getImageManager().get("bala_enemy"), 
-            width : 5,
-            height : 7
+            image : Orange.getImageManager().get("bala_nave"), 
+            width : 1,
+            height : 4
         });
         
         // esto es asi, para despues hacer new, new new ... es un pequeño constructor de tiros.
@@ -136,7 +137,7 @@
             
             spr.on("enterFrame", function(eventData, s) { 
                 if (s.getY() > 10) {
-                    s.incY(-3);
+                    s.incY(-4);
                 } else {
                     s.destroy();
                 }
@@ -292,12 +293,11 @@
         Orange.setMainCallback(function() {
             nave.incX(dx); // hack pedorro para que la nave se mueva... mejorar esta mierda.
             // este callback inmundo no deberia ser necesario, solo para algunas pelotudeces...
-                document.getElementById("pos").value = global.changeDir;
             
             // ya se actualizo, y si se cambio de direccion no lo necesito mas... lo vuelvo a false
             if(global.changeDir) { 
                 global.enemyDx = -global.enemyDx;
-                global.downCounter = 8;
+                global.downCounter = 4;
                 global.changeDir = false;
             }
             

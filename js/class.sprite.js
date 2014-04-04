@@ -149,32 +149,58 @@ Orange = ( function( rootApp ){
     
     // settings por defecto
     var settings = {
+/**
+ * @function {public void} _fnSetLayer Utilizada desde Layer.addSprite, le inyecta al Sprite el Layer donde esta siendo insertado
+ * @param {Layer} layer El Layer al que pertenece el Sprite.
+ */    
         _fnSetLayer : function (layer) {
             _layer = layer;
         },
         
+/**
+ * @function {public void} _fnSetRootContext Utilizada desde Layer.addSprite, inyecta el objeto root (Orange) para facilitar su acceso
+ * @param {Orange} root Orange... no more.
+ */    
         _fnSetRootContext : function(root) {
             orangeRoot = root;
         },
         
+/**
+ * @function {public Sprite} setX Posiciona horizontalmente el Sprite, devuelve la propia instancia, para encadenar con otros metodos.
+ * @param {int} x Posicion horizontal donde va a ir el Sprite.
+ */    
         setX : function(x) {
             _setX(x);
             return this;
         },
         
+/**
+ * @function {public Sprite} setY Posiciona verticalmente el Sprite, devuelve la propia instancia, para encadenar con otros metodos.
+ * @param {int} y Posicion vertical donde va a ir el Sprite.
+ */    
         setY : function(y) {
             _setY(y);
             return this;
         },
 
-        getX : function(x) {
+/**
+ * @function {public int} getX Obtiene la posicion horizontal del Sprite.
+ */    
+        getX : function() {
             return _x;
         },
         
-        getY : function(y) {
+/**
+ * @function {public int} getY Obtiene la posicion vertical del Sprite.
+ */    
+        getY : function() {
             return _y;
         },
         
+/**
+ * @function {public Sprite} incX Incrementa en dx pixels la posicion del Sprite. Si el valor es positivo, el Sprite se desplazara hacia la derecha, si es negativo hacia la izquierda.
+ * @param {int} dx Cantidad de pixels a desplazar.
+ */    
         incX : function(dx) { 
             var x = _x;
             x += dx;
@@ -182,6 +208,10 @@ Orange = ( function( rootApp ){
             return this;
         },
            
+/**
+ * @function {public Sprite} incY Incrementa en dy pixels la posicion del Sprite. Si el valor es positivo, el Sprite se desplazara hacia abajo, si es negativo hacia arriba.
+ * @param {int} dy Cantidad de pixels a desplazar.
+ */    
         incY : function(dy) { 
             y = _y;
             y += dy;
@@ -197,35 +227,62 @@ Orange = ( function( rootApp ){
             return _speed;
         },
 
-        getWidth : function(x) {
+/**
+ * @function {public int} getWidth Obtiene el ancho del Sprite.
+ */    
+        getWidth : function() {
             return _w;
         },
         
-        getHeight : function(y) {
+/**
+ * @function {public int} getWidth Obtiene el alto del Sprite.
+ */    
+        getHeight : function() {
             return _h;
         },
         
+/**
+ * @function {public int} getDir Obtiene la direccion de avance del Sprite.
+ */    
         getDir : function() {
             return _dirX + _dirY;
         },
 
+/**
+ * @function {public Animation} getAnimation En realidad puede devolver un Animation o un ImageMap, ya que se le puede asignar cualquiera de las 2 cosas a un Sprite.
+ */    
         getAnimation : function() {
             return _src;
         },
         
+/**
+ * @function {public void} destroy Inicia la secuencia de eliminacion del Sprite, seteando _prepareToDestroy. Si le paso como parametro 'false', no lo removera del Layer (util para, por ejemplo, dejar el cadaver del enemigo)
+ * @param {boolean} removeFromLayer Si seteo false se conservará la instancia en el Layer.
+ */    
         destroy : function(removeFromLayer) {
             _prepareToDestroy = true;
             _removeFromLayer = (_.isUndefined(removeFromLayer))? true : removeFromLayer;
         },
         
+/**
+ * @function {public int} getClass Obtiene la clase asignada al sprite.
+ */    
         getClass : function() {
             return _class;
         },
         
+/**
+ * @function {public int} setClass Asigna una clase al Sprite.
+ * @param {int} class La clase a asignar.
+ */    
         setClass : function(c) {
             _class = c;
         },
+
         
+/**
+ * @function {public void} _fnUpdate Actualiza el Sprite. Si lo destruimos maneja las fases de la destruccion. Mucha magia por aqui.
+ */    
         _fnUpdate : function() {
             // esto funciona asi: _src puede ser una Animation o ImageMap... le paso (0) por si es un ImageMap, 
             // ImageMap.getFrame puede tomar (frame) o (frame, status): si no especifico status, toma el status interno (esto es para compatibilidad con Animation)
@@ -251,11 +308,22 @@ Orange = ( function( rootApp ){
 
         },
         
+/**
+ * @function {public void} on Asigna un evento al Sprite, y su correspondiente callback.
+ * @param {Event} event El nombre del evento a asignar. Ademas de los eventos standard (click, keyup, keydown, keypress), tambien incluye 2 eventos no standard: <br>
+ * <strong>enterFrame</strong>: se ejecuta cada vez que el sprite entra en el cuadro, y previamente al callback principal asignado, y a la actualizacion del frame. <br>
+ * <strong>collision</strong>: se ejecuta cada vez que el sprite colisiona con otro. <br>
+ * @param {Callback} callback el callback a asignar. Todos los callbacks reciben (eventData, Sprite), que es un objeto con datos, y una referencia al Sprite que tiene asignado el evento.
+ * Tambien recibe aCollision, si es collision, que consiste en un array con referencias a Sprites contra los que colisiono.
+ */    
         on : function(event, callback) {
             orangeRoot.addToEventStack(event, this);
             _eventCallback[event] = callback;
         },
         
+/**
+ * @function {public void} _fnNotify Esta funcion es llamada dentro del loop, y es la que se encarga de notificar de los eventos ocurridos a los Sprites que tienen eventos asignados.
+ */    
         _fnNotify : function(eventName, e) {
             var rX, rY, eventData, aCollision = [];
             var _this = this;

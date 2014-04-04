@@ -215,6 +215,50 @@
 
 <div class="summary function">
 <div class="params">
+<h4>public void <em><a href="#_fnNotify">_fnNotify</a></em></h4>
+
+</div>
+
+<p>Esta funcion es llamada dentro del loop, y es la que se encarga de notificar de los eventos ocurrido...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#_fnSetLayer">_fnSetLayer</a></em></h4>
+<p>(<a href="Layer.html">Layer</a> <em>layer</em>)</p>
+</div>
+
+<p>Utilizada desde Layer.addSprite, le inyecta al Sprite el Layer donde esta siendo insertado</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#_fnSetRootContext">_fnSetRootContext</a></em></h4>
+<p>(<a href="Orange.html">Orange</a> <em>root</em>)</p>
+</div>
+
+<p>Utilizada desde Layer.addSprite, inyecta el objeto root (Orange) para facilitar su acceso</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#_fnUpdate">_fnUpdate</a></em></h4>
+
+</div>
+
+<p>Actualiza el Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
 <h4>private void <em><a href="#_setDirX">_setDirX</a></em></h4>
 <p>(int <em>x</em>)</p>
 </div>
@@ -253,6 +297,149 @@
 </div>
 
 <p>Posiciona el Sprite en la pantalla.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#destroy">destroy</a></em></h4>
+<p>(boolean <em>removeFromLayer</em>)</p>
+</div>
+
+<p>Inicia la secuencia de eliminacion del Sprite, seteando _prepareToDestroy.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Animation <em><a href="#getAnimation">getAnimation</a></em></h4>
+
+</div>
+
+<p>En realidad puede devolver un Animation o un ImageMap, ya que se le puede asignar cualquiera de las ...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#getClass">getClass</a></em></h4>
+
+</div>
+
+<p>Obtiene la clase asignada al sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#getDir">getDir</a></em></h4>
+
+</div>
+
+<p>Obtiene la direccion de avance del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#getWidth">getWidth</a></em></h4>
+
+</div>
+
+<p>Obtiene el ancho del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#getX">getX</a></em></h4>
+
+</div>
+
+<p>Obtiene la posicion horizontal del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#getY">getY</a></em></h4>
+
+</div>
+
+<p>Obtiene la posicion vertical del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Sprite <em><a href="#incX">incX</a></em></h4>
+<p>(int <em>dx</em>)</p>
+</div>
+
+<p>Incrementa en dx pixels la posicion del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Sprite <em><a href="#incY">incY</a></em></h4>
+<p>(int <em>dy</em>)</p>
+</div>
+
+<p>Incrementa en dy pixels la posicion del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#on">on</a></em></h4>
+<p>(Event <em>event</em>, Callback <em>callback</em>)</p>
+</div>
+
+<p>Asigna un evento al Sprite, y su correspondiente callback.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#setClass">setClass</a></em></h4>
+<p>(int <em>class</em>)</p>
+</div>
+
+<p>Asigna una clase al Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Sprite <em><a href="#setX">setX</a></em></h4>
+<p>(int <em>x</em>)</p>
+</div>
+
+<p>Posiciona horizontalmente el Sprite, devuelve la propia instancia, para encadenar con otros metodos.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Sprite <em><a href="#setY">setY</a></em></h4>
+<p>(int <em>y</em>)</p>
+</div>
+
+<p>Posiciona verticalmente el Sprite, devuelve la propia instancia, para encadenar con otros metodos.</p>
 </div>
 
 <h2 id="details">Details</h2><h3 id="properties">Properties</h3>
@@ -472,6 +659,72 @@
 
 <div class="detail function">
 <div class="params">
+<h4 id="_fnNotify">public void <em>_fnNotify</em></h4>
+
+</div>
+
+<p>Esta funcion es llamada dentro del loop, y es la que se encarga de notificar de los eventos ocurridos a los Sprites que tienen eventos asignados.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnSetLayer">public void <em>_fnSetLayer</em></h4>
+<p>(<a href="Layer.html">Layer</a> <em>layer</em>)</p>
+</div>
+
+<p>Utilizada desde Layer.addSprite, le inyecta al Sprite el Layer donde esta siendo insertado</p>
+
+<h5 id="_fnSetLayer-parameters">Parameters</h5>
+
+<dl>
+
+    <dt><a href="Layer.html">Layer</a> <em>layer</em></dt>
+    <dd>El Layer al que pertenece el Sprite.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnSetRootContext">public void <em>_fnSetRootContext</em></h4>
+<p>(<a href="Orange.html">Orange</a> <em>root</em>)</p>
+</div>
+
+<p>Utilizada desde Layer.addSprite, inyecta el objeto root (Orange) para facilitar su acceso</p>
+
+<h5 id="_fnSetRootContext-parameters">Parameters</h5>
+
+<dl>
+
+    <dt><a href="Orange.html">Orange</a> <em>root</em></dt>
+    <dd>Orange... no more.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnUpdate">public void <em>_fnUpdate</em></h4>
+
+</div>
+
+<p>Actualiza el Sprite. Si lo destruimos maneja las fases de la destruccion. Mucha magia por aqui.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
 <h4 id="_setDirX">private void <em>_setDirX</em></h4>
 <p>(int <em>x</em>)</p>
 </div>
@@ -547,6 +800,228 @@
 
     <dt>int <em>y</em></dt>
     <dd>nueva posicion.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="destroy">public void <em>destroy</em></h4>
+<p>(boolean <em>removeFromLayer</em>)</p>
+</div>
+
+<p>Inicia la secuencia de eliminacion del Sprite, seteando _prepareToDestroy. Si le paso como parametro 'false', no lo removera del Layer (util para, por ejemplo, dejar el cadaver del enemigo)</p>
+
+<h5 id="destroy-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>boolean <em>removeFromLayer</em></dt>
+    <dd>Si seteo false se conservará la instancia en el Layer.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getAnimation">public Animation <em>getAnimation</em></h4>
+
+</div>
+
+<p>En realidad puede devolver un Animation o un ImageMap, ya que se le puede asignar cualquiera de las 2 cosas a un Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getClass">public int <em>getClass</em></h4>
+
+</div>
+
+<p>Obtiene la clase asignada al sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getDir">public int <em>getDir</em></h4>
+
+</div>
+
+<p>Obtiene la direccion de avance del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getWidth">public int <em>getWidth</em></h4>
+
+</div>
+
+<p>Obtiene el ancho del Sprite. Obtiene el alto del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getX">public int <em>getX</em></h4>
+
+</div>
+
+<p>Obtiene la posicion horizontal del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getY">public int <em>getY</em></h4>
+
+</div>
+
+<p>Obtiene la posicion vertical del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="incX">public Sprite <em>incX</em></h4>
+<p>(int <em>dx</em>)</p>
+</div>
+
+<p>Incrementa en dx pixels la posicion del Sprite. Si el valor es positivo, el Sprite se desplazara hacia la derecha, si es negativo hacia la izquierda.</p>
+
+<h5 id="incX-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>dx</em></dt>
+    <dd>Cantidad de pixels a desplazar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="incY">public Sprite <em>incY</em></h4>
+<p>(int <em>dy</em>)</p>
+</div>
+
+<p>Incrementa en dy pixels la posicion del Sprite. Si el valor es positivo, el Sprite se desplazara hacia abajo, si es negativo hacia arriba.</p>
+
+<h5 id="incY-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>dy</em></dt>
+    <dd>Cantidad de pixels a desplazar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="on">public void <em>on</em></h4>
+<p>(Event <em>event</em>, Callback <em>callback</em>)</p>
+</div>
+
+<p>Asigna un evento al Sprite, y su correspondiente callback.</p>
+
+<h5 id="on-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Event <em>event</em></dt>
+    <dd>El nombre del evento a asignar. Ademas de los eventos standard (click, keyup, keydown, keypress), tambien incluye 2 eventos no standard: <br> <strong>enterFrame</strong>: se ejecuta cada vez que el sprite entra en el cuadro, y previamente al callback principal asignado, y a la actualizacion del frame. <br> <strong>collision</strong>: se ejecuta cada vez que el sprite colisiona con otro. <br></dd>
+
+    <dt>Callback <em>callback</em></dt>
+    <dd>el callback a asignar. Todos los callbacks reciben (eventData, Sprite), que es un objeto con datos, y una referencia al Sprite que tiene asignado el evento. Tambien recibe aCollision, si es collision, que consiste en un array con referencias a Sprites contra los que colisiono.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setClass">public int <em>setClass</em></h4>
+<p>(int <em>class</em>)</p>
+</div>
+
+<p>Asigna una clase al Sprite.</p>
+
+<h5 id="setClass-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>class</em></dt>
+    <dd>La clase a asignar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setX">public Sprite <em>setX</em></h4>
+<p>(int <em>x</em>)</p>
+</div>
+
+<p>Posiciona horizontalmente el Sprite, devuelve la propia instancia, para encadenar con otros metodos.</p>
+
+<h5 id="setX-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>x</em></dt>
+    <dd>Posicion horizontal donde va a ir el Sprite.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setY">public Sprite <em>setY</em></h4>
+<p>(int <em>y</em>)</p>
+</div>
+
+<p>Posiciona verticalmente el Sprite, devuelve la propia instancia, para encadenar con otros metodos.</p>
+
+<h5 id="setY-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>y</em></dt>
+    <dd>Posicion vertical donde va a ir el Sprite.</dd>
 
 </dl>
 
