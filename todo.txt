@@ -1,6 +1,19 @@
-Demo:
-    Ir armando la demo SpaceInvaders
+Demo FrenetikSpaceInvaders:
+    
+    - colision enemigo-nave OK
+    
+    - Ataque bala enemigos
+    
+    - Nave Superior enemiga
+    - Bloques
+    - colision balas-nave
 
+    
+    
+    
+    
+    
+    
 Ir armando documentacion de esto.
 ANTES DE NADA PROSEGUIR CON ESTO.
 
@@ -18,8 +31,6 @@ a la formula de colision
     - Agregar el tipo de colision que deseo detectar, si por boxes o por circles
     - Optimizar: que solo detecte probables candidatos. VER COMO.
 
-
-
 Sprites: 
     - Seria interesante agregar algo para permitir rotaciones. MAS ADELANTE.
 
@@ -29,23 +40,6 @@ Sprites:
     
 DEFINICIONES.
     
-Sprite:
-un sprite es un bloque que se puede mover, y que va a recibir eventos.
-cada sprite puede tener asignada una ImageMap o una Animation.
-si recibe un imageMap pone por defecto el primer cuadro/estado
-si recibe un Animation, obtiene frame/estado y con la referencia al ImageMap pinta.
-
-
-
-ImageMap:
-Un ImageMap es un grafico con las distintas animaciones, 
-tiene asignado una Image
-unas propiedades que indican cuantos Movies tiene el imagemap (rows) y cuantos frames tiene cada estado.
-
-y un conjunto de methodos para obtener de un estado un frame, 
-una inicializacion automatica en base a la imagen seteada.
-y alguna otra cosita
-RESOLVED
 
 
 

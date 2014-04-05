@@ -64,7 +64,7 @@ Orange = ( function( rootApp ){
     
     
     return {
-*/        
+
 /**
  * @function {public void} addImage Permite agregar al array interno de imagenes los archivos que queremos cargar.
  * @param {Images} src Puede tomar una imagen individual (String) o un Array de Strings (para especificar varias).

@@ -201,6 +201,7 @@
             
             enemy3.setX(i*16 + 49).setY(40);
 
+            // enterFrame. -----------------------------------------------------------------
             enemy3.on("enterFrame", function(eventData, s) { 
                     s.incX(global.enemyDx);
                     
@@ -212,6 +213,16 @@
                         s.incY(1);
                     }
             });
+            
+            // colision enemigo-nave. -----------------------------------------------------------------
+            enemy3.on("collision", function(eventData, s, aCollision) { 
+                if(aCollision.length > 0) {
+                    if(aCollision[0].getClass() == Orange.Sprite.Classes.FRIEND) {
+                        aCollision[0].destroy(false);
+                    }
+                }
+            });
+            
         }
 
         
@@ -235,6 +246,7 @@
                 
                 enemy2.setX(i*16 + 49).setY(56 + j*16);
 
+                // enterFrame. -----------------------------------------------------------------
                 enemy2.on("enterFrame", function(eventData, s) { 
                     s.incX(global.enemyDx);
                     
@@ -244,6 +256,17 @@
                     
                     if(global.downCounter > 0) s.incY(1);
                 });
+                
+                
+                // colision enemigo-nave.-----------------------------------------------------------------
+                enemy2.on("collision", function(eventData, s, aCollision) { 
+                    if(aCollision.length > 0) {
+                        if(aCollision[0].getClass() == Orange.Sprite.Classes.FRIEND) {
+                            aCollision[0].destroy(false);
+                        }
+                    }
+                });
+                
             }
         }
 
@@ -269,7 +292,7 @@
                 // posicionamiento enemigos
                 enemy1.setX(i*16 + 49).setY(88 + j*16);
                 
-                // Bindings enemys 
+                // Bindings enemys -----------------------------------------------------------------
                 // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
                 enemy1.on("enterFrame", function(eventData, s) { 
                     s.incX(global.enemyDx);
@@ -282,6 +305,17 @@
                         s.incY(1);
                     }                    
                 });
+                
+                
+                // colision enemigo-nave.-----------------------------------------------------------------
+                enemy1.on("collision", function(eventData, s, aCollision) { 
+                    if(aCollision.length > 0) {
+                        if(aCollision[0].getClass() == Orange.Sprite.Classes.FRIEND) {
+                            aCollision[0].destroy(false);
+                        }
+                    }
+                });
+                
             }
 
         }
@@ -298,7 +332,7 @@
             // ya se actualizo, y si se cambio de direccion no lo necesito mas... lo vuelvo a false
             if(global.changeDir) { 
                 global.enemyDx = -global.enemyDx;
-                global.downCounter = 4;
+                global.downCounter = 14;
                 global.changeDir = false;
             }
             
