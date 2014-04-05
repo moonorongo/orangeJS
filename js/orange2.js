@@ -32,7 +32,8 @@ var Orange = (function(){
             collision : [],
             enterFrame : []
         },
-        /** @property {private callback} _cbMainLoop Callback asignado por el usuario, el cual es llamado al final de la ejecucion de los eventos, y el dibujado de la pantalla. */
+        /** @property {private callback} _cbMainLoop Callback asignado por el usuario, el cual es llamado al final de la ejecucion de los eventos, 
+         * y ejecutado antes del dibujado de la pantalla. */
         _cbMainLoop;
 
 /** @property {private Orange} orangeRoot Referencia a Orange, utilizado en diferentes lugares. */
@@ -214,7 +215,7 @@ var Orange = (function(){
         
 /**
  * @function {public void} setMainCallback Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones)
- * y de la actualizaccion del canvas.
+ * y antes de la actualizaccion del canvas (_update).
  */    
         setMainCallback : function(callback) {
             _cbMainLoop = callback;
