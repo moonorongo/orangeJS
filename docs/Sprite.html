@@ -83,6 +83,17 @@
 
 <div class="summary property">
 <div class="params">
+<h4>private String <em><a href="#_id">_id</a></em></h4>
+
+</div>
+
+<p>Identificador unico, de proposito general.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
 <h4>private <a href="Layer.html">Layer</a> <em><a href="#_layer">_layer</a></em></h4>
 
 </div>
@@ -347,6 +358,17 @@
 
 <div class="summary function">
 <div class="params">
+<h4>public String <em><a href="#getId">getId</a></em></h4>
+
+</div>
+
+<p>Obtiene el identificador del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
 <h4>public int <em><a href="#getWidth">getWidth</a></em></h4>
 
 </div>
@@ -413,11 +435,22 @@
 
 <div class="summary function">
 <div class="params">
-<h4>public int <em><a href="#setClass">setClass</a></em></h4>
+<h4>public void <em><a href="#setClass">setClass</a></em></h4>
 <p>(int <em>class</em>)</p>
 </div>
 
 <p>Asigna una clase al Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setId">setId</a></em></h4>
+<p>(String <em>id</em>)</p>
+</div>
+
+<p>Asigna un identificador de proposito general.</p>
 </div>
 
 
@@ -499,6 +532,18 @@
 </div>
 
 <p>Alto del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_id">private String <em>_id</em></h4>
+
+</div>
+
+<p>Identificador unico, de proposito general.</p>
 
 </div>
 
@@ -649,7 +694,7 @@
 <dl>
 
     <dt>Object <em>customSettings</em></dt>
-    <dd>Un objeto de inicializacion del Sprite. El objeto debera tener las siguientes propiedades: <br> <em>src</em> : ImageMap o Animation utilizada por el Sprite <br> optional int <em>pivotX</em>: el punto utilizado como limite contra el _boundary Layer.<br> optional int <em>pivotY</em>: idem <br> optional int <em>class</em>: Un identificador que indica a que clase pertenece. Puedes utilizar algunos de los identificadores predefinidos internamente, o  crear indicadores propios<br> optional <em>speed</em>: la velocidad con la que avanzara... no demasiado util, todavia<br></dd>
+    <dd>Un objeto de inicializacion del Sprite. El objeto debera tener las siguientes propiedades: <br> <em>src</em> : ImageMap o Animation utilizada por el Sprite <br> optional int <em>pivotX</em>: el punto utilizado como limite contra el _boundary Layer.<br> optional int <em>pivotY</em>: idem, tanto para este como para el anterior, si no se especifican toma el centro del Sprite. <br> optional int <em>class</em>: Un identificador que indica a que clase pertenece. Puedes utilizar algunos de los identificadores predefinidos internamente, o  crear indicadores propios<br> optional <em>speed</em>: la velocidad con la que avanzara... no demasiado util, todavia<br></dd>
 
 </dl>
 
@@ -866,6 +911,18 @@
 
 <div class="detail function">
 <div class="params">
+<h4 id="getId">public String <em>getId</em></h4>
+
+</div>
+
+<p>Obtiene el identificador del Sprite. Tambien se puede acceder a traves de la propiedad id (Sprite.id)</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
 <h4 id="getWidth">public int <em>getWidth</em></h4>
 
 </div>
@@ -968,7 +1025,7 @@
 
 <div class="detail function">
 <div class="params">
-<h4 id="setClass">public int <em>setClass</em></h4>
+<h4 id="setClass">public void <em>setClass</em></h4>
 <p>(int <em>class</em>)</p>
 </div>
 
@@ -980,6 +1037,27 @@
 
     <dt>int <em>class</em></dt>
     <dd>La clase a asignar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setId">public void <em>setId</em></h4>
+<p>(String <em>id</em>)</p>
+</div>
+
+<p>Asigna un identificador de proposito general.</p>
+
+<h5 id="setId-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>String <em>id</em></dt>
+    <dd>El nombre del identificador.</dd>
 
 </dl>
 

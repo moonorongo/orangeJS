@@ -14,7 +14,7 @@
  * @param {Object} customSettings Un objeto de inicializacion del Sprite. El objeto debera tener las siguientes propiedades: <br>
  * <em>src</em> : ImageMap o Animation utilizada por el Sprite <br>
  * optional int <em>pivotX</em>: el punto utilizado como limite contra el _boundary Layer.<br>
- * optional int <em>pivotY</em>: idem <br>
+ * optional int <em>pivotY</em>: idem, tanto para este como para el anterior, si no se especifican toma el centro del Sprite. <br>
  * optional int <em>class</em>: Un identificador que indica a que clase pertenece. Puedes utilizar algunos de los identificadores predefinidos internamente, o  crear indicadores propios<br>
  * optional <em>speed</em>: la velocidad con la que avanzara... no demasiado util, todavia<br>
  */
@@ -45,11 +45,17 @@ Orange = ( function( rootApp ){
            
 /** @property {private int} _pivotX Punto utilizado para ver si se puede colocar el sprite en esa posicion. */
         _pivotX = customSettings.pivotX || Math.floor(_w / 2),
+           
 /** @property {private int} _pivotY Punto utilizado para ver si se puede colocar el sprite en esa posicion.  */
         _pivotY = customSettings.pivotY || Math.floor(_h / 2),
            
 /** @property {private int} _class Numero interno para clasificar de alguna manera al Sprite. */
         _class = customSettings.class || 0,
+        
+/** @property {private String} _id Identificador unico, de proposito general. */
+        _id = customSettings.id || "",
+        
+        
 /** @property {private int} _dirX Direccion horizontal hacia donde esta yendo el Sprite. */
         _dirX = 0,
 /** @property {private int} _dirY Direccion vertical hacia donde esta yendo el Sprite. */
@@ -70,6 +76,7 @@ Orange = ( function( rootApp ){
         _muriendo = (_src.getType() == "Animation")?  _src._fnGetStatusDieCantFrames() : 1;
     
     var orangeRoot;         
+    this.id = _id;
     
 /**
  * @function {private void} _setDirX Establece la direccion de movimiento del Sprite.
@@ -270,15 +277,36 @@ Orange = ( function( rootApp ){
         getClass : function() {
             return _class;
         },
+
+        
         
 /**
- * @function {public int} setClass Asigna una clase al Sprite.
+ * @function {public void} setClass Asigna una clase al Sprite.
  * @param {int} class La clase a asignar.
  */    
         setClass : function(c) {
             _class = c;
         },
 
+        
+        
+/**
+ * @function {public String} getId Obtiene el identificador del Sprite. Tambien se puede acceder a traves de la propiedad id (Sprite.id)
+ */    
+        getId : function() {
+            return _id;
+        },
+        
+        id : _id,
+
+/**
+ * @function {public void} setId Asigna un identificador de proposito general.
+ * @param {String} id El nombre del identificador.
+ */    
+        setId : function(id) {
+            _id = id;
+        },
+        
         
 /**
  * @function {public void} _fnUpdate Actualiza el Sprite. Si lo destruimos maneja las fases de la destruccion. Mucha magia por aqui.

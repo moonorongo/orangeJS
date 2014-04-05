@@ -21,17 +21,14 @@
     
 <script>
     // basura global
-    var nave, 
-        
-        x=0, 
-        y=0, 
-        dx=0, 
-        dy=0;
+    var dx=0, 
+        randomColumn;
         
     var global = {};
     global.enemyDx = 1;
     global.downCounter = 0;
     global.changeDir = false; 
+    global.habilitados = [];
     
         
     // Primero que nada: inicializar la libreria
@@ -49,11 +46,12 @@
     ]);
     
     
-    
     // Inicio la precarga, cuando finalize llama al callback.
     // mas adelante tengo que hacerlo mejor, con un objeto que tenga sucess, error, progress, etc.
     Orange.getImageManager().preload(function(){
-
+        
+        var contadorFila = 0;
+    
         // Layers
         var l = new Orange.Layer();
         Orange.addLayer(l);
@@ -81,10 +79,11 @@
         });
 
         // Nave Sprite
-        nave = new Orange.Sprite({
+        var nave = new Orange.Sprite({
             src : naveAnimation,
             speed : 1,
-            class : Orange.Sprite.Classes.FRIEND
+            class : Orange.Sprite.Classes.FRIEND,
+            id : "nave1"
         });
         
         l.addSprite(nave); 
@@ -113,24 +112,29 @@
             }
         });
         
+        nave.on("enterFrame", function(eventData, s) {
+            s.incX(dx);
+        });
         
         
         
         
         
         
+// TIROS, BALAS, RAYOS y CENTELLAS....        
         
         // Definicion del tiro de la nave ---------------------------------------
-        var balaEnemyImageMap = new Orange.ImageMap({
+        var balaImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("bala_nave"), 
             width : 1,
             height : 4
         });
         
-        // esto es asi, para despues hacer new, new new ... es un pequeño constructor de tiros.
+        // Pequeño constructor de tiros.
         var Shot = function(x,y) {
+        
             var spr = new Orange.Sprite({
-                src : balaEnemyImageMap
+                src : balaImageMap
             });
             
             l.addSprite(spr);
@@ -147,14 +151,96 @@
             spr.on("collision", function(eventName, context, aCollision) {
                 if(aCollision.length > 0) {
                     if(aCollision[0].getClass() == Orange.Sprite.Classes.ENEMY) {
+                        // obtengo fila y columna del id "hardcodeado"
+                        var fila = parseInt(aCollision[0].id.split("_")[0]);
+                        var columna = parseInt(aCollision[0].id.split("_")[1]);
+                        
                         aCollision[0].destroy();
                         context.destroy();
+                        
+                        if(fila>0) { // si todavia hay encima enemys
+                            fila--;
+                            // pongo en habilitados el que este arriba.
+                            global.habilitados[columna] = Orange.getLayers()[0].getSpriteById(fila +"_"+ columna);
+                        } else { // no hay mas enemys, no hay nada q hacer
+                            global.habilitados[columna] = null;
+                        }
                     }
                 }
             });
             
             return spr;
-        }
+        } // FIN DEFINICION DISPARO --------------------------------
+             
+             
+             
+             
+             
+
+             
+        // Definicion del tiro ENEMY ---------------------------------------
+        var balaEnemyImageMap = new Orange.ImageMap({
+            image : Orange.getImageManager().get("bala_enemy"), 
+            width : 5,
+            height : 7
+        });
+
+        // Animacion del tiro enemy
+        var balaEnemyAnimation = new Orange.Animation(balaEnemyImageMap, {
+            statusConfig : [ 
+                { loopMode : "L"},
+                { loopMode : "L"}
+            ],
+            speed : 2
+        });
+        
+        // Pequeño constructor de tiros.
+        var EnemyShot = function(x,y) {
+            var spr = new Orange.Sprite({
+                src : balaEnemyAnimation
+            });
+            
+            l.addSprite(spr);
+            spr.setX(x).setY(y);
+            
+            spr.on("enterFrame", function(eventData, s) { 
+                if (s.getY() < 200) {
+                    s.incY(2);
+                } else {
+                    s.destroy();
+                }
+            });            
+/*            
+            spr.on("collision", function(eventName, context, aCollision) {
+                if(aCollision.length > 0) {
+                    if(aCollision[0].getClass() == Orange.Sprite.Classes.ENEMY) {
+                        // obtengo fila y columna del id "hardcodeado"
+                        var fila = parseInt(aCollision[0].id.split("_")[0]);
+                        var columna = parseInt(aCollision[0].id.split("_")[1]);
+                        
+                        aCollision[0].destroy();
+                        context.destroy();
+                        
+                        if(fila>0) { // si todavia hay encima enemys
+                            fila--;
+                            // pongo en habilitados el que este arriba.
+                            global.habilitados[columna] = Orange.getLayers()[0].getSpriteById(fila +"_"+ columna);
+                        }
+                    }
+                }
+            });
+*/            
+            return spr;
+        } // FIN DEFINICION DISPARO ENEMY --------------------------------
+             
+             
+             
+             
+             
+             
+             
+             
+             
              
              
              
@@ -195,23 +281,29 @@
         
             var enemy3 = new Orange.Sprite({
                 src : enemy3Animation,
-                class : Orange.Sprite.Classes.ENEMY
+                class : Orange.Sprite.Classes.ENEMY,
+                id : contadorFila +"_"+ i
             });
+            
             l.addSprite(enemy3); 
             
             enemy3.setX(i*16 + 49).setY(40);
 
-            // enterFrame. -----------------------------------------------------------------
+            // y esto es un HERRMOOOOSSHOO mamarracho que me permite hacer JS... amo este lenguaje
+            // ah... detesto JAVA... lo detesto... sabelo.
+            enemy3.shot = function() {
+                EnemyShot(this.getX() + 3, this.getY() + 5); 
+            }
+            
+            // enterFrame. ----------------------------------------------------------------------------
             enemy3.on("enterFrame", function(eventData, s) { 
-                    s.incX(global.enemyDx);
-                    
-                    if(((s.getX() < 0) || (s.getX() > 240))&& (!global.changeDir)) {
-                        global.changeDir = true; 
-                    } 
-                    
-                    if(global.downCounter > 0) {
-                        s.incY(1);
-                    }
+                s.incX(global.enemyDx);
+                
+                if(((s.getX() < 0) || (s.getX() > 240))&& (!global.changeDir)) {
+                    global.changeDir = true; 
+                } 
+                
+                if(global.downCounter > 0) s.incY(3);
             });
             
             // colision enemigo-nave. -----------------------------------------------------------------
@@ -223,11 +315,13 @@
                 }
             });
             
-        }
+        } // end for enemy3 ------------------------------------------------------------------------
 
         
         
+        
         for(var j=0; j<2; j++) {
+            contadorFila++;
             for(var i=0; i<11; i++) {
             
                 var enemy2Animation = new Orange.Animation(enemy2ImageMap, {
@@ -240,12 +334,17 @@
             
                 var enemy2 = new Orange.Sprite({
                     src : enemy2Animation,
-                    class : Orange.Sprite.Classes.ENEMY
+                    class : Orange.Sprite.Classes.ENEMY,
+                    id : contadorFila +"_"+ i
                 });
                 l.addSprite(enemy2); 
                 
                 enemy2.setX(i*16 + 49).setY(56 + j*16);
 
+                enemy2.shot = function() {
+                    EnemyShot(this.getX() + 4, this.getY() + 4); 
+                }
+                
                 // enterFrame. -----------------------------------------------------------------
                 enemy2.on("enterFrame", function(eventData, s) { 
                     s.incX(global.enemyDx);
@@ -254,7 +353,7 @@
                         global.changeDir = true; 
                     }
                     
-                    if(global.downCounter > 0) s.incY(1);
+                    if(global.downCounter > 0) s.incY(3);
                 });
                 
                 
@@ -268,10 +367,11 @@
                 });
                 
             }
-        }
+        } // end for enemy2 ------------------------------------------------------------------------
 
 
         for(var j=0; j<2; j++) {
+            contadorFila++;
             for(var i=0; i<11; i++) {
             
                 var enemy1Animation = new Orange.Animation(enemy1ImageMap, {
@@ -284,14 +384,19 @@
             
                 var enemy1 = new Orange.Sprite({
                     src : enemy1Animation,
-                    class : Orange.Sprite.Classes.ENEMY
+                    class : Orange.Sprite.Classes.ENEMY,
+                    id : contadorFila +"_"+ i
                 });
-                
+
                 l.addSprite(enemy1); 
                 
                 // posicionamiento enemigos
                 enemy1.setX(i*16 + 49).setY(88 + j*16);
-                
+
+                enemy1.shot = function() {
+                    EnemyShot(this.getX() + 5, this.getY() + 5); 
+                }
+
                 // Bindings enemys -----------------------------------------------------------------
                 // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
                 enemy1.on("enterFrame", function(eventData, s) { 
@@ -301,9 +406,7 @@
                         global.changeDir = true; 
                     }
                     
-                    if(global.downCounter > 0) {
-                        s.incY(1);
-                    }                    
+                    if(global.downCounter > 0) s.incY(3);
                 });
                 
                 
@@ -316,34 +419,52 @@
                     }
                 });
                 
+                
+                if(j==1) global.habilitados.push(enemy1);
             }
+        } // end for enemy1 ------------------------------------------------------------------------
+        
+        
+        
 
-        }
-        
-        
-        
-        // especifico el bucle principal, este se ejecutara 60 veces por segundo.
-        // esto reescribirlo como un evento, mejor
-        // algo asi como Orange.onUpdate... lalala
-        Orange.setMainCallback(function() {
-            nave.incX(dx); // hack pedorro para que la nave se mueva... mejorar esta mierda.
-            // este callback inmundo no deberia ser necesario, solo para algunas pelotudeces...
+        Orange.preUpdate(function() {
             
-            // ya se actualizo, y si se cambio de direccion no lo necesito mas... lo vuelvo a false
+            // si algun enemy me dijo que cambie de direccion
             if(global.changeDir) { 
                 global.enemyDx = -global.enemyDx;
-                global.downCounter = 14;
+                global.downCounter = 5;
                 global.changeDir = false;
             }
             
+            // aqui, para bajar una linea los enemys
             if(global.downCounter > 0) global.downCounter--;
+            
+            if(Math.floor(Math.random()*10) == 0) { // ponele...
+                
+                var sTemp = null; //global.habilitados[randomColumn];
+                var tempIntentos = 20;
+                
+                // VER COMO MEJORAR ESTO, PARA EVITAR EL NULL, y que se quede en un ciclo imposible...
+                
+                while(sTemp == null && tempIntentos > 0) {
+                    randomColumn = Math.floor(Math.random()*11);
+                    sTemp = global.habilitados[randomColumn];
+                    tempIntentos--;
+                }
+                
+                if (!_.isNull(sTemp)) { 
+                    sTemp.shot();
+                } else {
+                    console.log("null");
+                }
+            }
             
         });
         
-        // Inicio la ejecucion del bucle.
+        // y finalmente, pulso el boton rojo.
         Orange.start();
-        //Orange.stop();
-    }); // preload
+        
+    }); // FIN PRELOAD
     
 
     

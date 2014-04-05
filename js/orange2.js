@@ -167,6 +167,14 @@ var Orange = (function(){
             _layers.push(layer);
         },
         
+        
+/**
+ * @function {public Array} getLayers Devuelve los layers utilizados en el juego.
+ */    
+        getLayers : function() {
+            return _layers;
+        },
+        
 /**
  * @function {public ImageManager} getImageManager devuelve una instancia de ImageManager
  */    
@@ -214,10 +222,10 @@ var Orange = (function(){
         },
         
 /**
- * @function {public void} setMainCallback Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones)
- * y antes de la actualizaccion del canvas (_update).
+ * @function {public void} preUpdate Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones)
+ * y antes de la actualizaccion del canvas (_update). POR ESO SE LLAMA preUdate!!!
  */    
-        setMainCallback : function(callback) {
+        preUpdate : function(callback) {
             _cbMainLoop = callback;
         },
         

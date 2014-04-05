@@ -133,6 +133,17 @@ Orange = ( function( rootApp ){
             }
         },
 
+
+        
+/**
+ * @function {public Sprite} getSpriteById Obtiene un Sprite del Layer, por su Id.
+ * @param {String} id El identificador por el que lo quiero buscar.
+ */    
+        getSpriteById : function(id) {
+            return _.findWhere(_sprites, { id : id });
+        },
+        
+        
         
 /**
  * @function {public void} setBoundary Asigna una imagen y genera un canvas, que es utilizado para proporcionar limites de movimiento dentro del Layer (util para laberintos, plataformas y casi todo lo que se te ocurra).

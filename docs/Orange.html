@@ -270,6 +270,17 @@
 
 <div class="summary function">
 <div class="params">
+<h4>public Array <em><a href="#getLayers">getLayers</a></em></h4>
+
+</div>
+
+<p>Devuelve los layers utilizados en el juego.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
 <h4>public void <em><a href="#init">init</a></em></h4>
 <p>(Canvas <em>el</em>)</p>
 </div>
@@ -281,22 +292,22 @@
 
 <div class="summary function">
 <div class="params">
-<h4>public boolean <em><a href="#removeFromEventStack">removeFromEventStack</a></em></h4>
-<p>(<a href="Sprite.html">Sprite</a> <em>sprite</em>)</p>
+<h4>public void <em><a href="#preUpdate">preUpdate</a></em></h4>
+
 </div>
 
-<p>Funcion de uso interno.</p>
+<p>Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones) y a...</p>
 </div>
 
 
 
 <div class="summary function">
 <div class="params">
-<h4>public void <em><a href="#setMainCallback">setMainCallback</a></em></h4>
-
+<h4>public boolean <em><a href="#removeFromEventStack">removeFromEventStack</a></em></h4>
+<p>(<a href="Sprite.html">Sprite</a> <em>sprite</em>)</p>
 </div>
 
-<p>Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones) y a...</p>
+<p>Funcion de uso interno.</p>
 </div>
 
 
@@ -619,6 +630,18 @@
 
 <div class="detail function">
 <div class="params">
+<h4 id="getLayers">public Array <em>getLayers</em></h4>
+
+</div>
+
+<p>Devuelve los layers utilizados en el juego.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
 <h4 id="init">public void <em>init</em></h4>
 <p>(Canvas <em>el</em>)</p>
 </div>
@@ -640,6 +663,18 @@
 
 <div class="detail function">
 <div class="params">
+<h4 id="preUpdate">public void <em>preUpdate</em></h4>
+
+</div>
+
+<p>Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones) y antes de la actualizaccion del canvas (_update). POR ESO SE LLAMA preUdate!!!</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
 <h4 id="removeFromEventStack">public boolean <em>removeFromEventStack</em></h4>
 <p>(<a href="Sprite.html">Sprite</a> <em>sprite</em>)</p>
 </div>
@@ -654,18 +689,6 @@
     <dd>El sprite que quiero remover.</dd>
 
 </dl>
-
-</div>
-
-
-
-<div class="detail function">
-<div class="params">
-<h4 id="setMainCallback">public void <em>setMainCallback</em></h4>
-
-</div>
-
-<p>Establece un callback que sera ejecutado al final del loop (luego de la deteccion de colisiones) y antes de la actualizaccion del canvas (_update).</p>
 
 </div>
 
