@@ -1,4 +1,5 @@
 <html>
+
     <head>
         <!-- libs -->
         <script src="../js/underscore.js"></script> 
@@ -210,26 +211,16 @@
                     s.destroy();
                 }
             });            
-/*            
+
             spr.on("collision", function(eventName, context, aCollision) {
                 if(aCollision.length > 0) {
-                    if(aCollision[0].getClass() == Orange.Sprite.Classes.ENEMY) {
-                        // obtengo fila y columna del id "hardcodeado"
-                        var fila = parseInt(aCollision[0].id.split("_")[0]);
-                        var columna = parseInt(aCollision[0].id.split("_")[1]);
-                        
-                        aCollision[0].destroy();
+                    if(aCollision[0].getClass() == Orange.Sprite.Classes.FRIEND) {
+                        aCollision[0].destroy(false);
                         context.destroy();
-                        
-                        if(fila>0) { // si todavia hay encima enemys
-                            fila--;
-                            // pongo en habilitados el que este arriba.
-                            global.habilitados[columna] = Orange.getLayers()[0].getSpriteById(fila +"_"+ columna);
-                        }
                     }
                 }
             });
-*/            
+
             return spr;
         } // FIN DEFINICION DISPARO ENEMY --------------------------------
              
@@ -438,8 +429,8 @@
             
             // aqui, para bajar una linea los enemys
             if(global.downCounter > 0) global.downCounter--;
-            
-            if(Math.floor(Math.random()*10) == 0) { // ponele...
+
+            if(Math.floor(Math.random()*20) == 0) { // ponele...
                 
                 var sTemp = null; //global.habilitados[randomColumn];
                 var tempIntentos = 20;
@@ -458,7 +449,7 @@
                     console.log("null");
                 }
             }
-            
+
         });
         
         // y finalmente, pulso el boton rojo.
