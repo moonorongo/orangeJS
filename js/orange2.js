@@ -43,8 +43,9 @@ var Orange = (function(){
  * @function {private void} _init Inicializa la libreria, en el elemento DOM que le pasemos. Si no especificamos el elemento lo crea. 
  * Tambien crea una instancia del ImageManager, y asigna los eventos a los sprites registrados.
  * @param {optional} el El elemento opcional sobre el que se desarrollara la accion
+ * @param {optional} scale El escalado del canvas.
  */    
-    var _init = function(el) {
+    var _init = function(el, scale) {
         // aca chequear si el es undefined no ejecutar esto...
         var domBody = document.getElementsByTagName("body")[0];
 
@@ -56,6 +57,14 @@ var Orange = (function(){
         }
         
         _context = canvasElement.getContext("2d");
+        
+        // si define scale, reescala el canvas
+        if(!_.isUndefined(scale)) {
+            canvasElement.width = canvasElement.width * scale.scaleWidth;
+            canvasElement.height = canvasElement.height * scale.scaleHeight;
+            _context.scale(scale.scaleWidth, scale.scaleHeight);
+        }
+        
         _imageManager = new Orange.ImageManager();
         
         _bindEvents();
@@ -185,9 +194,10 @@ var Orange = (function(){
 /**
  * @function {public void} init Expone publicamente a _init
  * @param {Canvas} el Elemento Canvas en el que se desarrollara el juego.
+ * @param {optional} scale El escalado del canvas.
  */    
-        init : function(el) {
-            _init(el);
+        init : function(el, scale) {
+            _init(el, scale);
             orangeRoot = this;
         },
         

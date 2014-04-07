@@ -161,7 +161,7 @@
 <div class="summary function">
 <div class="params">
 <h4>private void <em><a href="#_init">_init</a></em></h4>
-<p>(optional <em>el</em>)</p>
+<p>(optional <em>el</em>, optional <em>scale</em>)</p>
 </div>
 
 <p>Inicializa la libreria, en el elemento DOM que le pasemos.</p>
@@ -282,7 +282,7 @@
 <div class="summary function">
 <div class="params">
 <h4>public void <em><a href="#init">init</a></em></h4>
-<p>(Canvas <em>el</em>)</p>
+<p>(Canvas <em>el</em>, optional <em>scale</em>)</p>
 </div>
 
 <p>Expone publicamente a _init</p>
@@ -481,7 +481,7 @@
 <div class="detail function">
 <div class="params">
 <h4 id="_init">private void <em>_init</em></h4>
-<p>(optional <em>el</em>)</p>
+<p>(optional <em>el</em>, optional <em>scale</em>)</p>
 </div>
 
 <p>Inicializa la libreria, en el elemento DOM que le pasemos. Si no especificamos el elemento lo crea. Tambien crea una instancia del ImageManager, y asigna los eventos a los sprites registrados.</p>
@@ -492,6 +492,9 @@
 
     <dt>optional <em>el</em></dt>
     <dd>El elemento opcional sobre el que se desarrollara la accion</dd>
+
+    <dt>optional <em>scale</em></dt>
+    <dd>El escalado del canvas.</dd>
 
 </dl>
 
@@ -643,7 +646,7 @@
 <div class="detail function">
 <div class="params">
 <h4 id="init">public void <em>init</em></h4>
-<p>(Canvas <em>el</em>)</p>
+<p>(Canvas <em>el</em>, optional <em>scale</em>)</p>
 </div>
 
 <p>Expone publicamente a _init</p>
@@ -654,6 +657,9 @@
 
     <dt>Canvas <em>el</em></dt>
     <dd>Elemento Canvas en el que se desarrollara el juego.</dd>
+
+    <dt>optional <em>scale</em></dt>
+    <dd>El escalado del canvas.</dd>
 
 </dl>
 

@@ -1,13 +1,9 @@
 Demo FrenetikSpaceInvaders:
     
-    - colision enemigo-nave OK
-    
-    - Ataque bala enemigos
-    
     - Nave Superior enemiga
     - Bloques
-    - colision balas-nave
 
+ERROR: no detecta bien cuando no hay mas naves... y queda un habilitado disparando tiros... raro.
     
     
     

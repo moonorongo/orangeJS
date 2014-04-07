@@ -17,23 +17,22 @@
     <body>
         <canvas id="main" width="256" height="224" style="background-color: black"></canvas>
         <br />
-        cursores para mover, Control Izquierdo para disparar
+        cursores para mover, Control Izquierdo para disparar<br />
+        <button onClick="document.location.reload()">Reiniciar</button>
+        
     </body>
     
 <script>
     // basura global
-    var dx=0, 
-        randomColumn;
+    var dx, 
+        randomColumn,
+        numeroHabilitados;
         
     var global = {};
-    global.enemyDx = 1;
-    global.downCounter = 0;
-    global.changeDir = false; 
-    global.habilitados = [];
     
         
     // Primero que nada: inicializar la libreria
-    Orange.init(document.getElementById("main"));
+    Orange.init(document.getElementById("main"), {scaleWidth : 2.5, scaleHeight : 2});
     
     // agrego las imagenes que quiero utilizar.
     Orange.getImageManager().addImage(["img/bala_enemy.png", 
@@ -45,13 +44,18 @@
         "img/bala_nave.png", 
         "img/borrar/screenShotSI.png"
     ]);
+
     
     
-    // Inicio la precarga, cuando finalize llama al callback.
-    // mas adelante tengo que hacerlo mejor, con un objeto que tenga sucess, error, progress, etc.
-    Orange.getImageManager().preload(function(){
-        
+    function initSI() {
         var contadorFila = 0;
+        dx=0;
+        numeroHabilitados = 11;
+        
+        global.enemyDx = .5;
+        global.downCounter = 0;
+        global.changeDir = false; 
+        global.habilitados = [];
     
         // Layers
         var l = new Orange.Layer();
@@ -99,7 +103,7 @@
                             break;
                 case 17 :   var spr = new Shot(s.getX() + 8, s.getY());
                             break;
-                default :   console.log(eventData.e.keyCode);
+                //default :   console.log(eventData.e.keyCode);
             }
             
         });
@@ -165,6 +169,11 @@
                             global.habilitados[columna] = Orange.getLayers()[0].getSpriteById(fila +"_"+ columna);
                         } else { // no hay mas enemys, no hay nada q hacer
                             global.habilitados[columna] = null;
+                            // obtengo numero casillas no null (porque un dec a veces me descuenta 2)
+                            numeroHabilitados = 0;
+                            for(var i=0; i<11;i++) {
+                                numeroHabilitados += (global.habilitados[i] != null)? 1:0;
+                            }
                         }
                     }
                 }
@@ -432,30 +441,35 @@
 
             if(Math.floor(Math.random()*20) == 0) { // ponele...
                 
-                var sTemp = null; //global.habilitados[randomColumn];
-                var tempIntentos = 20;
+                var sTemp = null; 
                 
-                // VER COMO MEJORAR ESTO, PARA EVITAR EL NULL, y que se quede en un ciclo imposible...
-                
-                while(sTemp == null && tempIntentos > 0) {
-                    randomColumn = Math.floor(Math.random()*11);
-                    sTemp = global.habilitados[randomColumn];
-                    tempIntentos--;
-                }
-                
-                if (!_.isNull(sTemp)) { 
-                    sTemp.shot();
+                if(numeroHabilitados > 0) {
+                    while(sTemp == null) {
+                        randomColumn = Math.floor(Math.random()*11);
+                        sTemp = global.habilitados[randomColumn];
+                    }
                 } else {
-                    console.log("null");
+                    Orange.stop();
+                    alert('WIN!');
                 }
+                
+                if (!_.isNull(sTemp) && numeroHabilitados > 0) sTemp.shot();
             }
 
         });
         
         // y finalmente, pulso el boton rojo.
         Orange.start();
-        
-    }); // FIN PRELOAD
+    
+    } // END initSI ------------------------------------------------------------------------------
+
+    
+    
+    
+    
+    // Inicio la precarga, cuando finalize llama al callback.
+    // mas adelante tengo que hacerlo mejor, con un objeto que tenga sucess, error, progress, etc.
+    Orange.getImageManager().preload(initSI); // FIN PRELOAD
     
 
     
