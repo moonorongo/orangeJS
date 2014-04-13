@@ -100,6 +100,7 @@ Orange = ( function( rootApp ){
             _bgY = y || 0;
             _bgLayer = img;
         },
+
         
 /**
  * @function {public void} _update Actualiza el Layer, y lo dibuja en el context principal.
@@ -207,6 +208,8 @@ Orange = ( function( rootApp ){
         },
         
 
+        
+        
 /**
  * @function {public void} _fnSetRootContext Crea una referencia interna de Orange para uso general.
  * @param {Orange} root

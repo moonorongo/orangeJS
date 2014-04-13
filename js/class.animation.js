@@ -11,7 +11,7 @@ Orange = ( function( rootApp ){
         
         var _imagenWidth = _imageMap.getSpriteWidth(),
             _imagenHeight = _imageMap.getSpriteHeight(),
-            _config = config || defaults,
+            _config = config || _defaults,
             _frame=0, _status = 0,
             _speed = _config.speed,
             _speedCounter = 0;

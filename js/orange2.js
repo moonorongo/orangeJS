@@ -27,6 +27,8 @@ var Orange = (function(){
         /** @property {private object} _eventStack Aqui se guardan las instancias de los sprites a los que se asignaron eventos. */
         _eventStack = { 
             mousedown : [],
+            mouseup : [],
+            mousemove : [],
             keydown : [],
             keyup : [],
             collision : [],

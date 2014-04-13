@@ -25,7 +25,7 @@
     
 <script>
     // basura global
-    var dx, 
+    var dx, enemy1, tween1,
         randomColumn,
         numeroHabilitados;
         
@@ -49,8 +49,8 @@
     
     
     function initSI() {
-        var contadorFila = 0;
-        dx=0;
+        var contadorFila = 0,
+        dx=0,
         numeroHabilitados = 11;
         
         global.enemyDx = .5;
@@ -247,31 +247,13 @@
              
              
              
-             
-             
-             
-             
-             
-             
-             
-             
+        // defino el movimiento de la nave enemiga
+        tween1 = new Orange.Tween();
+        tween1.addKeys();
              
              
         // Definicion de enemigos --------------------------------
-        var enemy3ImageMap = new Orange.ImageMap({
-            image : Orange.getImageManager().get("enemy3"), 
-            width : 10,
-            height : 8,
-            dieStatus : 1
-        });
-        
-        var enemy2ImageMap = new Orange.ImageMap({
-            image : Orange.getImageManager().get("enemy2"), 
-            width : 13,
-            height : 8,
-            dieStatus : 1
-        });
-        
+       
         var enemy1ImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("enemy1"), 
             width : 14,
@@ -280,198 +262,54 @@
         });
              
              
-             
-        // creo las filas de enemigos
-        for(var i=0; i<11; i++) {
-            var enemy3Animation = new Orange.Animation(enemy3ImageMap, {
-                statusConfig : [ 
-                    { loopMode : "L"},
-                    { loopMode : "L", speed : 2}
-                ],
-                speed : 8
-            });
-        
-            var enemy3 = new Orange.Sprite({
-                src : enemy3Animation,
-                class : Orange.Sprite.Classes.ENEMY,
-                id : contadorFila +"_"+ i
-            });
-            
-            l.addSprite(enemy3); 
-            
-            enemy3.setX(i*16 + 49).setY(40);
+        var enemy1Animation = new Orange.Animation(enemy1ImageMap, {
+            statusConfig : [ 
+                { loopMode : "L"},
+                { loopMode : "L", speed : 2}
+            ],
+            speed : 8
+        });
+    
+        enemy1 = new Orange.Sprite({
+            src : enemy1Animation,
+            class : Orange.Sprite.Classes.ENEMY,
+            id : "n_1"
+        });
 
-            // y esto es un HERRMOOOOSSHOO mamarracho que me permite hacer JS... amo este lenguaje
-            // ah... detesto JAVA... lo detesto... sabelo.
-            enemy3.shot = function() {
-                EnemyShot(this.getX() + 3, this.getY() + 5); 
-            }
-            
-            // enterFrame. ----------------------------------------------------------------------------
-            enemy3.on("enterFrame", function(eventData, s) { 
-                s.incX(global.enemyDx);
-                
-                if(((s.getX() < 0) || (s.getX() > 240))&& (!global.changeDir)) {
-                    global.changeDir = true; 
-                } 
-                
-                if(global.downCounter > 0) s.incY(3);
-            });
-            
-            // colision enemigo-nave. -----------------------------------------------------------------
-            enemy3.on("collision", function(eventData, s, aCollision) { 
-                if(aCollision.length > 0) {
-                    if(aCollision[0].getClass() == Orange.Sprite.Classes.FRIEND) {
-                        aCollision[0].destroy(false);
-                    }
+        l.addSprite(enemy1); 
+        
+        enemy1.shot = function() {
+            EnemyShot(this.getX() + 5, this.getY() + 5); 
+        }
+
+        // Bindings enemys -----------------------------------------------------------------
+        // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
+        enemy1.on("enterFrame", function(eventData, s) { 
+            var p = tween1.requestFrame();
+            s.setX(p.x).setY(p.y);
+        });
+        
+        
+        // colision enemigo-nave.-----------------------------------------------------------------
+        enemy1.on("collision", function(eventData, s, aCollision) { 
+            if(aCollision.length > 0) {
+                if(aCollision[0].getClass() == Orange.Sprite.Classes.FRIEND) {
+                    aCollision[0].destroy(false);
                 }
-            });
-            
-        } // end for enemy3 ------------------------------------------------------------------------
-
-        
-        
-        
-        for(var j=0; j<2; j++) {
-            contadorFila++;
-            for(var i=0; i<11; i++) {
-            
-                var enemy2Animation = new Orange.Animation(enemy2ImageMap, {
-                    statusConfig : [ 
-                        { loopMode : "L"},
-                        { loopMode : "L", speed : 2}
-                    ],
-                    speed : 8
-                });
-            
-                var enemy2 = new Orange.Sprite({
-                    src : enemy2Animation,
-                    class : Orange.Sprite.Classes.ENEMY,
-                    id : contadorFila +"_"+ i
-                });
-                l.addSprite(enemy2); 
-                
-                enemy2.setX(i*16 + 49).setY(56 + j*16);
-
-                enemy2.shot = function() {
-                    EnemyShot(this.getX() + 4, this.getY() + 4); 
-                }
-                
-                // enterFrame. -----------------------------------------------------------------
-                enemy2.on("enterFrame", function(eventData, s) { 
-                    s.incX(global.enemyDx);
-                    
-                    if(((s.getX() < 0) || (s.getX() > 240))&& (!global.changeDir)) {
-                        global.changeDir = true; 
-                    }
-                    
-                    if(global.downCounter > 0) s.incY(3);
-                });
-                
-                
-                // colision enemigo-nave.-----------------------------------------------------------------
-                enemy2.on("collision", function(eventData, s, aCollision) { 
-                    if(aCollision.length > 0) {
-                        if(aCollision[0].getClass() == Orange.Sprite.Classes.FRIEND) {
-                            aCollision[0].destroy(false);
-                        }
-                    }
-                });
-                
             }
-        } // end for enemy2 ------------------------------------------------------------------------
-
-
-        for(var j=0; j<2; j++) {
-            contadorFila++;
-            for(var i=0; i<11; i++) {
-            
-                var enemy1Animation = new Orange.Animation(enemy1ImageMap, {
-                    statusConfig : [ 
-                        { loopMode : "L"},
-                        { loopMode : "L", speed : 2}
-                    ],
-                    speed : 8
-                });
-            
-                var enemy1 = new Orange.Sprite({
-                    src : enemy1Animation,
-                    class : Orange.Sprite.Classes.ENEMY,
-                    id : contadorFila +"_"+ i
-                });
-
-                l.addSprite(enemy1); 
-                
-                // posicionamiento enemigos
-                enemy1.setX(i*16 + 49).setY(88 + j*16);
-
-                enemy1.shot = function() {
-                    EnemyShot(this.getX() + 5, this.getY() + 5); 
-                }
-
-                // Bindings enemys -----------------------------------------------------------------
-                // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
-                enemy1.on("enterFrame", function(eventData, s) { 
-                    s.incX(global.enemyDx);
-                    
-                    if(((s.getX() < 0) || (s.getX() > 240))&& (!global.changeDir)) {
-                        global.changeDir = true; 
-                    }
-                    
-                    if(global.downCounter > 0) s.incY(3);
-                });
-                
-                
-                // colision enemigo-nave.-----------------------------------------------------------------
-                enemy1.on("collision", function(eventData, s, aCollision) { 
-                    if(aCollision.length > 0) {
-                        if(aCollision[0].getClass() == Orange.Sprite.Classes.FRIEND) {
-                            aCollision[0].destroy(false);
-                        }
-                    }
-                });
-                
-                
-                if(j==1) global.habilitados.push(enemy1);
-            }
-        } // end for enemy1 ------------------------------------------------------------------------
+        });
+        
+         // end for enemy1 ------------------------------------------------------------------------
         
         
         
 
         Orange.preUpdate(function() {
-            
-            // si algun enemy me dijo que cambie de direccion
-            if(global.changeDir) { 
-                global.enemyDx = -global.enemyDx;
-                global.downCounter = 5;
-                global.changeDir = false;
-            }
-            
-            // aqui, para bajar una linea los enemys
-            if(global.downCounter > 0) global.downCounter--;
-
-            if(Math.floor(Math.random()*20) == 0) { // ponele...
-                
-                var sTemp = null; 
-                
-                if(numeroHabilitados > 0) {
-                    while(sTemp == null) {
-                        randomColumn = Math.floor(Math.random()*11);
-                        sTemp = global.habilitados[randomColumn];
-                    }
-                } else {
-                    Orange.stop();
-                    alert('WIN!');
-                }
-                
-                if (!_.isNull(sTemp) && numeroHabilitados > 0) sTemp.shot();
-            }
-
+            if(Math.floor(Math.random()*20) == 0) enemy1.shot();
         });
         
         // y finalmente, pulso el boton rojo.
-        // Orange.start();
+        Orange.start();
     
     } // END initSI ------------------------------------------------------------------------------
 
