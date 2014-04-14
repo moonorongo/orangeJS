@@ -33,7 +33,7 @@
     
         
     // Primero que nada: inicializar la libreria
-    Orange.init(document.getElementById("main"), {scaleWidth : 2.5, scaleHeight : 2});
+    Orange.init(document.getElementById("main"), {scaleWidth : 1.5, scaleHeight : 1.2});
     
     // agrego las imagenes que quiero utilizar.
     Orange.getImageManager().addImage(["img/bala_enemy.png", 
@@ -248,8 +248,36 @@
              
              
         // defino el movimiento de la nave enemiga
-        tween1 = new Orange.Tween();
-        tween1.addKeys();
+        tween1 = new Orange.Tween({
+            keys : [{x : 80, y : 20, nFrames : 15},
+                    {x : 50, y : 30, nFrames : 7},
+                    {x:40,y:60, nFrames : 5},
+                    {x:40,y:90, nFrames : 7},
+                    {x:50,y:120, nFrames : 15},
+                    {x:80,y:130, nFrames : 30},
+                    {x:110,y:130, nFrames : 15},
+                    {x:140,y:120, nFrames : 7},
+                    {x:150,y:90, nFrames : 5},
+                    {x:150,y:60, nFrames : 7},
+                    {x:140,y:30, nFrames : 15},
+                    {x:110,y:20, nFrames : 30},
+                    {x : 80, y : 20, nFrames : 10}],
+            loopMode : Orange.Tween.PINGPONG
+        });
+        
+
+        
+                    
+/*                    
+        tween1.addKeys({x : 80, y : 20, nFrames : 15});
+        tween1.addKeys({x : 50, y : 30, nFrames : 7});
+*/                    
+        tween1.onFinish(function(context){
+            console.log("finished" );
+        });
+        tween1.onStart(function(context){
+            console.log("started" );
+        });
              
              
         // Definicion de enemigos --------------------------------
@@ -282,12 +310,16 @@
             EnemyShot(this.getX() + 5, this.getY() + 5); 
         }
 
+        enemy1.setTween(tween1);
         // Bindings enemys -----------------------------------------------------------------
         // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
+/*        
         enemy1.on("enterFrame", function(eventData, s) { 
             var p = tween1.requestFrame();
             s.setX(p.x).setY(p.y);
         });
+*/        
+        
         
         
         // colision enemigo-nave.-----------------------------------------------------------------

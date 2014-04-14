@@ -2,27 +2,15 @@ Orange = ( function( rootApp ){
     
   rootApp.Tween = function(config){
     
-        var _defaults = {}
         
-        var _config = config || _defaults,
-            _keys = [{x : 80, y : 20, nFrames : 15},
-                {x : 50, y : 30, nFrames : 7},
-                {x:40,y:60, nFrames : 5},
-                {x:40,y:90, nFrames : 7},
-                {x:50,y:120, nFrames : 15},
-                {x:80,y:130, nFrames : 30},
-                {x:110,y:130, nFrames : 15},
-                {x:140,y:120, nFrames : 7},
-                {x:150,y:90, nFrames : 5},
-                {x:150,y:60, nFrames : 7},
-                {x:140,y:30, nFrames : 15},
-                {x:110,y:20, nFrames : 30},
-                {x : 80, y : 20, nFrames : 10}
-            ],
+        var _keys = config.keys || [],
+           _loopMode = config.loopMode || rootApp.Tween.NONE,
            _frames = [],
            _dir = 1,
            _framePointer = 0;
-    
+
+           
+           
        var _tween = function(p1, p2) {
            var  dx = Math.abs(p1.x - p2.x),
                 dy = Math.abs(p1.y - p2.y),
@@ -58,13 +46,24 @@ Orange = ( function( rootApp ){
            
            return aOut;
        } // _tween
-            
+           
+           
+       var _genFrames = function() {
+           _frames = [];
+            var i;
+            for(i=0; i<_keys.length - 1; i++) {
+                var aTween = _tween(_keys[i], _keys[i+1]);
+                _frames = _frames.concat(aTween);
+            }
+       }
+           
+           
+       if(_keys.length != 0) {
+           _genFrames();
+       }
+        
     
-    var _finishCallback = function(callback) {
-        // por ahora reseteo...
-        _framePointer = 0;
-        if(!_.isUndefined(callback)) callback();
-    }
+       var _finishCallback, _startCallback;
     
     
     
@@ -76,20 +75,49 @@ Orange = ( function( rootApp ){
            },
            
            requestFrame : function() {
-               var out = _frames[_framePointer];
-               _framePointer++;
-               if(_framePointer == _frames.length) _finishCallback();
-               return out;
+               
+               _framePointer += _dir;
+
+               if(_loopMode == rootApp.Tween.PINGPONG) {
+                   if(_framePointer > _frames.length - 1) { 
+                       _dir = -_dir;
+                       _framePointer = _frames.length - 1;
+                       if(!_.isUndefined(_finishCallback)) _finishCallback(this);
+                   }
+                   
+                   if(_framePointer < 0) { 
+                       _dir = -_dir;
+                       _framePointer = 0;
+                       if(!_.isUndefined(_startCallback)) _startCallback(this);
+                   }
+               }
+               
+               
+               if(_loopMode == rootApp.Tween.LOOP) {
+                   if(_framePointer > _frames.length - 1) { 
+                       _framePointer = 0;
+                       if(!_.isUndefined(_finishCallback)) _finishCallback(this);
+                   }
+                   
+                   if(_framePointer < 0) { 
+                       _framePointer = _frames.length - 1;
+                       if(!_.isUndefined(_startCallback)) _startCallback(this);
+                   }
+               }
+          
+               return _frames[_framePointer];
            },
 
            addKeys : function(aKeys) {
                 // aca determinar que es aKeys, si obj o array de obj, y agregar a _keys
                 // _keys = _keys.concat(aKeys)
-                var i;
-                for(i=0; i<_keys.length - 1; i++) {
-                    var aTween = _tween(_keys[i], _keys[i+1]);
-                    _frames = _frames.concat(aTween);
+                if(_.isArray(aKeys)) {
+                    _keys = _keys.concat(aKeys);
+                } else {
+                    _keys.push(aKeys);
                 }
+                
+                _genFrames();
            },
            
            resetPointer : function(frame){
@@ -109,16 +137,20 @@ Orange = ( function( rootApp ){
            },
 
            onStart : function(callback) {
-               
+               _startCallback = callback;
            },
            
            onFinish : function(callback) {
-                _finishCallback(callback);
+                _finishCallback = callback;
            }
            
        } // end return
   };
  
+  rootApp.Tween.NONE = 0;
+  rootApp.Tween.PINGPONG = 1;
+  rootApp.Tween.LOOP = 2;
+  
   return rootApp;
  
 }( Orange || {} ));

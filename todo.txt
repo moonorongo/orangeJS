@@ -1,9 +1,5 @@
 No hay DOCS de Animation...
 
-Antes
-
-    _fnPlot(x,y): Agregar un metodo que permita dibujar un punto en el Background de Orange... para testeos de tween
-    _fnShowBoundary: implementar algo que para testear como arma el boundary que lo muestre con algun tipo de color y transparencia.
 
     
 Class Tween
@@ -11,22 +7,6 @@ Class Tween
 La clase Tween sirve para, dado una serie de puntos del layer, y una duracion (frames), la clase genera una interpolacion de todos esos puntos (en un principio lineal, despues se hara bezier, con swing y todo lo demas).
 
 propiedades:
-    _keys[]:    las posiciones que adoptará.
-                Array de objetos { x, y, frame?} de momento frame no, que los espacios sean iguales.
-                
-    _cantFrames: la cantidad de cuadros de la animacion?? no se si vale la pena, estara en _frames.
-    
-    _frames[]: las posiciones x,y que ira devolviendo en cada requestFrame()
-    
-    _framePointer: el puntero del frame actual.
-    
-    
-metodos:
-    addKeys(key || array Keys): agrega las keys de la interpolacion, y genera los _frames correspondientes.
-    
-    requestFrame(): devuelve una posicion, e incrementa el puntero interno
-    
-    setDirection(dir): especifica si avanza o retrocede..
     
     
 callbacks:     

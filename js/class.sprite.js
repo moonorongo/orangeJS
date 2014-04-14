@@ -71,6 +71,11 @@ Orange = ( function( rootApp ){
  * Esto es util para cuando quiero destruir un Sprite, pero quiero dejar el "cadaver" como imagen. 
  */
         _removeFromLayer = false,
+
+/** @property {private Tween} _tween Aqui guardo el tween que le asigno al sprite. 
+  */
+        _tween = null,
+        _tempPosition,
         
 /** @property {private int} _muriendo Numero que tiene la cantidad de frames que dura la animacion que se ejecuta cuando destruyo al Sprite. */
         _muriendo = (_src.getType() == "Animation")?  _src._fnGetStatusDieCantFrames() : 1;
@@ -288,7 +293,22 @@ Orange = ( function( rootApp ){
             _class = c;
         },
 
+
+/**
+ * @function {public void} setTween Asigna un Tween al Sprite.
+ * @param {Tween} tween El Tween a asignar.
+ */    
+        setTween : function(tween) {
+            _tween = tween;
+        },
         
+
+/**
+ * @function {public void} removeTween Quita el Tween al Sprite.
+  */    
+        removeTween : function() {
+            _tween = null;
+        },
         
 /**
  * @function {public String} getId Obtiene el identificador del Sprite. Tambien se puede acceder a traves de la propiedad id (Sprite.id)
@@ -329,8 +349,16 @@ Orange = ( function( rootApp ){
                     orangeRoot.removeFromEventStack(this);
                     if(_removeFromLayer) _layer.removeSprite(this);
                 }                
+                
             } else {
-                imgData = _src.getFrame(0);
+                
+                if(!_.isNull(_tween)) { // si tiene tween, entonces lo animo
+                    _tempPosition = _tween.requestFrame();
+                    _setX(_tempPosition.x);
+                    _setY(_tempPosition.y);
+                }
+                
+                imgData = _src.getFrame(0); // si _src es Animation, no se toma en cuenta el parametro.
                 _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
             }
 
