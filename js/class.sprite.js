@@ -24,9 +24,9 @@ Orange = ( function( rootApp ){
 /** @property {private Layer} _layer Referencia al Layer que pertenece. */
     var _layer,
 /** @property {private int} _x Posicion x del Sprite. */
-        _x = 0,
+        _x,
 /** @property {private int} _y Posicion y del Sprite. */
-        _y = 0,
+        _y,
         _pivot,
         
 /** @property {private int} _speed Velocidad interna. */
@@ -209,6 +209,11 @@ Orange = ( function( rootApp ){
             return _y;
         },
         
+        to: function(p) {
+            _tween.tweenTo(p);
+            _tween.play();
+        },
+        
 /**
  * @function {public Sprite} incX Incrementa en dx pixels la posicion del Sprite. Si el valor es positivo, el Sprite se desplazara hacia la derecha, si es negativo hacia la izquierda.
  * @param {int} dx Cantidad de pixels a desplazar.
@@ -300,12 +305,21 @@ Orange = ( function( rootApp ){
  */    
         setTween : function(tween) {
             _tween = tween;
+            _tween.tweenTo({x: _x, y: _y});
+        },
+
+        
+/**
+ * @function {public Tween} getTween Obtiene el Tween asignado al Sprite.
+ */    
+        getTween : function() {
+            return _tween;
         },
         
 
 /**
  * @function {public void} removeTween Quita el Tween al Sprite.
-  */    
+ */    
         removeTween : function() {
             _tween = null;
         },
@@ -337,6 +351,15 @@ Orange = ( function( rootApp ){
             // y si es una Animation, no es tenido en cuenta.
             // getFrame(), en Animation o ImageMap devuelven imgData.
 
+            
+            // si tiene asignado un Tween, entonces le pido una posicion
+            if(!_.isNull(_tween)) { // si tiene tween, entonces lo animo
+                _tempPosition = _tween.requestFrame();
+                _setX(_tempPosition.x);
+                _setY(_tempPosition.y);
+            }
+            
+            
             var imgData; 
             if(_prepareToDestroy) {
                 _src.setStatusDie(); 
@@ -351,14 +374,7 @@ Orange = ( function( rootApp ){
                 }                
                 
             } else {
-                
-                if(!_.isNull(_tween)) { // si tiene tween, entonces lo animo
-                    _tempPosition = _tween.requestFrame();
-                    _setX(_tempPosition.x);
-                    _setY(_tempPosition.y);
-                }
-                
-                imgData = _src.getFrame(0); // si _src es Animation, no se toma en cuenta el parametro.
+                 imgData = _src.getFrame(0); // si _src es Animation, no se toma en cuenta el parametro.
                 _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
             }
 

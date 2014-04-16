@@ -1,20 +1,15 @@
 No hay DOCS de Animation...
 
+ERROR: LinearTween
 
-    
-Class Tween
+Sprite.to: manda cualquiera, solo cuando arranca anda... depurar a ver q esta haciendo.
 
-La clase Tween sirve para, dado una serie de puntos del layer, y una duracion (frames), la clase genera una interpolacion de todos esos puntos (en un principio lineal, despues se hara bezier, con swing y todo lo demas).
+Implementar en Tween que obtenga el angulo, y que lo devuelva en cada requestFrame
 
-propiedades:
-    
-    
-callbacks:     
 
-    onStart(context): se llama al iniciar el primer requestFrame.
-    onFinish(context): se llama al finalizar el tweening.
-    
-nada mas por hoy    
+
+
+
                 
 
                 
@@ -54,29 +49,4 @@ Colisiones:
 a la formula de colision
     - Agregar el tipo de colision que deseo detectar, si por boxes o por circles
     - Optimizar: que solo detecte probables candidatos. VER COMO.
-
-Sprites: 
-    - Seria interesante agregar algo para permitir rotaciones. MAS ADELANTE.
-
-    
-    
-    
-    
-DEFINICIONES.
-    
-
-
-
-Animation:
-una animacion es una secuencia que se arma con un ImageMap, la animacion puede tener secuencias de programacion que me permita
-armar animaciones complejas, como por ejemplo:
-
-Loops, loops infinitos, rebotes, saltos a otros estados (util para hacer un inicio y un fin de la animacion),
-la posicion del frame va a depender de un contador interno global de Orange.
-
-cada estado tendra un step size, que sera algo asi como cada cuanto se avanzara un frame.
-
-cada animacion tiene un _frame interno, que es el que avanza, y se pone en 0 al cambiar de estado.
-
-tiene que tener un metodo interno para devolver un frame, estado, y una referencia al Imagemap asignado.
 

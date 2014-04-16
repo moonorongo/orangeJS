@@ -11,7 +11,7 @@
         <script src="../js/class.image_map.js"></script> 
         <script src="../js/class.sprite.js"></script> 
         <script src="../js/class.animation.js"></script> 
-        <script src="../js/class.tween.js"></script> 
+        <script src="../js/class.linear_tween.js"></script> 
         
 </head>
 
@@ -247,38 +247,6 @@
              
              
              
-        // defino el movimiento de la nave enemiga
-        tween1 = new Orange.Tween({
-            keys : [{x : 80, y : 20, nFrames : 15},
-                    {x : 50, y : 30, nFrames : 7},
-                    {x:40,y:60, nFrames : 5},
-                    {x:40,y:90, nFrames : 7},
-                    {x:50,y:120, nFrames : 15},
-                    {x:80,y:130, nFrames : 30},
-                    {x:110,y:130, nFrames : 15},
-                    {x:140,y:120, nFrames : 7},
-                    {x:150,y:90, nFrames : 5},
-                    {x:150,y:60, nFrames : 7},
-                    {x:140,y:30, nFrames : 15},
-                    {x:110,y:20, nFrames : 30},
-                    {x : 80, y : 20, nFrames : 10}],
-            loopMode : Orange.Tween.PINGPONG
-        });
-        
-
-        
-                    
-/*                    
-        tween1.addKeys({x : 80, y : 20, nFrames : 15});
-        tween1.addKeys({x : 50, y : 30, nFrames : 7});
-*/                    
-        tween1.onFinish(function(context){
-            console.log("finished" );
-        });
-        tween1.onStart(function(context){
-            console.log("started" );
-        });
-             
              
         // Definicion de enemigos --------------------------------
        
@@ -310,7 +278,24 @@
             EnemyShot(this.getX() + 5, this.getY() + 5); 
         }
 
+        
+        
+        // defino el movimiento de la nave enemiga
+        tween1 = new Orange.LinearTween();
+                    
+        tween1.onFinish(function(context){
+            console.log("finished" );
+        });
+        tween1.onStart(function(context){
+            console.log("started" );
+        });
+
+        enemy1.setX(80).setY(100);
+        // probar posicionar antes;
         enemy1.setTween(tween1);
+        
+        
+        
         // Bindings enemys -----------------------------------------------------------------
         // SIEMPRE es necesario agregar primero el sprite antes de asignarle algun evento
 /*        
