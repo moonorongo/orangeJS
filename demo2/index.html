@@ -25,7 +25,7 @@
     
 <script>
     // basura global
-    var dx, enemy1, tween1,
+    var dx, nave, enemy1, tween1,
         randomColumn,
         numeroHabilitados;
         
@@ -85,7 +85,7 @@
         });
 
         // Nave Sprite
-        var nave = new Orange.Sprite({
+        nave = new Orange.Sprite({
             src : naveAnimation,
             speed : 1,
             class : Orange.Sprite.Classes.FRIEND,

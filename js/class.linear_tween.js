@@ -22,6 +22,9 @@ Orange = ( function( rootApp ){
                return [{x : p2.x, y: p2.y}];
            }
            
+
+           _posAnterior = p2;
+           _framePointer = 0;
            
            var  dx = Math.abs(p1.x - p2.x),
                 dy = Math.abs(p1.y - p2.y),
@@ -59,21 +62,6 @@ Orange = ( function( rootApp ){
            return aOut;
        } // _tween
            
-/*           
-       var _genFrames = function() {
-           _frames = [];
-            var i;
-            for(i=0; i<_keys.length - 1; i++) {
-                var aTween = _tween(_keys[i], _keys[i+1]);
-                _frames = _frames.concat(aTween);
-            }
-       }
-*/           
-/*           
-       if(_keys.length != 0) {
-           _genFrames();
-       }
-*/        
     
        var _finishCallback, _startCallback;
     
@@ -112,19 +100,6 @@ Orange = ( function( rootApp ){
                return _frames[_framePointer];
            },
 
-/*           
-           addKeys : function(aKeys) {
-                // aca determinar que es aKeys, si obj o array de obj, y agregar a _keys
-                // _keys = _keys.concat(aKeys)
-                if(_.isArray(aKeys)) {
-                    _keys = _keys.concat(aKeys);
-                } else {
-                    _keys.push(aKeys);
-                }
-                
-                _genFrames();
-           },
-*/
 
            play : function() {
                 _play = true;

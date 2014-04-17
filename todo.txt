@@ -1,8 +1,8 @@
 No hay DOCS de Animation...
 
 ERROR: LinearTween
+    Si pongo la misma posicion que esta revienta... poner algo que bypassee eso
 
-Sprite.to: manda cualquiera, solo cuando arranca anda... depurar a ver q esta haciendo.
 
 Implementar en Tween que obtenga el angulo, y que lo devuelva en cada requestFrame
 
