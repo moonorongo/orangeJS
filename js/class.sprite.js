@@ -209,10 +209,22 @@ Orange = ( function( rootApp ){
             return _y;
         },
         
-        to: function(p) {
-            _tween.tweenTo(p);
-            _tween.play();
+        
+        
+/**
+ * @function {public void} moveTo Desplaza el Sprite a la posicion p.x y p.y, si tiene asignado un Tween lo hace suavemente.
+ * @param {object} p Objeto {x: nn, y: nn} la nueva posicion.
+ */    
+        moveTo: function(p) {
+            if(_.isNull(_tween)) {
+                _setX(p.x);
+                _setY(p.y);
+            } else {
+                _tween.tweenTo(p);
+                _tween.play();
+            }
         },
+        
         
 /**
  * @function {public Sprite} incX Incrementa en dx pixels la posicion del Sprite. Si el valor es positivo, el Sprite se desplazara hacia la derecha, si es negativo hacia la izquierda.

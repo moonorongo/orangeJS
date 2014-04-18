@@ -1,0 +1,512 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title>LinearTween - JS Docs</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="header">
+<h5>JS Docs</h5>
+</div>
+
+<h1>LinearTween</h1>
+
+
+<div class="detail class">
+<div class="params">
+<h4 id="LinearTween"> <em>LinearTween</em></h4>
+
+</div>
+
+<p>Un Tween es una interpolacion entre 2 puntos. La clase puede interpolar 2 puntos que se le pasen, o puede ser asignada a un Sprite para que interpole todos sus movimientos</p>
+
+</div>
+
+<h2 id="summary">Summary</h2><h3 id="properties-summary">Properties</h3>
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_dir">_dir</a></em></h4>
+
+</div>
+
+<p>Direccion de avance en cada requestFrame.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Callback <em><a href="#_finishCallback">_finishCallback</a></em></h4>
+
+</div>
+
+<p>El callback que se ejecuta al finalizar la interpolacion</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_framePointer">_framePointer</a></em></h4>
+
+</div>
+
+<p>Puntero interno con la posicion de _frame.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Array <em><a href="#_frames">_frames</a></em></h4>
+
+</div>
+
+<p>Array con las posiciones interpoladas</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private boolean <em><a href="#_play">_play</a></em></h4>
+
+</div>
+
+<p>Estado del Tween.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Object <em><a href="#_posAnterior">_posAnterior</a></em></h4>
+
+</div>
+
+<p>Tiene el punto anterior, utilizado por tweenTo()</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Callback <em><a href="#_startCallback">_startCallback</a></em></h4>
+
+</div>
+
+<p>El callback que se ejecuta al llegar al frame 0</p>
+</div>
+
+<h3 id="constructors-summary">Constructors</h3>
+
+<div class="summary constructor">
+<div class="params">
+<h4> <em><a href="#LinearTween">LinearTween</a></em></h4>
+
+</div>
+
+<p></p>
+</div>
+
+<h3 id="functions-summary">Functions</h3>
+
+<div class="summary function">
+<div class="params">
+<h4>public LinearTween <em><a href="#_fnTween">_fnTween</a></em></h4>
+<p>(Object <em>p</em>, Object <em>p</em>)</p>
+</div>
+
+<p>Realiza una interpolacion entre dos puntos.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private Array <em><a href="#_tween">_tween</a></em></h4>
+<p>(Object <em>p1</em>, Object <em>p2</em>)</p>
+</div>
+
+<p>Genera un Array de {x:nn, y:nn}, o sea los puntos de la interpolacion.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#onFinish">onFinish</a></em></h4>
+<p>(Callback <em>callback</em>)</p>
+</div>
+
+<p>establece un callback que se ejecuta cuando el puntero interno llega al final.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#onStart">onStart</a></em></h4>
+<p>(Callback <em>callback</em>)</p>
+</div>
+
+<p>establece un callback que se ejecuta cuando el puntero interno llega a 0.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public LinearTween <em><a href="#play">play</a></em></h4>
+
+</div>
+
+<p>Habilita el avance del puntero interno...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Object <em><a href="#requestFrame">requestFrame</a></em></h4>
+
+</div>
+
+<p>Obtiene un frame de lo interpolado con _fnTween o tweenTo.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public LinearTween <em><a href="#reset">reset</a></em></h4>
+
+</div>
+
+<p>Inicializa el Tween, vacia _frames, pone _framePointer en 0, y algo mas que no recuerdo.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public LinearTween <em><a href="#resetPointer">resetPointer</a></em></h4>
+<p>(optional int <em>frame</em>)</p>
+</div>
+
+<p>Inicializa el puntero interno, si se le proporciona un frame lo inicializa en ese punto.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setDir">setDir</a></em></h4>
+<p>(int <em>dir</em>)</p>
+</div>
+
+<p>establece si avanza o retrocede en cada requestFrame.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public LinearTween <em><a href="#tweenTo">tweenTo</a></em></h4>
+<p>(Object <em>p</em>)</p>
+</div>
+
+<p>Realiza una interpolacion al punto dado, desde el punto actual.</p>
+</div>
+
+<h2 id="details">Details</h2><h3 id="properties">Properties</h3>
+
+<div class="detail property">
+<div class="params">
+<h4 id="_dir">private int <em>_dir</em></h4>
+
+</div>
+
+<p>Direccion de avance en cada requestFrame.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_finishCallback">private Callback <em>_finishCallback</em></h4>
+
+</div>
+
+<p>El callback que se ejecuta al finalizar la interpolacion</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_framePointer">private int <em>_framePointer</em></h4>
+
+</div>
+
+<p>Puntero interno con la posicion de _frame.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_frames">private Array <em>_frames</em></h4>
+
+</div>
+
+<p>Array con las posiciones interpoladas</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_play">private boolean <em>_play</em></h4>
+
+</div>
+
+<p>Estado del Tween.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_posAnterior">private Object <em>_posAnterior</em></h4>
+
+</div>
+
+<p>Tiene el punto anterior, utilizado por tweenTo()</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_startCallback">private Callback <em>_startCallback</em></h4>
+
+</div>
+
+<p>El callback que se ejecuta al llegar al frame 0</p>
+
+</div>
+
+<h3 id="constructors">Constructors</h3>
+
+<div class="detail constructor">
+<div class="params">
+<h4 id="LinearTween"> <em>LinearTween</em></h4>
+
+</div>
+
+<p></p>
+
+</div>
+
+<h3 id="functions">Functions</h3>
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnTween">public LinearTween <em>_fnTween</em></h4>
+<p>(Object <em>p</em>, Object <em>p</em>)</p>
+</div>
+
+<p>Realiza una interpolacion entre dos puntos.</p>
+
+<h5 id="_fnTween-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Object <em>p</em></dt>
+    <dd>Objeto con las coordenadas {x,y}.</dd>
+
+    <dt>Object <em>p</em></dt>
+    <dd>Objeto con las coordenadas {x,y}.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_tween">private Array <em>_tween</em></h4>
+<p>(Object <em>p1</em>, Object <em>p2</em>)</p>
+</div>
+
+<p>Genera un Array de {x:nn, y:nn}, o sea los puntos de la interpolacion. No inicializa el puntero interno, por lo que hay que resetear el puntero si es necesario</p>
+
+<h5 id="_tween-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Object <em>p1</em></dt>
+    <dd>El punto inicial.</dd>
+
+    <dt>Object <em>p2</em></dt>
+    <dd>El punto final.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="onFinish">public void <em>onFinish</em></h4>
+<p>(Callback <em>callback</em>)</p>
+</div>
+
+<p>establece un callback que se ejecuta cuando el puntero interno llega al final.</p>
+
+<h5 id="onFinish-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Callback <em>callback</em></dt>
+    <dd>al funcion que se ejecuta.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="onStart">public void <em>onStart</em></h4>
+<p>(Callback <em>callback</em>)</p>
+</div>
+
+<p>establece un callback que se ejecuta cuando el puntero interno llega a 0.</p>
+
+<h5 id="onStart-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Callback <em>callback</em></dt>
+    <dd>al funcion que se ejecuta.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="play">public LinearTween <em>play</em></h4>
+
+</div>
+
+<p>Habilita el avance del puntero interno... o sea... play, obvio. Inhabilita el avance del puntero interno... o sea... pause, obvio.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="requestFrame">public Object <em>requestFrame</em></h4>
+
+</div>
+
+<p>Obtiene un frame de lo interpolado con _fnTween o tweenTo. Si llega al final de la interpolacion dispara el evento onFinish.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="reset">public LinearTween <em>reset</em></h4>
+
+</div>
+
+<p>Inicializa el Tween, vacia _frames, pone _framePointer en 0, y algo mas que no recuerdo.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="resetPointer">public LinearTween <em>resetPointer</em></h4>
+<p>(optional int <em>frame</em>)</p>
+</div>
+
+<p>Inicializa el puntero interno, si se le proporciona un frame lo inicializa en ese punto.</p>
+
+<h5 id="resetPointer-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>optional int <em>frame</em></dt>
+    <dd></dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setDir">public void <em>setDir</em></h4>
+<p>(int <em>dir</em>)</p>
+</div>
+
+<p>establece si avanza o retrocede en cada requestFrame. Puedo establecer la cantidad que avanza o retrocede.</p>
+
+<h5 id="setDir-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>dir</em></dt>
+    <dd>positivo avanza el puntero, negativo retrocede.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="tweenTo">public LinearTween <em>tweenTo</em></h4>
+<p>(Object <em>p</em>)</p>
+</div>
+
+<p>Realiza una interpolacion al punto dado, desde el punto actual.</p>
+
+<h5 id="tweenTo-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Object <em>p</em></dt>
+    <dd>Objeto con las coordenadas {x,y}.</dd>
+
+</dl>
+
+</div>
+
+
+</body>
+</html>

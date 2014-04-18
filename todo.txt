@@ -1,7 +1,7 @@
+CONTINUAR CON DOCUMENTACION
+
 No hay DOCS de Animation...
 
-ERROR: LinearTween
-    Si pongo la misma posicion que esta revienta... poner algo que bypassee eso
 
 
 Implementar en Tween que obtenga el angulo, y que lo devuelva en cada requestFrame
