@@ -1,0 +1,418 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title>Animation - JS Docs</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="header">
+<h5>JS Docs</h5>
+</div>
+
+<h1>Animation</h1>
+
+
+<div class="detail class">
+<div class="params">
+<h4 id="Animation"> <em>Animation</em></h4>
+
+</div>
+
+<p>Una Animation recibe un ImageMap y gestiona una animacion en base a unos parametros de inicializacion. Una Animation gestiona diferentes "animaciones" que aqui se consideran "status" (por ejemplo animacion a la derecha, a la izquierda... explotando...etc)</p>
+
+</div>
+
+<h2 id="summary">Summary</h2><h3 id="properties-summary">Properties</h3>
+
+<div class="summary property">
+<div class="params">
+<h4>private Object <em><a href="#_config">_config</a></em></h4>
+
+</div>
+
+<p>la configuracion interna de la Animation, tomada de la configuracion de la inicializacion, y los par...</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Object <em><a href="#_defaults">_defaults</a></em></h4>
+
+</div>
+
+<p>Esoo mismo</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_frame">_frame</a></em></h4>
+
+</div>
+
+<p>El puntero interno de la Animation.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private ImageMap <em><a href="#_imageMap">_imageMap</a></em></h4>
+
+</div>
+
+<p>El ImageMap asignado</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_imagenHeight">_imagenHeight</a></em></h4>
+
+</div>
+
+<p>el alto del cada frame, tomado del ImageMap asignado</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_imagenWidth">_imagenWidth</a></em></h4>
+
+</div>
+
+<p>el ancho del cada frame, tomado del ImageMap asignado</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_speed">_speed</a></em></h4>
+
+</div>
+
+<p>La velocidad con que se ejecuta la animacion.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_speedCounter">_speedCounter</a></em></h4>
+
+</div>
+
+<p>Contador de uso interno para gestionar la velocidad de la animacion.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_status">_status</a></em></h4>
+
+</div>
+
+<p>La animacion que quiero ejecutar (seria la fila del ImageMap).</p>
+</div>
+
+<h3 id="constructors-summary">Constructors</h3>
+
+<div class="summary constructor">
+<div class="params">
+<h4> <em><a href="#Animation">Animation</a></em></h4>
+<p>(ImageMap <em>imageMap</em>, optional Object <em>config</em>)</p>
+</div>
+
+<p></p>
+</div>
+
+<h3 id="functions-summary">Functions</h3>
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#_fnGetStatusDieCantFrames">_fnGetStatusDieCantFrames</a></em></h4>
+
+</div>
+
+<p>Retorna la cantidad de frames que vamos a necesitar para la propiedad _muriendo en Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Object <em><a href="#getFrame">getFrame</a></em></h4>
+
+</div>
+
+<p>Obtiene un frame, incrementa el puntero interno, y demas.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#getSpriteHeight">getSpriteHeight</a></em></h4>
+
+</div>
+
+<p>obtiene la altura del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public int <em><a href="#getSpriteWidth">getSpriteWidth</a></em></h4>
+
+</div>
+
+<p>obtiene el ancho del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setStatus">setStatus</a></em></h4>
+<p>(int <em>status</em>)</p>
+</div>
+
+<p>Asigna el status (la fila) que quiero reproducir.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setStatusDie">setStatusDie</a></em></h4>
+
+</div>
+
+<p>Asigna el status al dieStatus asignado en la instanciacion del ImageMap, el default es 0.</p>
+</div>
+
+<h2 id="details">Details</h2><h3 id="properties">Properties</h3>
+
+<div class="detail property">
+<div class="params">
+<h4 id="_config">private Object <em>_config</em></h4>
+
+</div>
+
+<p>la configuracion interna de la Animation, tomada de la configuracion de la inicializacion, y los parametros defaults</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_defaults">private Object <em>_defaults</em></h4>
+
+</div>
+
+<p>Esoo mismo</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_frame">private int <em>_frame</em></h4>
+
+</div>
+
+<p>El puntero interno de la Animation.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_imageMap">private ImageMap <em>_imageMap</em></h4>
+
+</div>
+
+<p>El ImageMap asignado</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_imagenHeight">private int <em>_imagenHeight</em></h4>
+
+</div>
+
+<p>el alto del cada frame, tomado del ImageMap asignado</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_imagenWidth">private int <em>_imagenWidth</em></h4>
+
+</div>
+
+<p>el ancho del cada frame, tomado del ImageMap asignado</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_speed">private int <em>_speed</em></h4>
+
+</div>
+
+<p>La velocidad con que se ejecuta la animacion.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_speedCounter">private int <em>_speedCounter</em></h4>
+
+</div>
+
+<p>Contador de uso interno para gestionar la velocidad de la animacion.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_status">private int <em>_status</em></h4>
+
+</div>
+
+<p>La animacion que quiero ejecutar (seria la fila del ImageMap).</p>
+
+</div>
+
+<h3 id="constructors">Constructors</h3>
+
+<div class="detail constructor">
+<div class="params">
+<h4 id="Animation"> <em>Animation</em></h4>
+<p>(ImageMap <em>imageMap</em>, optional Object <em>config</em>)</p>
+</div>
+
+<p></p>
+
+<h5 id="Animation-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>ImageMap <em>imageMap</em></dt>
+    <dd>El ImageMap con los cuadros y estados.</dd>
+
+    <dt>optional Object <em>config</em></dt>
+    <dd>La configuracion de la animacion y de cada Status</dd>
+
+</dl>
+
+</div>
+
+<h3 id="functions">Functions</h3>
+
+<div class="detail function">
+<div class="params">
+<h4 id="_fnGetStatusDieCantFrames">public int <em>_fnGetStatusDieCantFrames</em></h4>
+
+</div>
+
+<p>Retorna la cantidad de frames que vamos a necesitar para la propiedad _muriendo en Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getFrame">public Object <em>getFrame</em></h4>
+
+</div>
+
+<p>Obtiene un frame, incrementa el puntero interno, y demas. Devuelve un objeto, con una referencia a la imagen, y la posicion x e y dentreo de la misma, segun el status asignado.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getSpriteHeight">public int <em>getSpriteHeight</em></h4>
+
+</div>
+
+<p>obtiene la altura del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getSpriteWidth">public int <em>getSpriteWidth</em></h4>
+
+</div>
+
+<p>obtiene el ancho del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setStatus">public void <em>setStatus</em></h4>
+<p>(int <em>status</em>)</p>
+</div>
+
+<p>Asigna el status (la fila) que quiero reproducir.</p>
+
+<h5 id="setStatus-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>status</em></dt>
+    <dd>El numero de status que quiero asignar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setStatusDie">public void <em>setStatusDie</em></h4>
+
+</div>
+
+<p>Asigna el status al dieStatus asignado en la instanciacion del ImageMap, el default es 0.</p>
+
+</div>
+
+
+</body>
+</html>
