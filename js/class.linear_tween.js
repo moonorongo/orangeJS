@@ -182,7 +182,7 @@ Orange = ( function( rootApp ){
            },
            
            getType : function() {
-                return "Tween";
+                return "LinearTween";
            },
 
 /**
