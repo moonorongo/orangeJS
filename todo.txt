@@ -9,15 +9,8 @@ Implementar en Tween que obtenga el angulo, y que lo devuelva en cada requestFra
 
 Class Path:
 Un path es una secuencia de puntos, la que se podra interpolar con un tween.
-metodos:
-    setTween: si se le asigna un tween entonces podra obtener los puntos interpolados (Linear o Bezier)
-    requestFrame(): obtiene un frame, si tiene Tween asignado, si no obtiene el siguiente Key
-    requestKey(): obtiene el siguiente Key del Path.
-    addKeys() toma un array de puntos {x,y, otras propiedades} y lo agrega al array interno de keys... 
-        y el resto de los metodos... en realidad va a ser una clase muy parecida a LinearTween, solo que tiene requestFrame, que permite obtener una interpolacion si tiene Tween asignado
-    
-    ESTE SI VA A TENER loopMode Y LAS OTRAS PORQUERIAS...
-    
+ya esta implementado, no tira error, pero no anima un sorongo... testear demo2
+no playea la animacion porque en el Tween esta _play en false... analizar que es lo que quiero hacer.
     
     
 Class TileMap: Un TileMap es un objeto que tiene asignado por lo menos un ImageMap, para lo que se ve, y puede ser otro mas exactamente igual para el boundary.

@@ -72,9 +72,14 @@ Orange = ( function( rootApp ){
  */
         _removeFromLayer = false,
 
-/** @property {private Tween} _tween Aqui guardo el tween que le asigno al sprite. 
-  */
+/**
+ * @property {private Tween} _tween Aqui guardo el tween que le asigno al sprite. 
+ */
         _tween = null,
+/**
+ * @property {private Path} _path Aqui guardo el path que le asigno al sprite. 
+ */
+        _path = null,
         _tempPosition,
         
 /** @property {private int} _muriendo Numero que tiene la cantidad de frames que dura la animacion que se ejecuta cuando destruyo al Sprite. */
@@ -316,6 +321,7 @@ Orange = ( function( rootApp ){
  * @param {Tween} tween El Tween a asignar.
  */    
         setTween : function(tween) {
+            _path = null;
             _tween = tween;
             _tween.tweenTo({x: _x, y: _y});
         },
@@ -335,6 +341,41 @@ Orange = ( function( rootApp ){
         removeTween : function() {
             _tween = null;
         },
+        
+        
+
+        
+        
+        
+        
+
+/**
+ * @function {public void} setPath Asigna un Path al Sprite.
+ * @param {Path} path El Path a asignar.
+ */    
+        setPath : function(path) {
+            _tween = null;
+            _path = path;
+            _path.play();
+        },
+
+        
+/**
+ * @function {public Path} getPath Obtiene el Path asignado al Sprite.
+ */    
+        getPath : function() {
+            return _path;
+        },
+        
+
+/**
+ * @function {public void} removePath Quita el Path al Sprite.
+ */    
+        removePath : function() {
+            _path = null;
+        },        
+        
+        
         
 /**
  * @function {public String} getId Obtiene el identificador del Sprite. Tambien se puede acceder a traves de la propiedad id (Sprite.id)
@@ -371,6 +412,12 @@ Orange = ( function( rootApp ){
                 _setY(_tempPosition.y);
             }
             
+            if(!_.isNull(_path)) { // idem anterior
+                _tempPosition = _path.requestFrame();
+                _setX(_tempPosition.x);
+                _setY(_tempPosition.y);
+            }
+
             
             var imgData; 
             if(_prepareToDestroy) {

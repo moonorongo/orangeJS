@@ -39,7 +39,7 @@ Orange = ( function( rootApp ){
                ((p1.x == p2.x) && 
                (p1.y == p2.y)) ) {
                _posAnterior = p2;
-               _play = false;
+               //_play = false;
                _framePointer = 0;
                return [{x : p2.x, y: p2.y}];
            }

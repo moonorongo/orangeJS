@@ -1,41 +1,44 @@
 Orange = ( function( rootApp ){
     
     rootApp.Path = function(config){
-        // un path tiene que tener por lo menos TRES _keys... si no no es valido.
+        // un path tiene que tener por lo menos DOS _keys... si no no es valido.
         var _keys = config.keys || [],
             _loopMode = config.loopMode || rootApp.Path.NONE,
             _tween = config.tween || null,
             _dir = 1,
             _play = false,
+/** @property {private Object} _posAnterior Tiene el punto anterior */
+           _posAnterior;
             _keyPointer = 0;
 
         var _finishCallback, _startCallback;
 
+        
         var _requestKey = function() {
             // quiza aca haya que poner un param optativo que permita obtener key, pero sin avanzar el _keyPointer
             if(_play) {
                 _keyPointer += _dir;
             
-                if(_keyPointer > _keys.length - 2) { 
+                if(_keyPointer > _keys.length - 1) { 
                     switch(_loopMode) {
-                        Orange.Path.NONE :      _keyPointer = _keys.length - 2;
-                                                break;
-                        Orange.Path.PINGPONG :  _keyPointer = _keys.length - 2;
-                                                _dir = -_dir;
-                                                break;
-                        Orange.Path.LOOP :      _keyPointer = 0;
+                        case 0 : _keyPointer = _keys.length - 1;
+                                 break;
+                        case 1 : _keyPointer = _keys.length - 1;
+                                 _dir = -_dir;
+                                 break;
+                        case 2 : _keyPointer = 0;
                     }
                     if(!_.isUndefined(_finishCallback)) _finishCallback(this);
                 }
                 
                 if(_keyPointer < 0) { 
                     switch(_loopMode) {
-                        Orange.Path.NONE :      _keyPointer = 0;
-                                                break;
-                        Orange.Path.PINGPONG :  _keyPointer = 0;
-                                                _dir = -_dir;
-                                                break;
-                        Orange.Path.LOOP :      _keyPointer = _keys.length - 2;
+                        case 0 : _keyPointer = 0;
+                                 break;
+                        case 1 : _keyPointer = 0;
+                                 _dir = -_dir;
+                                 break;
+                        case 2 : _keyPointer = _keys.length - 1;
                     }
                     
                     if(!_.isUndefined(_startCallback)) _startCallback(this);
@@ -46,6 +49,32 @@ Orange = ( function( rootApp ){
         } // _requestKey
 
 
+        
+        var _getNextKey = function() {
+            _tween.tweenTo(_requestKey());
+        } // _getNextKey
+        
+
+        
+        
+        var _setTween = function(t) {
+            _tween = t;
+            _tween.resetPointer();
+            
+            var p1 = _requestKey();
+            var p2 = _requestKey();
+            _posAnterior = p2;
+            _tween._fnTween(p1, p2);
+            _tween.play();
+
+            _tween.onStart(_getNextKey);
+            _tween.onFinish(_getNextKey);
+        }
+        
+        
+        if(!_.isNull(_tween)) _setTween(_tween);
+        
+          
 
         return {
             setLoopMode : function(l) {
@@ -54,31 +83,22 @@ Orange = ( function( rootApp ){
             },
             
             setTween : function(tween) {
-                // aca al tween le asigno como onFinish y onStart una funcion que voy a tener aca, que lo que va a hacer
-                // es obtener un nuevo par de keys, y regenerar en el tween los frames.
-                // tambien asignara Path._dir a Tween._dir
-                // y seguramente algo mas... 
-                _tween = tween;
-                _tween._fnTween(_keys[_keyPointer], _keys[_keyPointer + 1]);
-                _tween.resetPointer();
-                _tween.play();
-                
-            
+                _setTween(tween);
                 return this;
             },  
             
+           // para que querria esta mierda???
+/*           
             requestKey : function() {
                 return _requestKey();
             },
-            
+*/            
             requestFrame : function() {
-                // aca usar el _tween asignado, ver si puedo obtener un frame, si obtengo el ultimo _key, interpolar los siguientes... ver mas
                 if(_.isUndefined(_tween)) {
-                    // retornar una _key
+                    return _requestKey();
                 } else {
-                    // retornar una interpolacion
+                    return _tween.requestFrame();
                 }
-                
             },
 
             addKeys : function(aKeys) {
@@ -93,19 +113,41 @@ Orange = ( function( rootApp ){
             
             resetPointer : function(frame){
                 _keyPointer = (_.isUndefined(frame)? 0:frame);
+                _tween.resetPointer();
                 return this;
             },
             
             reset : function() {
                 _keys = []; 
+                _tween.reset();
                 return this;
             },
             
             setDir : function(dir) {
                 _dir = dir;
+                _tween.setDir(dir);
                 return this;
             },
-            
+
+/**
+ * @function {public Path} play Habilita el avance del puntero interno... o sea... play, obvio.
+ */    
+           play : function() {
+                _play = true;
+                _tween.play();
+                return this;
+           },
+
+/**
+ * @function {public Path} play Inhabilita el avance del puntero interno... o sea... pause, obvio.
+ */    
+           pause : function() {
+                _play = false;
+                _tween.pause();
+                return this;
+           },
+           
+           
             getType : function() {
                 return "Path";
             },

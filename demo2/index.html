@@ -12,6 +12,7 @@
         <script src="../js/class.sprite.js"></script> 
         <script src="../js/class.animation.js"></script> 
         <script src="../js/class.linear_tween.js"></script> 
+        <script src="../js/class.path.js"></script> 
         
 </head>
 
@@ -282,17 +283,19 @@
         
         // defino el movimiento de la nave enemiga
         tween1 = new Orange.LinearTween();
-                    
-        tween1.onFinish(function(context){
-            console.log("finished" );
-        });
-        tween1.onStart(function(context){
-            console.log("started" );
+        var path1 = new Orange.Path({
+            tween : tween1,
+            keys : [{x:10, y:10},
+                    {x:100, y:10},
+                    {x:100, y:100},
+                    {x:10, y:100}]
         });
 
-        enemy1.setX(80).setY(100);
+        enemy1.setPath(path1);
+
+        //enemy1.setX(80).setY(100);
         // probar posicionar antes;
-        enemy1.setTween(tween1);
+        // enemy1.setTween(tween1);
         
         
         
