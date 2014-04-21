@@ -124,13 +124,13 @@ Orange = ( function( rootApp ){
                 
                     if(_framePointer > _frames.length - 1) { 
                         _framePointer = _frames.length - 1;
-                        _play = false;
+                        //_play = false;
                         if(!_.isUndefined(_finishCallback)) _finishCallback(this);
                     }
                     
                     if(_framePointer < 0) { 
                         _framePointer = 0;
-                        _play = false;
+                        //_play = false;
                         if(!_.isUndefined(_startCallback)) _startCallback(this);
                     }
                }

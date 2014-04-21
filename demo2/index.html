@@ -285,10 +285,10 @@
         tween1 = new Orange.LinearTween();
         var path1 = new Orange.Path({
             tween : tween1,
-            keys : [{x:10, y:10},
-                    {x:100, y:10},
-                    {x:100, y:100},
-                    {x:10, y:100}]
+            keys : [{x:10, y:10, nFrames : 10},
+                    {x:100, y:10, nFrames : 10},
+                    {x:100, y:100, nFrames : 10},
+                    {x:10, y:100, nFrames : 10}]
         });
 
         enemy1.setPath(path1);

@@ -3,7 +3,7 @@ Orange = ( function( rootApp ){
     rootApp.Path = function(config){
         // un path tiene que tener por lo menos DOS _keys... si no no es valido.
         var _keys = config.keys || [],
-            _loopMode = config.loopMode || rootApp.Path.NONE,
+            _loopMode = config.loopMode || rootApp.Path.LOOP,
             _tween = config.tween || null,
             _dir = 1,
             _play = false,
