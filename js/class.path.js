@@ -86,7 +86,11 @@ Orange = ( function( rootApp ){
                 _setTween(tween);
                 return this;
             },  
-            
+
+            getTween : function() {
+                return _tween;
+            },  
+           
            // para que querria esta mierda???
 /*           
             requestKey : function() {

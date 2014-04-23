@@ -24,6 +24,9 @@ Orange = ( function( rootApp ){
 /** @property {private boolean} _play Estado del Tween. */
            _play = false,
            
+/** @property {private Number} _angle Angulo del Tween, comprendido entre 0-PI (0 - 181) y -PI-0 (0-180) <br> nota: 90 grados es para arriba, 270 para abajo. */
+           _angle = 0,
+           
 /** @property {private Object} _posAnterior Tiene el punto anterior, utilizado por tweenTo() */
            _posAnterior;
 
@@ -41,7 +44,7 @@ Orange = ( function( rootApp ){
                _posAnterior = p2;
                //_play = false;
                _framePointer = 0;
-               return [{x : p2.x, y: p2.y}];
+               return [{x : p2.x, y: p2.y, a: 0}];
            }
            
 
@@ -56,7 +59,10 @@ Orange = ( function( rootApp ){
                 signX = ((p2.x - p1.x) >= 0)? 1 : -1,
                 signY = ((p2.y - p1.y) >= 0)? 1 : -1;
            
-                
+           _angle = Math.atan2(signY*dy, signX*dx);
+           
+           
+           //  todo esto... mhmmm seguro se puede mejorar...
            if(dy>=dx) { // si es mas alto q ancho
                a = dx/dy;
                var nSteps = (_.isUndefined(p1.nFrames))? dy : p1.nFrames;
@@ -66,18 +72,20 @@ Orange = ( function( rootApp ){
                    j = i * interval;
                    y = p1.y + (signY * j);
                    x = p1.x + (signX * (j * a));
-                   aOut.push({x : x, y: y});
+                   aOut.push({x : x, y: y, a: _angle});
                }
            } else {
                a = dy/dx;
                var nSteps = (_.isUndefined(p1.nFrames))? dx : p1.nFrames;
                var interval = dx / nSteps;
                
+               
+               
                for(i=0; i<nSteps; i++){
                    j = i * interval;
                    x = p1.x + (signX * j);
                    y = p1.y + (signY * (j * a));
-                   aOut.push({x : x, y: y});
+                   aOut.push({x : x, y: y, a: _angle});
                }
            }
            
@@ -185,6 +193,14 @@ Orange = ( function( rootApp ){
                 return "LinearTween";
            },
 
+           
+/**
+ * @function {public Number} getAngle Retorna el angulo de interpolacion.
+ */    
+           getAngle : function() {
+               return _angle;
+           },
+           
 /**
  * @function {public void} onStart establece un callback que se ejecuta cuando el puntero interno llega a 0.
  * @param {Callback} callback al funcion que se ejecuta.

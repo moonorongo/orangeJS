@@ -76,6 +76,12 @@ Orange = ( function( rootApp ){
  * @property {private Tween} _tween Aqui guardo el tween que le asigno al sprite. 
  */
         _tween = null,
+        
+/**
+ * @property {private int} _expand Aca tengo el factor de expansion del Sprite: 0 > _expand < 1: encoge; _expand = 1: tamaño real; _expand > 1: agranda.
+ */
+        _expandX = 1, _expandY = 1,  
+        
 /**
  * @property {private Path} _path Aqui guardo el path que le asigno al sprite. 
  */
@@ -265,14 +271,14 @@ Orange = ( function( rootApp ){
  * @function {public int} getWidth Obtiene el ancho del Sprite.
  */    
         getWidth : function() {
-            return _w;
+            return _w * _expandX;
         },
         
 /**
  * @function {public int} getWidth Obtiene el alto del Sprite.
  */    
         getHeight : function() {
-            return _h;
+            return _h * _expandY;
         },
         
 /**
@@ -282,6 +288,25 @@ Orange = ( function( rootApp ){
             return _dirX + _dirY;
         },
 
+
+/**
+ * @function {public void} setExpandX Establece el nivel de expansion a lo ANCHO (1: mantiene igual, 2; ennsancha al doble, .5: encoge a la mitad).
+ */    
+        setExpandX : function(ex) {
+            _expandX = ex;
+        },
+        
+
+/**
+ * @function {public void} setExpandY Establece el nivel de expansion a lo ALTO (1: mantiene igual, 2; ennsancha al doble, .5: encoge a la mitad).
+ */    
+        setExpandY : function(ey) {
+            _expandY = ey;
+        },
+        
+        
+        
+        
 /**
  * @function {public Animation} getAnimation En realidad puede devolver un Animation o un ImageMap, ya que se le puede asignar cualquiera de las 2 cosas a un Sprite.
  */    
@@ -335,6 +360,7 @@ Orange = ( function( rootApp ){
         },
         
 
+        
 /**
  * @function {public void} removeTween Quita el Tween al Sprite.
  */    
@@ -412,7 +438,7 @@ Orange = ( function( rootApp ){
                 _setY(_tempPosition.y);
             }
             
-            if(!_.isNull(_path)) { // idem anterior
+            if(!_.isNull(_path)) { // idem anterior, pero con Path
                 _tempPosition = _path.requestFrame();
                 _setX(_tempPosition.x);
                 _setY(_tempPosition.y);
@@ -423,7 +449,7 @@ Orange = ( function( rootApp ){
             if(_prepareToDestroy) {
                 _src.setStatusDie(); 
                 imgData = _src.getFrame(0);
-                _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
+                _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w * _expandX, _h * _expandY);
 
                 if(_muriendo > 0) { 
                     _muriendo--;
@@ -434,7 +460,7 @@ Orange = ( function( rootApp ){
                 
             } else {
                  imgData = _src.getFrame(0); // si _src es Animation, no se toma en cuenta el parametro.
-                _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w, _h);
+                _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w * _expandX, _h * _expandY);
             }
 
         },
@@ -466,16 +492,16 @@ Orange = ( function( rootApp ){
                     if(sprite !== _this) {
                         var p1x = _x;
                         var p1y = _y;
-                        var p2x = _x + _w;
-                        var p2y = _y + _h;
+                        var p2x = _x + (_w * _expandX);
+                        var p2y = _y + (_h * _expandY);
                         
                         var o1x = sprite.getX();
                         var o1y = sprite.getY();
                         var o2x = sprite.getX() + sprite.getWidth();
                         var o2y = sprite.getY() + sprite.getHeight();
                         
-                        var totalWidth = _w + sprite.getWidth();
-                        var totalHeight = _h + sprite.getHeight();
+                        var totalWidth = (_w * _expandX) + sprite.getWidth();
+                        var totalHeight = (_h * _expandY) + sprite.getHeight();
                         var restaX = o2x - p1x;
                         var restaY = o2y - p1y;
                         

@@ -17,7 +17,7 @@
 </head>
 
     <body>
-        <canvas id="main" width="256" height="224" style="background-color: black"></canvas>
+        <canvas id="main" width="224" height="288" style="background-color: black"></canvas>
         <br />
         cursores para mover, Control Izquierdo para disparar<br />
         <button onClick="document.location.reload()">Reiniciar</button>
@@ -34,17 +34,12 @@
     
         
     // Primero que nada: inicializar la libreria
-    Orange.init(document.getElementById("main"), {scaleWidth : 1.5, scaleHeight : 1.2});
+    Orange.init(document.getElementById("main"), {scaleWidth : 2, scaleHeight : 2});
     
     // agrego las imagenes que quiero utilizar.
-    Orange.getImageManager().addImage(["img/bala_enemy.png", 
-        "img/enemy1.png", 
-        "img/enemy2.png", 
-        "img/enemy3.png", 
-        "img/ufo.png", 
+    Orange.getImageManager().addImage(["img/enemy1.png", 
         "img/nave.png", 
-        "img/bala_nave.png", 
-        "img/borrar/screenShotSI.png"
+        "img/back.gif"
     ]);
 
     
@@ -62,7 +57,7 @@
         // Layers
         var l = new Orange.Layer();
         Orange.addLayer(l);
-        l.setBackground(Orange.getImageManager().get("screenShotSI"))
+        l.setBackground(Orange.getImageManager().get("back"))
 
 
         
@@ -71,8 +66,8 @@
         // ImageMaps
         var naveImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("nave"),
-            width : 16,
-            height : 8,
+            width : 32,
+            height : 32,
             dieStatus : 1 // el status que seleccionara al momento de hacer destroy en el sprite
         });
         
@@ -94,7 +89,7 @@
         });
         
         l.addSprite(nave); 
-        nave.setX(110).setY(192);
+        nave.setX(110).setY(249);
 
         // Bind
         nave.on("keydown", function(eventData, s) {
@@ -103,9 +98,11 @@
                             break;
                 case 37 :   dx = 2 * -s.getSpeed();
                             break;
+/*                            
                 case 17 :   var spr = new Shot(s.getX() + 8, s.getY());
                             break;
                 //default :   console.log(eventData.e.keyCode);
+*/                
             }
             
         });
@@ -140,7 +137,7 @@
         
         
 // TIROS, BALAS, RAYOS y CENTELLAS....        
-        
+/*        
         // Definicion del tiro de la nave ---------------------------------------
         var balaImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("bala_nave"), 
@@ -195,13 +192,14 @@
             return spr;
         } // FIN DEFINICION DISPARO --------------------------------
              
-             
+*/             
              
              
              
 
              
         // Definicion del tiro ENEMY ---------------------------------------
+/*        
         var balaEnemyImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("bala_enemy"), 
             width : 5,
@@ -245,7 +243,7 @@
 
             return spr;
         } // FIN DEFINICION DISPARO ENEMY --------------------------------
-             
+*/             
              
              
              
@@ -253,18 +251,21 @@
        
         var enemy1ImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("enemy1"), 
-            width : 14,
-            height : 8,
-            dieStatus : 1
+            width : 32,
+            height : 32,
+            dieStatus : 24
         });
              
              
         var enemy1Animation = new Orange.Animation(enemy1ImageMap, {
             statusConfig : [ 
-                { loopMode : "L"},
+                { loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},
+                { loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},
+                { loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},
+                { loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},
                 { loopMode : "L", speed : 2}
             ],
-            speed : 8
+            speed : 12
         });
     
         enemy1 = new Orange.Sprite({
@@ -274,21 +275,41 @@
         });
 
         l.addSprite(enemy1); 
+
+
+        enemy1.on("enterFrame", function(eventData, s) {
+            var a = s.getPath().getTween().getAngle();
+            var st = 0;
+            var m = 12 / Math.PI;
+            if(a >= 0) { // esta entre 0 y pi, o sea 0 y 11
+                st = 24 - Math.floor(a * m);
+            } else {
+                st = 12 - Math.floor(a * -m);
+            }
+            
+            s.getAnimation().setStatus(st);
+        });
         
+        
+        
+/*        
         enemy1.shot = function() {
             EnemyShot(this.getX() + 5, this.getY() + 5); 
         }
-
+*/
         
         
         // defino el movimiento de la nave enemiga
         tween1 = new Orange.LinearTween();
         var path1 = new Orange.Path({
             tween : tween1,
-            keys : [{x:50, y:100},
-                    {x:100, y:50},
-                    {x:50, y:5},
-                    {x:5, y:50}]
+            keys : [{x:200, y:100, nFrames : 10},
+                    {x:195, y:78, nFrames : 10},
+                    {x:185, y:55, nFrames : 10},
+                    {x:170, y:30, nFrames : 10},
+                    {x:145, y:15, nFrames : 10},
+                    {x:122, y:5, nFrames : 10},
+                    {x:100, y:0, nFrames : 10}]
         });
 
         enemy1.setPath(path1);
@@ -309,7 +330,7 @@
 */        
         
         
-        
+/*        
         // colision enemigo-nave.-----------------------------------------------------------------
         enemy1.on("collision", function(eventData, s, aCollision) { 
             if(aCollision.length > 0) {
@@ -318,14 +339,14 @@
                 }
             }
         });
-        
+*/        
          // end for enemy1 ------------------------------------------------------------------------
         
         
         
 
         Orange.preUpdate(function() {
-            if(Math.floor(Math.random()*20) == 0) enemy1.shot();
+            //if(Math.floor(Math.random()*20) == 0) enemy1.shot();
         });
         
         // y finalmente, pulso el boton rojo.

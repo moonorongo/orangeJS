@@ -1,20 +1,12 @@
-CONTINUAR CON DOCUMENTACION
-
-No hay DOCS de Animation...
+CONTINUAR CON DOCUMENTACION: Tween, Path
 
 
-
-Implementar en Tween que obtenga el angulo, y que lo devuelva en cada requestFrame
-
-
-Class Path:
-Un path es una secuencia de puntos, la que se podra interpolar con un tween.
-ya esta implementado, no tira error, pero no anima un sorongo... testear demo2
-no playea la animacion porque en el Tween esta _play en false... analizar que es lo que quiero hacer.
+Hacer una minidemo de Galaga.
     
     
-Class TileMap: Un TileMap es un objeto que tiene asignado por lo menos un ImageMap, para lo que se ve, y puede ser otro mas exactamente igual para el boundary.
+Class TileMap: Un TileMap es un objeto que tiene asignado por lo menos un ImageMap, para lo que se ve, y puede ser otro mas exactamente igual para el boundary. (al menos debe tener uno de ellos)
     Podra ser asignar asignado a un Layer, 
+    Si el Layer ya tiene asignada una imagen, entonces no es necesario que el tilemap lo genere... esto puede ser util para elaborar, por ejemplo, laberintos artisticos, pero que tengan de fondo subyacente un tilemap que me permita implementar busquedas y demas.
 
     Tambien tiene que tener algun tipo de mapeo, que permita construir los canvas.
     por ejemplo puede ser algo asi como un array bidimensional, que cada elemento tenga un objeto de la siguiente forma:
@@ -22,7 +14,13 @@ Class TileMap: Un TileMap es un objeto que tiene asignado por lo menos un ImageM
     el nivelSolidez es que tan duro es el objeto, de momento tendra 0 y 255, 0 definira un cuadrado por el que se puede circular, y 255 definira una pared. Esto sera utilizado por el metodo aStar, para determinar por donde puede ir o no.
 
 
-
+metodos:
+    setLayerMap
+    setBoundaryMap
+    setMap
+    aStar
+    
+    
 
                 
 
