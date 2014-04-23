@@ -87,13 +87,17 @@ Orange = ( function( rootApp ){
  */    
            setStatus : function(s) {
                _status = s;
+               _frame = 0;
+               //if(_frame >= _imageMap.getCantFrames(_status) - 1) _frame = 0;
            },
            
 /**
  * @function {public void} setStatusDie Asigna el status al dieStatus asignado en la instanciacion del ImageMap, el default es 0.
  */    
            setStatusDie : function() {
+               // aca hay que ver que pasa, que reproduce la animacion varias veces... mhmm ver
                 _status = _imageMap._fnGetDieStatus();
+               //if(_frame >= _imageMap.getCantFrames(_status) - 1) _frame = 0;
            },
 
 /**

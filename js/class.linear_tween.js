@@ -59,8 +59,10 @@ Orange = ( function( rootApp ){
                 signX = ((p2.x - p1.x) >= 0)? 1 : -1,
                 signY = ((p2.y - p1.y) >= 0)? 1 : -1;
            
-           _angle = Math.atan2(signY*dy, signX*dx);
+           _angle = Math.atan2(-signY*dy, signX*dx);
+           _angle = Math.floor((_angle * 180) / Math.PI);
            
+           if(_angle < 0) _angle = 360 + _angle;
            
            //  todo esto... mhmmm seguro se puede mejorar...
            if(dy>=dx) { // si es mas alto q ancho

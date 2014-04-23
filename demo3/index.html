@@ -34,11 +34,12 @@
     
         
     // Primero que nada: inicializar la libreria
-    Orange.init(document.getElementById("main"), {scaleWidth : 2, scaleHeight : 2});
+    Orange.init(document.getElementById("main"), {scaleWidth : 1, scaleHeight : 1});
     
     // agrego las imagenes que quiero utilizar.
     Orange.getImageManager().addImage(["img/enemy1.png", 
         "img/nave.png", 
+        "img/bala.png", 
         "img/back.gif"
     ]);
 
@@ -98,11 +99,11 @@
                             break;
                 case 37 :   dx = 2 * -s.getSpeed();
                             break;
-/*                            
-                case 17 :   var spr = new Shot(s.getX() + 8, s.getY());
+                            
+                case 17 :   var spr = new Shot(s.getX() + 14, s.getY());
                             break;
                 //default :   console.log(eventData.e.keyCode);
-*/                
+
             }
             
         });
@@ -137,12 +138,12 @@
         
         
 // TIROS, BALAS, RAYOS y CENTELLAS....        
-/*        
+        
         // Definicion del tiro de la nave ---------------------------------------
         var balaImageMap = new Orange.ImageMap({
-            image : Orange.getImageManager().get("bala_nave"), 
-            width : 1,
-            height : 4
+            image : Orange.getImageManager().get("bala"), 
+            width : 3,
+            height : 8
         });
         
         // Pequeño constructor de tiros.
@@ -163,16 +164,17 @@
                 }
             });            
             
+            
             spr.on("collision", function(eventName, context, aCollision) {
                 if(aCollision.length > 0) {
                     if(aCollision[0].getClass() == Orange.Sprite.Classes.ENEMY) {
                         // obtengo fila y columna del id "hardcodeado"
-                        var fila = parseInt(aCollision[0].id.split("_")[0]);
-                        var columna = parseInt(aCollision[0].id.split("_")[1]);
+//                        var fila = parseInt(aCollision[0].id.split("_")[0]);
+//                        var columna = parseInt(aCollision[0].id.split("_")[1]);
                         
                         aCollision[0].destroy();
                         context.destroy();
-                        
+/*                        
                         if(fila>0) { // si todavia hay encima enemys
                             fila--;
                             // pongo en habilitados el que este arriba.
@@ -185,6 +187,7 @@
                                 numeroHabilitados += (global.habilitados[i] != null)? 1:0;
                             }
                         }
+*/                        
                     }
                 }
             });
@@ -192,7 +195,7 @@
             return spr;
         } // FIN DEFINICION DISPARO --------------------------------
              
-*/             
+
              
              
              
@@ -263,7 +266,7 @@
                 { loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},
                 { loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},
                 { loopMode : "L"},{ loopMode : "L"},{ loopMode : "L"},
-                { loopMode : "L", speed : 2}
+                { loopMode : "L", speed : 1}
             ],
             speed : 12
         });
@@ -280,13 +283,8 @@
         enemy1.on("enterFrame", function(eventData, s) {
             var a = s.getPath().getTween().getAngle();
             var st = 0;
-            var m = 12 / Math.PI;
-            if(a >= 0) { // esta entre 0 y pi, o sea 0 y 11
-                st = 24 - Math.floor(a * m);
-            } else {
-                st = 12 - Math.floor(a * -m);
-            }
-            
+            var m = 24 / 360;
+            st = Math.floor(a * m);
             s.getAnimation().setStatus(st);
         });
         
@@ -303,13 +301,32 @@
         tween1 = new Orange.LinearTween();
         var path1 = new Orange.Path({
             tween : tween1,
-            keys : [{x:200, y:100, nFrames : 10},
-                    {x:195, y:78, nFrames : 10},
-                    {x:185, y:55, nFrames : 10},
-                    {x:170, y:30, nFrames : 10},
-                    {x:145, y:15, nFrames : 10},
-                    {x:122, y:5, nFrames : 10},
-                    {x:100, y:0, nFrames : 10}]
+            keys : [
+                    {x:200, y:100, nFrames : 6},
+                    {x:200, y:86, nFrames : 6},
+                    {x:190, y:73, nFrames : 6},
+                    {x:173, y:62, nFrames : 6},
+                    {x:147, y:55, nFrames : 6},
+                    {x:120, y:50, nFrames : 6},
+                    {x:100, y:50, nFrames : 6},
+                    {x:80, y:50, nFrames : 6},
+                    {x:60, y:55, nFrames : 6},
+                    {x:30, y:63, nFrames : 6},
+                    {x:15, y:72, nFrames : 6},
+                    {x:3, y:87, nFrames : 6},
+                    {x:0, y:100, nFrames : 6},
+                    {x:3, y:113, nFrames : 6},
+                    {x:11, y:125, nFrames : 6},
+                    {x:29, y:136, nFrames : 6},
+                    {x:55, y:146, nFrames : 6},
+                    {x:80, y:150, nFrames : 6},
+                    {x:100, y:150, nFrames : 6},
+                    {x:120, y:150, nFrames : 6},
+                    {x:142, y:145, nFrames : 6},
+                    {x:160, y:140, nFrames : 6},
+                    {x:172, y:135, nFrames : 6},
+                    {x:188, y:127, nFrames : 6},
+                    {x:200, y:115, nFrames : 6}]
         });
 
         enemy1.setPath(path1);
