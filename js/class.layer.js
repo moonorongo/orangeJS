@@ -37,6 +37,7 @@ Orange = ( function( rootApp ){
         
 /** @property {private image} __bgLayer Imagen background del Layer. */
         _bgLayer,
+        _tileMap,
         _bgX,
         _bgY;
 
@@ -101,6 +102,10 @@ Orange = ( function( rootApp ){
             _bgLayer = img;
         },
 
+
+        setTileMap : function(tMap){
+            _tileMap = tMap;
+        },
         
 /**
  * @function {public void} _update Actualiza el Layer, y lo dibuja en el context principal.

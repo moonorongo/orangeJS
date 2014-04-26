@@ -1,0 +1,98 @@
+<html>
+
+    <head>
+        <!-- libs -->
+        <script src="../js/underscore.js"></script> 
+        <!-- main lib -->
+        <script src="../js/orange2.js"></script> 
+        <!-- classes -->
+        <script src="../js/class.layer.js"></script> 
+        <script src="../js/class.image_manager.js"></script> 
+        <script src="../js/class.image_map.js"></script> 
+        <script src="../js/class.sprite.js"></script> 
+        <script src="../js/class.animation.js"></script> 
+        <script src="../js/class.linear_tween.js"></script> 
+        <script src="../js/class.path.js"></script> 
+        <script src="../js/class.tile_map.js"></script> 
+        
+</head>
+
+    <body>
+        <canvas id="main" width="224" height="288" style="background-color: black"></canvas>
+        <br />
+        <button onClick="document.location.reload()">Reiniciar</button>
+        
+    </body>
+    
+<script>
+    var mapaImageMap;
+    
+    // Primero que nada: inicializar la libreria
+    Orange.init(document.getElementById("main"), {scaleWidth : 1, scaleHeight : 1});
+    
+    // agrego las imagenes que quiero utilizar.
+    Orange.getImageManager().addImage(["img/boundary_map.png", 
+        "img/tile_map.png", 
+        "img/back.png"
+    ]);
+
+
+    
+    // Inicio la precarga, cuando finalize llama al callback.
+    // mas adelante tengo que hacerlo mejor, con un objeto que tenga sucess, error, progress, etc.
+    Orange.getImageManager().preload(function(){
+        // Layers
+        var l = new Orange.Layer();
+        var m = new Orange.Layer();
+        //Orange.addLayer(l);
+        Orange.addLayer(m);
+    
+        // ImageMaps
+        mapaImageMap = new Orange.ImageMap({
+            image : Orange.getImageManager().get("tile_map"),
+            width : 8,
+            height : 8
+        });
+
+        // TileMap
+        mapaTileMap = new Orange.TileMap({
+            layerImageMap : mapaImageMap,
+            width: 224,
+            height: 288,
+            map : [
+/*                [{l:27}],
+                [{l:27}],*/
+                [{l: 1}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l:17}, {l: 2}],
+                [{l:16}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:25}, {l:18}],
+                [{l:16}, {l:25}, {l: 5}, {l: 6}, {l:25}, {l: 5}, {l:21}, {l:21}, {l: 6}, {l:25}, {l: 5}, {l:21}, {l:21}, {l:21}, {l:21}, {l:21}, {l:21}, {l: 6}, {l:25}, {l: 5}, {l:21}, {l:21}, {l: 6}, {l:25}, {l: 5}, {l: 6}, {l:25}, {l:18}],
+                [{l:16}, {l:27}, {l:20}, {l:22}, {l:25}, {l:20}, {l:24}, {l:24}, {l:22}, {l:25}, {l:20}, {l: 9}, {l:23}, {l:23}, {l:23}, {l:23}, {l:10}, {l:22}, {l:25}, {l:20}, {l:24}, {l:24}, {l:22}, {l:25}, {l:20}, {l:22}, {l:25}, {l:18}],
+                [{l:16}, {l:25}, {l:20}, {l:22}, {l:25}, {l: 4}, {l:23}, {l:23}, {l: 7}, {l:25}, {l:20}, {l:22}, {l:24}, {l:24}, {l:24}, {l:24}, {l:24}, {l:22}, {l:25}, {l:20}, {l:24}, {l:24}, {l:22}, {l:25}, {l:20}, {l:22}, {l:25}, {l:18}],
+            ]
+        });
+        
+        l.setBackground(Orange.getImageManager().get('back'));
+        m.setBackground(mapaTileMap.getLayer());
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        Orange.preUpdate(function() {
+            //if(Math.floor(Math.random()*20) == 0) enemy1.shot();
+        });
+        
+        // y finalmente, pulso el boton rojo.
+        Orange.start();
+    }); // FIN PRELOAD
+</script>
+</hmtl>

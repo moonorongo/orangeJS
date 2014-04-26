@@ -13,7 +13,7 @@ Orange = ( function( rootApp ){
         _tmpCanvas.height = _image.height;
         var _tempContext = _tmpCanvas.getContext('2d');
         
-        _tempContext.clearRect(0,0,500,400);
+        _tempContext.clearRect(0,0,_image.width,_image.height);
         _tempContext.drawImage(_image, 0, 0);
 
         var _imagenWidth = _image.width;
@@ -40,6 +40,10 @@ Orange = ( function( rootApp ){
                 _nFrames[fila] = columna;
                 break;
             };
+            
+            // si no encontro el ultimo frame vacio, entonces setea el ultimo con el valor maximo
+            if(columna == _cantidadFrames - 1) _nFrames[fila] = _cantidadFrames;
+                
         } // for columna
         } // for fila
         // fin inicializacion ImageMap;
@@ -47,6 +51,13 @@ Orange = ( function( rootApp ){
     
     
        return {
+           getChar : function(charNumber) {
+               var tWidth = Math.floor(_imagenWidth / _spriteWidth);
+               var s = Math.floor(charNumber / tWidth);
+               var frame = charNumber % tWidth;
+               return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * s};
+           },
+           
            getFrame : function(frame, status) {
                var s = (_.isUndefined(status))? _status : status;
                return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * s};

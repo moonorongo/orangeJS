@@ -13,11 +13,29 @@ Class TileMap: Un TileMap es un objeto que tiene asignado por lo menos un ImageM
     {frame, status, nivelSolidez}
     el nivelSolidez es que tan duro es el objeto, de momento tendra 0 y 255, 0 definira un cuadrado por el que se puede circular, y 255 definira una pared. Esto sera utilizado por el metodo aStar, para determinar por donde puede ir o no.
 
+cada bloque cuenta con la siguiente info:
+
+{
+    tChar,
+    bChar,
+    transitable
+}
+
+y map sera un array de arrays
+
+map : [
+    [{t, b, transitable}, t, b, transitable}, t, b, transitable}, ... ],
+    [{t, b, transitable}, t, b, transitable}, t, b, transitable}, ... ],
+    [{t, b, transitable}, t, b, transitable}, t, b, transitable}, ... ],
+    [{t, b, transitable}, t, b, transitable}, t, b, transitable}, ... ],
+    [{t, b, transitable}, t, b, transitable}, t, b, transitable}, ... ]
+]
+    
 
 metodos:
     setLayerMap
     setBoundaryMap
-    setMap
+
     aStar
     
     
