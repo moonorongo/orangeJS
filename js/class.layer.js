@@ -35,9 +35,11 @@ Orange = ( function( rootApp ){
 /** @property {private int} _height Alto del canvas, idem anterior. */
         _height = height,
         
-/** @property {private image} __bgLayer Imagen background del Layer. */
+/** @property {private image} _bgLayer Imagen background del Layer. */
         _bgLayer,
         _tileMap,
+/** @property {private boolean} _showBoundary Muestra el boundary del Layer, para debuguear. */
+        _showBoundary = false,
         _bgX,
         _bgY;
 
@@ -59,8 +61,10 @@ Orange = ( function( rootApp ){
  * @function {private void} _fnUpdate Actualiza el Layer, pintando el fondo, y los Sprites asignados.
  */    
     var _fnUpdate = function() {
+        
+        if((!_.isUndefined(_tmpCanvasBoundary)) && (_showBoundary)) _layer.drawImage(_tmpCanvasBoundary, _bgX, _bgY);
+
         if(!_.isUndefined(_bgLayer)) { 
-            // pinto _bgLayer...
             _layer.drawImage(_bgLayer, _bgX, _bgY);
         } else {
             // o pinta un cuadrado negro.
@@ -77,6 +81,15 @@ Orange = ( function( rootApp ){
     
     
     return {
+/**
+ * @function {public void} showBoundary Especifica si quiero mostrar el boundary del Layer, para testear.
+ * @param {boolean} status true/false activa o desactiva.
+ */    
+        showBoundary : function(status) {
+            _showBoundary = status; 
+        },
+        
+        
 /**
  * @function {public canvas} _fnGetCanvas Devuelve el contexto del canvas
  */    

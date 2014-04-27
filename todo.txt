@@ -1,7 +1,12 @@
 CONTINUAR CON DOCUMENTACION: Tween, Path
 
+en Sprite, poner algo que ignore el boundary
 
-Hacer una minidemo de Galaga.
+Demo pacman: Armar los sprites del pacman, agregar el sprite del pacman en la demo... y ver que este andando masomenos
+
+luego implementar aStar
+
+En TileMap: si no se especifica width o height tomar del canvas. (copiar lo que esta en Layer)
     
     
 Class TileMap: Un TileMap es un objeto que tiene asignado por lo menos un ImageMap, para lo que se ve, y puede ser otro mas exactamente igual para el boundary. (al menos debe tener uno de ellos)

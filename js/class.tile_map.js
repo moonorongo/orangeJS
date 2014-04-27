@@ -14,12 +14,15 @@ Orange = ( function( rootApp ){
     
     rootApp.TileMap = function(config){
 
+        // si no se proporciona width y height tratar de obtenerlos del canvas principal (como los Layers)
+        
         var _layerImageMap = config.layerImageMap || null,
             _boundaryImageMap = config.boundaryImageMap || null,
             _layerCanvas, _boundaryCanvas,_layerContext, _boundaryContext,
+            //_boundaryMap = config.boundaryMap || null,
             _map = config.map || null;
-        
-        // aca detectar que es lo que tengo, y generar _layerCanvas, _boundaryCanvas
+
+            
         if(!_.isNull(_layerImageMap)) {
             _layerCanvas = document.createElement("canvas");
             _layerCanvas.width = config.width;
@@ -27,12 +30,11 @@ Orange = ( function( rootApp ){
             _layerContext = _layerCanvas.getContext('2d');
             
             _layerContext.clearRect(0,0,config.width,config.height);
-            
-            _.each(config.map, function(row, rowIndex){
+
+            _.each(_map, function(row, rowIndex){
                 _.each(row, function(col, colIndex){
-                    //_layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w * _expandX, _h * _expandY);
                     var imgData = _layerImageMap.getChar(col.l);
-                    
+
                     _layerContext.drawImage(imgData.image, 
                                             imgData.px, 
                                             imgData.py,
@@ -42,9 +44,11 @@ Orange = ( function( rootApp ){
                                             rowIndex * _layerImageMap.getSpriteHeight(),
                                             _layerImageMap.getSpriteWidth(), 
                                             _layerImageMap.getSpriteHeight());
+                
                 });
             });
         }
+           
            
         if(!_.isNull(_boundaryImageMap)) {
             _boundaryCanvas = document.createElement("canvas");
@@ -53,6 +57,23 @@ Orange = ( function( rootApp ){
             _boundaryContext = _boundaryCanvas.getContext('2d');
             
             _boundaryContext.clearRect(0,0,config.width,config.height);
+            
+            _.each(_map, function(row, rowIndex){
+                _.each(row, function(col, colIndex){
+                    var imgData = _boundaryImageMap.getChar(col.b);
+                    
+                    _boundaryContext.drawImage(imgData.image, 
+                                            imgData.px, 
+                                            imgData.py,
+                                            _boundaryImageMap.getSpriteWidth(), 
+                                            _boundaryImageMap.getSpriteHeight(), 
+                                            colIndex * _boundaryImageMap.getSpriteWidth(),
+                                            rowIndex * _boundaryImageMap.getSpriteHeight(),
+                                            _boundaryImageMap.getSpriteWidth(), 
+                                            _boundaryImageMap.getSpriteHeight());
+                });
+            });
+            
         }
         
         
