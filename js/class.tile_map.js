@@ -32,6 +32,7 @@ Orange = ( function( rootApp ){
                 _.each(row, function(col, colIndex){
                     //_layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w * _expandX, _h * _expandY);
                     var imgData = _layerImageMap.getChar(col.l);
+                    
                     _layerContext.drawImage(imgData.image, 
                                             imgData.px, 
                                             imgData.py,
