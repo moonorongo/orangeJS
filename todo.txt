@@ -3,6 +3,12 @@ CONTINUAR CON DOCUMENTACION: Tween, Path
 en Sprite, poner algo que ignore el boundary
 
 Demo pacman: Armar los sprites del pacman, agregar el sprite del pacman en la demo... y ver que este andando masomenos
+NO DIBUJA BIEN... MHMMM ... VER ...
+
+ARREGLAR E IMPLEMENTAR EN LAYER
+poder especificar un color de background (negro por defecto) para el caso en que ponga un setBackground que sea transparente...
+ese color sera el que se pintara en class.layer.js L68.
+
 
 luego implementar aStar
 

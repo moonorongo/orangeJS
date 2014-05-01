@@ -25,14 +25,15 @@
     </body>
     
 <script>
-    var mapaImageMap;
     
+    var dx = 0, dy = 0;
     // Primero que nada: inicializar la libreria
     Orange.init(document.getElementById("main"), {scaleWidth : 1, scaleHeight : 1});
     
     // agrego las imagenes que quiero utilizar.
     Orange.getImageManager().addImage(["img/boundary_map.png", 
         "img/tile_map.png", 
+        "img/pacman.png", 
         "img/back.png"
     ]);
 
@@ -43,18 +44,17 @@
     Orange.getImageManager().preload(function(){
         // Layers
         var l = new Orange.Layer();
-        var m = new Orange.Layer();
         Orange.addLayer(l);
-        Orange.addLayer(m);
+
     
         // ImageMaps
-        mapaImageMap = new Orange.ImageMap({
+        var mapaImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("tile_map"),
             width : 8,
             height : 8
         });
 
-        boundaryImageMap = new Orange.ImageMap({
+        var boundaryImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("boundary_map"),
             width : 8,
             height : 8
@@ -62,7 +62,7 @@
         
         
         // TileMap
-        mapaTileMap = new Orange.TileMap({
+        var mapaTileMap = new Orange.TileMap({
             layerImageMap : mapaImageMap,
             boundaryImageMap : boundaryImageMap,
             width: 224,
@@ -106,29 +106,97 @@
             ]
         });
         
-        l.setBackground(Orange.getImageManager().get('back'));
         
-        m.setBackground(mapaTileMap.getLayer());
-        m.setBoundary(mapaTileMap.getBoundary());
-        //m.showBoundary(true);
+        
+        
+
+        l.setBackground(mapaTileMap.getLayer());
+        l.setBoundary(mapaTileMap.getBoundary());
+        l.showBoundary(true);
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        Orange.preUpdate(function() {
-            //if(Math.floor(Math.random()*20) == 0) enemy1.shot();
+
+        // Definicion del Pacman 
+        var pacmanImageMap = new Orange.ImageMap({
+            image: Orange.getImageManager().get("pacman"),
+            width: 16,
+            height: 16
         });
+        
+        
+        // Animations 
+        var pacmanAnimation =  new Orange.Animation(pacmanImageMap, {
+            statusConfig : [ 
+                { loopMode : "L"},
+                { loopMode : "L"},
+                { loopMode : "L"},
+                { loopMode : "L"}
+            ],
+            speed : 12
+        });
+        
+        
+        
+        // Sprites
+        var pacman = new Orange.Sprite({
+            src : pacmanAnimation,
+            speed : 1,
+            pivotX : 7,
+            pivotY : 7
+        });
+        
+        
+        l.addSprite(pacman);
+        // ignoreBound : ignora el bound... eso..
+        pacman.showPivotPoint(true);
+        pacman.setX(104, {ignoreBound : true}).setY(204, {ignoreBound : true});
+
+    
+        pacman.on("keydown", function(eventData, s) {
+            switch(eventData.e.keyCode) {
+                case 38 :   dy = -s.getSpeed();
+                            if(s.getDir() == Orange.Sprite.MOVE_NONE) s.getAnimation().setStatus(3);
+                            break;
+                case 40 :   dy = s.getSpeed();
+                            if(s.getDir() == Orange.Sprite.MOVE_NONE) s.getAnimation().setStatus(2);
+                            break;
+                case 39 :   dx = s.getSpeed();
+                            if(s.getDir() == Orange.Sprite.MOVE_NONE) s.getAnimation().setStatus(1);
+                            break;
+                case 37 :   dx = -s.getSpeed();
+                            if(s.getDir() == Orange.Sprite.MOVE_NONE) s.getAnimation().setStatus(0);
+                            break;
+            }
+            
+        });
+
+/*        
+        pacman.on("keyup", function(eventData, s) {
+            switch(eventData.e.keyCode) {
+                case 38 :   dy = 0;
+                            break;
+                case 40 :   dy = 0;
+                            break;
+                case 39 :   dx = 0;
+                            break;
+                case 37 :   dx = 0;
+                            break;
+            }
+        });
+*/    
+        
+    
+    
+    
+// esta mierda hay que definirla si o si... ver como evitarla...    
+        Orange.preUpdate(function() {
+            pacman.incX(dx).incY(dy);
+        });
+    
+    
+    
+    
         
         // y finalmente, pulso el boton rojo.
         Orange.start();

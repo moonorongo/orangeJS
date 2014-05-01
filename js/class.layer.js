@@ -62,15 +62,21 @@ Orange = ( function( rootApp ){
  */    
     var _fnUpdate = function() {
         
-        if((!_.isUndefined(_tmpCanvasBoundary)) && (_showBoundary)) _layer.drawImage(_tmpCanvasBoundary, _bgX, _bgY);
-
         if(!_.isUndefined(_bgLayer)) { 
+            _layer.fillRect(0,0,_context.canvas.width,_context.canvas.height);            
             _layer.drawImage(_bgLayer, _bgX, _bgY);
         } else {
             // o pinta un cuadrado negro.
             _layer.fillRect(0,0,_context.canvas.width,_context.canvas.height);
         }
-        
+
+        if((!_.isUndefined(_tmpCanvasBoundary)) && (_showBoundary)) { 
+            _layer.save();
+            _layer.globalAlpha = 0.1;
+            _layer.drawImage(_tmpCanvasBoundary, _bgX, _bgY);
+            _layer.restore();
+        }
+
         // pinta cada sprite.
         _.each(_sprites, function(s) {
             s._fnUpdate();
@@ -191,7 +197,7 @@ Orange = ( function( rootApp ){
  * @param {int} y Posicion y.
  */    
         _fnGetBoundaryStatus : function(x,y) {
-            if(_.isUndefined(_boundary)) {
+            if(_.isNaN(x) || _.isNaN(y)) {
                 return {
                     r : 255,
                     g : 255,
@@ -199,14 +205,24 @@ Orange = ( function( rootApp ){
                     a : 255
                 }
             } else {
-                var data  = _boundary.getImageData(x, y,  1, 1).data;
-                return {
-                    r : data[0],
-                    g : data[1],
-                    b : data[2],
-                    a : data[3]
-                }
-            }
+                if(_.isUndefined(_boundary)) {
+                    return {
+                        r : 255,
+                        g : 255,
+                        b : 255,
+                        a : 255
+                    }
+                } else {
+                    var data  = _boundary.getImageData(x, y,  1, 1).data;
+                    return {
+                        r : data[0],
+                        g : data[1],
+                        b : data[2],
+                        a : data[3]
+                    }
+                }                
+            } // isNaN
+
         },
         
 /*        

@@ -94,6 +94,17 @@ Orange = ( function( rootApp ){
                 return _layerCanvas;
             },
            
+            getContext : function() {
+                return _layerContext;
+            },
+           
+            getImage : function() {
+                var imgTemp = document.createElement("img");
+                imgTemp.src = _layerCanvas.toDataURL();
+                return imgTemp;
+            },
+           
+           
             getBoundary : function() {
                 return _boundaryCanvas;
             },

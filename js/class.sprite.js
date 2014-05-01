@@ -94,6 +94,8 @@ Orange = ( function( rootApp ){
     var orangeRoot;         
     this.id = _id;
     
+    var _showPivotPoint, _pivotPoint, _pivotPointData;
+    
 /**
  * @function {private void} _setDirX Establece la direccion de movimiento del Sprite.
  * @param {int} x nueva posicion.
@@ -172,6 +174,11 @@ Orange = ( function( rootApp ){
     
     // settings por defecto
     var settings = {
+        
+        showPivotPoint : function(status) {
+            _showPivotPoint = status;
+        },
+        
 /**
  * @function {public void} _fnSetLayer Utilizada desde Layer.addSprite, le inyecta al Sprite el Layer donde esta siendo insertado
  * @param {Layer} layer El Layer al que pertenece el Sprite.
@@ -451,6 +458,8 @@ Orange = ( function( rootApp ){
                 imgData = _src.getFrame(0);
                 _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w * _expandX, _h * _expandY);
 
+                
+                // todo esto esta como medio choto... revisar a futuro...
                 if(_muriendo > 0) { 
                     _muriendo--;
                 } else { // ya murio, lo reviento del todo.
@@ -461,6 +470,13 @@ Orange = ( function( rootApp ){
             } else {
                  imgData = _src.getFrame(0); // si _src es Animation, no se toma en cuenta el parametro.
                 _layer._fnGetCanvas().drawImage(imgData.image, imgData.px, imgData.py, _w, _h, _x,_y,_w * _expandX, _h * _expandY);
+            }
+            
+            if(_showPivotPoint) {
+                _layer._fnGetCanvas().save();
+                _layer._fnGetCanvas().fillStyle = "rgba(0,255,255,1)";
+                _layer._fnGetCanvas().fillRect(_x + _pivotX, _y + _pivotY,1,1);                     
+                _layer._fnGetCanvas().restore();
             }
 
         },
