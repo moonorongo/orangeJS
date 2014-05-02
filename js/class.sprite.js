@@ -117,9 +117,9 @@ Orange = ( function( rootApp ){
  */    
     var _setDirY = function(y) {
         if(y > _y) {
-            _dirY = Orange.Sprite.MOVE_UP;
-        } else if (y < _y) {
             _dirY = Orange.Sprite.MOVE_DOWN;
+        } else if (y < _y) {
+            _dirY = Orange.Sprite.MOVE_UP;
         } else {
             _dirY = Orange.Sprite.MOVE_NONE;
         }        
@@ -131,12 +131,15 @@ Orange = ( function( rootApp ){
  * @param {int} x nueva posicion.
  */    
     var _setX = function(x) {
-        _setDirX(x);
 
         if(_layer._fnGetBoundaryStatus(x + _pivotX, _y + _pivotY).r != 0) { 
-            // si puede, lo actualiza
+            _setDirX(x);
             _x = x;
-        } else {
+        } else { 
+            _dirX = Orange.Sprite.MOVE_NONE;
+        }
+/*        
+        else {
             // si no, veo si puedo ir para arriba o abajo. (la cantidad de _speed pixels...)
             if(_layer._fnGetBoundaryStatus(x + _pivotX, (_y + _pivotY) - _speed).r != 0) { 
                 _y -= _speed;
@@ -146,18 +149,24 @@ Orange = ( function( rootApp ){
                 _y += _speed;
             }
         } // puedo posicionar
+*/        
     }; // setX
 
+    
 /**
  * @function {private void} _setY Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento.
  * @param {int} y nueva posicion.
  */    
     var _setY = function(y) {
-        _setDirY(y);
         
         if(_layer._fnGetBoundaryStatus(_x + _pivotX, y + _pivotY).r != 0) {
+            _setDirY(y);
             _y = y;
-        } else {
+        } else { 
+            _dirY = Orange.Sprite.MOVE_NONE;
+        }
+/*        
+        else {
             // si no, veo si puedo ir para izq o der. (la cantidad de _speed pixels...)
             if(_layer._fnGetBoundaryStatus(x + _pivotX - _speed, _y + _pivotY).r != 0) { 
                 _x -= _speed;
@@ -167,6 +176,7 @@ Orange = ( function( rootApp ){
                 _x += _speed;
             }
         }
+*/        
     }
     
     

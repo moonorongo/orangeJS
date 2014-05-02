@@ -87,8 +87,9 @@ Orange = ( function( rootApp ){
  */    
            setStatus : function(s) {
                _status = s;
-               _frame = 0;
-               //if(_frame >= _imageMap.getCantFrames(_status) - 1) _frame = 0;
+               //_frame = 0; // por que puse esto??? no se... ver... creo que por las explosiones... 
+               // las explosiones las voy a manejar de otra manera... con otro sprite... por un tema de tamaño...
+               if(_frame >= _imageMap.getCantFrames(_status) - 1) _frame = 0;
            },
            
 /**

@@ -112,7 +112,7 @@
 
         l.setBackground(mapaTileMap.getLayer());
         l.setBoundary(mapaTileMap.getBoundary());
-        l.showBoundary(true);
+        //l.showBoundary(true);
     
     
     
@@ -133,7 +133,7 @@
                 { loopMode : "L"},
                 { loopMode : "L"}
             ],
-            speed : 12
+            speed : 1
         });
         
         
@@ -141,7 +141,7 @@
         // Sprites
         var pacman = new Orange.Sprite({
             src : pacmanAnimation,
-            speed : 1,
+            speed : 2,
             pivotX : 7,
             pivotY : 7
         });
@@ -156,35 +156,22 @@
         pacman.on("keydown", function(eventData, s) {
             switch(eventData.e.keyCode) {
                 case 38 :   dy = -s.getSpeed();
-                            if(s.getDir() == Orange.Sprite.MOVE_NONE) s.getAnimation().setStatus(3);
+//                            dx = 0;
+                            
                             break;
                 case 40 :   dy = s.getSpeed();
-                            if(s.getDir() == Orange.Sprite.MOVE_NONE) s.getAnimation().setStatus(2);
+  //                          dx = 0;
                             break;
                 case 39 :   dx = s.getSpeed();
-                            if(s.getDir() == Orange.Sprite.MOVE_NONE) s.getAnimation().setStatus(1);
+    //                        dy = 0;
                             break;
                 case 37 :   dx = -s.getSpeed();
-                            if(s.getDir() == Orange.Sprite.MOVE_NONE) s.getAnimation().setStatus(0);
+      //                      dy = 0;
                             break;
             }
             
         });
 
-/*        
-        pacman.on("keyup", function(eventData, s) {
-            switch(eventData.e.keyCode) {
-                case 38 :   dy = 0;
-                            break;
-                case 40 :   dy = 0;
-                            break;
-                case 39 :   dx = 0;
-                            break;
-                case 37 :   dx = 0;
-                            break;
-            }
-        });
-*/    
         
     
     
@@ -192,6 +179,19 @@
 // esta mierda hay que definirla si o si... ver como evitarla...    
         Orange.preUpdate(function() {
             pacman.incX(dx).incY(dy);
+//            console.log(pacman.getDir());
+            
+            switch(pacman.getDir()) {
+                case Orange.Sprite.MOVE_UP : pacman.getAnimation().setStatus(3);
+                                             break;
+                case Orange.Sprite.MOVE_DOWN : pacman.getAnimation().setStatus(2);
+                                             break;
+                case Orange.Sprite.MOVE_RIGHT : pacman.getAnimation().setStatus(1);
+                                             break;
+                case Orange.Sprite.MOVE_LEFT : pacman.getAnimation().setStatus(0);
+                                             break;
+            }
+
         });
     
     
