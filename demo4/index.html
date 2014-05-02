@@ -26,9 +26,9 @@
     
 <script>
     
-    var dx = 0, dy = 0;
+    var dx = -2, dy = 0;
     // Primero que nada: inicializar la libreria
-    Orange.init(document.getElementById("main"), {scaleWidth : 1, scaleHeight : 1});
+    Orange.init(document.getElementById("main"), {scaleWidth : 2, scaleHeight : 2});
     
     // agrego las imagenes que quiero utilizar.
     Orange.getImageManager().addImage(["img/boundary_map.png", 
@@ -148,25 +148,24 @@
         
         
         l.addSprite(pacman);
-        // ignoreBound : ignora el bound... eso..
-        pacman.showPivotPoint(true);
+        // ignoreBound : ignora el bound... eso.. FALTA IMPLEMENTAR
+        //pacman.showPivotPoint(true);
         pacman.setX(104, {ignoreBound : true}).setY(204, {ignoreBound : true});
-
+        pacman.nextDir = 0;
     
         pacman.on("keydown", function(eventData, s) {
             switch(eventData.e.keyCode) {
-                case 38 :   dy = -s.getSpeed();
-//                            dx = 0;
-                            
+                case 38 :  s.nextDir = Orange.Sprite.MOVE_UP; 
+                //dy = -s.getSpeed();
                             break;
-                case 40 :   dy = s.getSpeed();
-  //                          dx = 0;
+                case 40 :   s.nextDir = Orange.Sprite.MOVE_DOWN;
+                //dy = s.getSpeed();
                             break;
-                case 39 :   dx = s.getSpeed();
-    //                        dy = 0;
+                case 39 :   s.nextDir = Orange.Sprite.MOVE_RIGHT;
+                //dx = s.getSpeed();
                             break;
-                case 37 :   dx = -s.getSpeed();
-      //                      dy = 0;
+                case 37 :   s.nextDir = Orange.Sprite.MOVE_LEFT;
+                //dx = -s.getSpeed();
                             break;
             }
             
@@ -178,18 +177,57 @@
     
 // esta mierda hay que definirla si o si... ver como evitarla...    
         Orange.preUpdate(function() {
-            pacman.incX(dx).incY(dy);
-//            console.log(pacman.getDir());
-            
+        // aca manejo los movimientos, segun las teclas que pulsé.
+            switch(pacman.nextDir) {
+                case Orange.Sprite.MOVE_UP :    if(pacman.checkY(pacman.getY() - 1)) {
+                                                    dy = -pacman.getSpeed();
+                                                    dx = 0; 
+                                                    pacman.nextDir = 0;
+                                                }
+                                                break;
+                case Orange.Sprite.MOVE_DOWN: if(pacman.checkY(pacman.getY() + 1)) {
+                                                    dy = pacman.getSpeed();
+                                                    dx = 0;
+                                                    pacman.nextDir = 0;
+                                                }
+                                                break;
+                case Orange.Sprite.MOVE_RIGHT: if(pacman.checkX(pacman.getX() + 1)) {
+                                                    dx = pacman.getSpeed();
+                                                    dy = 0;
+                                                    pacman.nextDir = 0;
+                                                }
+                                                break;
+                case Orange.Sprite.MOVE_LEFT: if(pacman.checkX(pacman.getX() - 1)) {
+                                                    dx = -pacman.getSpeed();
+                                                    dy = 0;
+                                                    pacman.nextDir = 0;
+                                                }
+                                                break;
+            } // end switch
+        
+            pacman.incX(dx);
+            pacman.incY(dy);
+
+  
+  
             switch(pacman.getDir()) {
                 case Orange.Sprite.MOVE_UP : pacman.getAnimation().setStatus(3);
+//                                             dx = 0;
                                              break;
                 case Orange.Sprite.MOVE_DOWN : pacman.getAnimation().setStatus(2);
-                                             break;
+//                                               dx = 0;
+                                               break;
                 case Orange.Sprite.MOVE_RIGHT : pacman.getAnimation().setStatus(1);
-                                             break;
+//                                                dy = 0;
+                                                break;
                 case Orange.Sprite.MOVE_LEFT : pacman.getAnimation().setStatus(0);
-                                             break;
+//                                               dy = 0;
+                                               break;
+                                             
+                case Orange.Sprite.MOVE_NONE : dx = 0; 
+                                               dy = 0;
+                                               break;
+                                               
             }
 
         });

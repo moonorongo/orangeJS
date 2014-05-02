@@ -126,18 +126,31 @@ Orange = ( function( rootApp ){
     }   
     
     
+    var _checkX = function(x) {
+        return (_layer._fnGetBoundaryStatus(x + _pivotX, _y + _pivotY).r != 0)? true : false;
+    }
+
+    
+    var _checkY = function(y) {
+        return (_layer._fnGetBoundaryStatus(_x + _pivotX, y + _pivotY).r != 0)? true : false;
+    }
+    
+    
 /**
- * @function {private void} _setX Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento.
+ * @function {private boolean} _setX Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento. Si no lo puede actualizar, entonces retorna FALSE
  * @param {int} x nueva posicion.
  */    
     var _setX = function(x) {
-
-        if(_layer._fnGetBoundaryStatus(x + _pivotX, _y + _pivotY).r != 0) { 
+        var success = false;
+        if(_checkX(x)) { 
             _setDirX(x);
             _x = x;
+            success = true;
         } else { 
             _dirX = Orange.Sprite.MOVE_NONE;
         }
+        
+        return success;
 /*        
         else {
             // si no, veo si puedo ir para arriba o abajo. (la cantidad de _speed pixels...)
@@ -154,17 +167,19 @@ Orange = ( function( rootApp ){
 
     
 /**
- * @function {private void} _setY Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento.
+ * @function {private void} _setY Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento. Si no lo puede actualizar, entonces retorna false.
  * @param {int} y nueva posicion.
  */    
     var _setY = function(y) {
-        
-        if(_layer._fnGetBoundaryStatus(_x + _pivotX, y + _pivotY).r != 0) {
+        var success =false;
+        if(_checkY(y)) {
             _setDirY(y);
             _y = y;
+            success = true;
         } else { 
             _dirY = Orange.Sprite.MOVE_NONE;
         }
+        return success;
 /*        
         else {
             // si no, veo si puedo ir para izq o der. (la cantidad de _speed pixels...)
@@ -184,6 +199,14 @@ Orange = ( function( rootApp ){
     
     // settings por defecto
     var settings = {
+        
+        checkX : function(x) {
+            return _checkX(x);
+        },
+
+        checkY : function(y) {
+            return _checkY(y);
+        },
         
         showPivotPoint : function(status) {
             _showPivotPoint = status;
@@ -261,8 +284,9 @@ Orange = ( function( rootApp ){
         incX : function(dx) { 
             var x = _x;
             x += dx;
-            _setX(x);
-            return this;
+            return _setX(x);
+            
+            //return this;
         },
            
 /**
@@ -272,8 +296,8 @@ Orange = ( function( rootApp ){
         incY : function(dy) { 
             y = _y;
             y += dy;
-            _setY(y);
-            return this;
+            return _setY(y);
+            //return this;
         },
         
         setSpeed: function(speed) {
