@@ -83,6 +83,25 @@ Orange = ( function( rootApp ){
         });
     }
     
+
+    
+    
+    var _setBackground = function(img,x,y) {
+        _bgX = x || 0;
+        _bgY = y || 0;
+        _bgLayer = img;
+    }
+
+    var _setBoundary = function(img,x,y) {
+        _tmpCanvasBoundary = document.createElement("canvas");
+        _tmpCanvasBoundary.width = _tmpCanvas.width;
+        _tmpCanvasBoundary.height = _tmpCanvas.height;
+        _boundary = _tmpCanvasBoundary.getContext("2d");
+        
+        var boundX = x || 0, 
+            boundY = y || 0;
+        _boundary.drawImage(img, boundX, boundY);        
+    }
     
     
     
@@ -116,14 +135,19 @@ Orange = ( function( rootApp ){
  * @param {optional} y Posicion y a dibujar.
  */    
         setBackground : function(img, x,y) {
-            _bgX = x || 0;
-            _bgY = y || 0;
-            _bgLayer = img;
+            _setBackground(img,x,y);
         },
 
 
+        getTileMap : function() {
+            return _tileMap;
+        },
+        
+        
         setTileMap : function(tMap){
             _tileMap = tMap;
+            _setBackground(_tileMap.getLayer());
+            _setBoundary(_tileMap.getBoundary());
         },
         
 /**
@@ -174,13 +198,11 @@ Orange = ( function( rootApp ){
  * @function {public void} setBoundary Asigna una imagen y genera un canvas, que es utilizado para proporcionar limites de movimiento dentro del Layer (util para laberintos, plataformas y casi todo lo que se te ocurra).
  * Por donde este en blanco la imagen se podra posicionar un Sprite, donde este en negro no sera posible.
  * @param {Image} img La imagen a asignar.
+ * @param {optional} x Posicion x a dibujar.
+ * @param {optional} y Posicion y a dibujar.
  */    
-        setBoundary : function(img) {
-            _tmpCanvasBoundary = document.createElement("canvas");
-            _tmpCanvasBoundary.width = _tmpCanvas.width;
-            _tmpCanvasBoundary.height = _tmpCanvas.height;
-            _boundary = _tmpCanvasBoundary.getContext("2d");
-            _boundary.drawImage(img,0,0);
+        setBoundary : function(img,x,y) {
+            _setBoundary(img,x,y);
         },
 
         

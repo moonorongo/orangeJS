@@ -61,6 +61,7 @@ Orange = ( function( rootApp ){
             _.each(_map, function(row, rowIndex){
                 _.each(row, function(col, colIndex){
                     var imgData = _boundaryImageMap.getChar(col.b);
+                    col.t = imgData.transitable;
                     
                     _boundaryContext.drawImage(imgData.image, 
                                             imgData.px, 
@@ -113,7 +114,7 @@ Orange = ( function( rootApp ){
                 return "TileMap";
             },
            
-            aStar : function(o) {
+            aStar : function(xIni, yIni, xFin, yFin) {
 
             }
 

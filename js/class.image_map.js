@@ -16,14 +16,15 @@ Orange = ( function( rootApp ){
         _tempContext.clearRect(0,0,_image.width,_image.height);
         _tempContext.drawImage(_image, 0, 0);
 
-        var _imagenWidth = _image.width;
-        var _imagenHeight = _image.height;
-        var _spriteWidth  = imgData.width;
-        var _spriteHeight = imgData.height;
-        var _dieStatus = imgData.dieStatus || 0;
-        var _cantidadFrames = Math.ceil(_imagenWidth / _spriteWidth);
-        var _statusLength =  Math.ceil(_imagenHeight / _spriteHeight);
-        var _status = 0;
+        var _imagenWidth = _image.width,
+            _imagenHeight = _image.height,
+            _spriteWidth  = imgData.width,
+            _spriteHeight = imgData.height,
+            _tMap = imgData.transitableMap || null,
+            _dieStatus = imgData.dieStatus || 0,
+            _cantidadFrames = Math.ceil(_imagenWidth / _spriteWidth),
+            _statusLength =  Math.ceil(_imagenHeight / _spriteHeight),
+            _status = 0;
 
         for(var fila = 0; fila < _statusLength; fila++) {
         for(var columna = 0; columna < _cantidadFrames; columna++) {
@@ -52,11 +53,15 @@ Orange = ( function( rootApp ){
     
        return {
            getChar : function(charNumber) {
-               var tWidth = Math.floor(_imagenWidth / _spriteWidth);
-               var s = Math.floor(charNumber / tWidth);
-               var frame = charNumber % tWidth;
-               return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * s};
+               var tWidth = Math.floor(_imagenWidth / _spriteWidth),
+                   s = Math.floor(charNumber / tWidth),
+                   frame = charNumber % tWidth;
+                   
+               var t = (!_.isNull(_tMap))? _tMap[s][frame] : true;
+               
+               return { image : _image, px : _spriteWidth * frame, py : _spriteHeight * s, transitable : t};
            },
+           
            
            getFrame : function(frame, status) {
                var s = (_.isUndefined(status))? _status : status;

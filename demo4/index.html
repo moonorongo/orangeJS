@@ -57,7 +57,17 @@
         var boundaryImageMap = new Orange.ImageMap({
             image : Orange.getImageManager().get("boundary_map"),
             width : 8,
-            height : 8
+            height : 8,
+            transitableMap : [
+                [true, true],
+                [true, true],
+                [true, true],
+                [true, true],
+                [true, true],
+                [true, true],
+                [true, true],
+                [false, true]
+            ]
         });
         
         
@@ -110,9 +120,8 @@
         
         
 
-        l.setBackground(mapaTileMap.getLayer());
-        l.setBoundary(mapaTileMap.getBoundary());
-        //l.showBoundary(true);
+        l.setTileMap(mapaTileMap);
+        l.showBoundary(true);
     
     
     
