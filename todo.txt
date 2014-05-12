@@ -9,6 +9,31 @@ esta funcion me devuelve una lista de puntos que es el recorrido... despues esta
 
 
 
+para el A* voy a necesitar algo que me maneje las listas (Abierta, a considerar, Cerrada, el path...)
+
+
+NodeList: administra nodes, en una lista ordenada por costo (el costo lo calculo con formula), en el formato {x,y, costo}
+
+    add (node o nodes[], overwrite): agrega el nodo, si ya está no lo agrega, salvo que este overwrite true, en tal caso lo reemplaza si el costo es menor al que está.
+    
+    remove(node): 
+    
+    
+en TileMap: 
+ 
+getNearNodes(node): metodo, que obtenga una lista de nodos adyacentes. ver de considerar cuando puedo obtener los nodos en diagonal. debe devolver una lista de nodos {x,y, costo}
+
+privado??? 
+_calcCost(n1,n2): calcula la distancia de Manhattan entre los 2 nodos.
+
+n = 4
+0   0
+[   ]
+
+n = 8
+0   1
+[   ]
+4
 
 
 
