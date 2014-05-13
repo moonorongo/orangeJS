@@ -3,21 +3,30 @@ CONTINUAR CON DOCUMENTACION: Tween, Path
 
 aStar en TileMap, que sera llamada desde otra funcion, en sprite o donde sea...
 
-aStar : function(xIni, yIni, xFin, yFin)
+aStar : function(nIni, nFin)
 
 esta funcion me devuelve una lista de puntos que es el recorrido... despues esta lista la tendre que pasar a coordenadas x,y. y armar el path con ella. 
 
+if nIni = nFin 
+    retorno nIni como solucion.
+else 
+    listaAbierta.add(nIni)
+    while (listaAbierta.length > 0)
+        nodo = listaAbierta.getMinCost()
+        if(nodo = nFin)
+            retorno listaCerrada
+        else 
+            listaAbierta.remove(nodo)
+            listaCerrada.add(nodo)
+            nearNodes[] = TileMap.getNearNodes(nodo)   // esto obtiene nodos vecinos, NO SOLIDOS
+            each(nearNodes as nearNode)
+                if(!listaCerrada.hasNode(nearNode)) 
+                    listaAbierta.add(nearNode, true) // sobreescribo si tiene costo menor
 
-
-para el A* voy a necesitar algo que me maneje las listas (Abierta, a considerar, Cerrada, el path...)
-
-
-NodeList: administra nodes, en una lista ordenada por costo (el costo lo calculo con formula), en el formato {x,y, costo}
-
-    add (node o nodes[], overwrite): agrega el nodo, si ya está no lo agrega, salvo que este overwrite true, en tal caso lo reemplaza si el costo es menor al que está.
+    end while
     
-    remove(node): 
-    
+    si llega a este punto, entonces no encontro un camino... retornara null.
+
     
 en TileMap: 
  

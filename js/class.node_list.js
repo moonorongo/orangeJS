@@ -16,7 +16,6 @@ Orange = ( function( rootApp ){
         var _nodeList = [];
         
         var _getNodeIndex = function(node) {
-            //return _.findWhere(_nodeList, {x : node.x, y : node.y});
             var index;
             _.each(_nodeList, function(n, i){  
                 if((n.x==node.x) && (n.y==node.y)) index = i;

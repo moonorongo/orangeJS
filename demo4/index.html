@@ -27,7 +27,7 @@
     
 <script>
     
-    var dx = -2, dy = 0;
+    var dx = -2, dy = 0, mapaTileMap;
     var nl = new Orange.NodeList();
     nl.add({x : 1, y : 1, cost : 10});
     nl.add({x : 1, y : 2, cost : 5});
@@ -80,7 +80,7 @@
         
         
         // TileMap
-        var mapaTileMap = new Orange.TileMap({
+        mapaTileMap = new Orange.TileMap({
             layerImageMap : mapaImageMap,
             boundaryImageMap : boundaryImageMap,
             width: 224,
@@ -249,7 +249,8 @@
     
         
         // y finalmente, pulso el boton rojo.
-        //Orange.start();
+        Orange.start();
+        Orange.stop();
     }); // FIN PRELOAD
 </script>
 </hmtl>
