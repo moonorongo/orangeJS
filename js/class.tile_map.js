@@ -102,40 +102,67 @@ Orange = ( function( rootApp ){
            
            
         
+        var _manhattan = function(nIni, nFin) {
+            var h = (Math.abs(nIni.x - nFin.x) + Math.abs(nIni.y - nFin.y)) * 10;
+            nIni.c += h;
+        };
         
         
-        var _manhattan = function(nIni, nFin) {};
+        var _nodeEqual = function(n1,n2) {
+            return (n1.x == n2.x) && (n1.y == n2.y);
+        }
         
-        // x = columna, y=fila
+
         var _nearNodes = function(n) {
+            
+            
             var out = [];
             // si no hay nada... alamerda!
             if(!_map[n.y][n.x].t) return out;
+  
           
-            if(_map[n.y-1][n.x].t) out.push({x:n.x, y:n.y-1}); // el de arriba
-            if(_map[n.y+1][n.x].t) out.push({x:n.x, y:n.y+1}); // el de abajo
-            if(_map[n.y][n.x-1].t) out.push({x:n.x-1, y:n.y}); // el de izquierda
-            if(_map[n.y][n.x+1].t) out.push({x:n.x+1, y:n.y}); // el de derecha
+            if(n.y > 0) {
+                if(_map[n.y-1][n.x].t) out.push({x:n.x, y:n.y-1, c:10}); // el de arriba
+            }
             
+            if(n.y < _map.length - 1) {
+                if(_map[n.y+1][n.x].t) out.push({x:n.x, y:n.y+1, c:10}); // el de abajo
+            }
+            
+            if(n.x > 0) {
+                if(_map[n.y][n.x-1].t) out.push({x:n.x-1, y:n.y, c:10}); // el de izquierda
+            }
+            
+            if(n.x < _map[0].length - 1) {
+                if(_map[n.y][n.x+1].t) out.push({x:n.x+1, y:n.y, c:10}); // el de derecha
+            }
+
+/*            
             if(_map[n.y-1][n.x-1].t) { // diagonal arriba-izquierda
-                if((_map[n.y-1][n.x].t) && (_map[n.y][n.x-1].t)) out.push({x:n.x-1, y:n.y-1});
+                if((_map[n.y-1][n.x].t) && (_map[n.y][n.x-1].t)) out.push({x:n.x-1, y:n.y-1, c:15});
             }
 
             if(_map[n.y-1][n.x+1].t) { // diagonal arriba-derecha
-                if((_map[n.y-1][n.x].t) && (_map[n.y][n.x+1].t)) out.push({x:n.x+1, y:n.y-1});
+                if((_map[n.y-1][n.x].t) && (_map[n.y][n.x+1].t)) out.push({x:n.x+1, y:n.y-1, c:15});
             }
             
             if(_map[n.y+1][n.x+1].t) { // diagonal abajo-derecha
-                if((_map[n.y+1][n.x].t) && (_map[n.y][n.x+1].t)) out.push({x:n.x+1, y:n.y+1});
+                if((_map[n.y+1][n.x].t) && (_map[n.y][n.x+1].t)) out.push({x:n.x+1, y:n.y+1, c:15});
             }
             
             if(_map[n.y+1][n.x-1].t) { // diagonal abajo-izquierda
-                if((_map[n.y+1][n.x].t) && (_map[n.y][n.x-1].t)) out.push({x:n.x-1, y:n.y+1});
+                if((_map[n.y+1][n.x].t) && (_map[n.y][n.x-1].t)) out.push({x:n.x-1, y:n.y+1, c:15});
             }
-            
+*/            
             return out;
         };
 
+        
+        
+        
+        
+        
+        
         
 
 
@@ -171,15 +198,55 @@ Orange = ( function( rootApp ){
                 return "TileMap";
             },
            
+            getMap : function() {
+                return _map;
+            },
+        
             getNearNodes : function(node) {
                 return _nearNodes(node);
             },
            
-            aStar : function(nIni, nFin) {
+            aStar : function() {
                 // aca obtener unos nodes de prueba (por ej: 4,4)
                 // obtener la posicion del pacman, como nfin, y armar algo que calcule los costos..
-                var _near = _nearNodes
-            }
+                var nIni = {y:4, x:4};
+                var nFin = {y:9 ,x:9};
+                nIni.c = 0;
+                var _near;
+                var actualNode;
+                
+                
+                if(_nodeEqual(nIni, nFin)) {
+                    return [nFin];
+                } else {
+                    var listaAbierta = new Orange.NodeList();
+                    var listaCerrada = new Orange.NodeList();
+                    listaAbierta.add(nIni);
+  
+
+                    while(!listaAbierta.isEmpty()) {
+                        actualNode = listaAbierta.getMinCost();
+                        if(_nodeEqual(actualNode, nFin)) {
+                            return listaCerrada.buildPath(actualNode, nIni);
+                            break;
+                        }
+                        listaAbierta.remove(actualNode);
+                        
+                        _near = _nearNodes(actualNode);
+                        _.each(_near, function(n) {
+                            _manhattan(n, nFin);
+                            n.parent = {y : actualNode.y, x : actualNode.x};
+                            if(!listaCerrada.hasNode(n)) listaAbierta.add(n, true);
+                        });
+                        
+                        listaCerrada.add(actualNode);
+                    }
+                    
+                    // fail - camino no encontrado
+                    return null;
+
+                } // end if
+            } // end A*
 
         }
     };

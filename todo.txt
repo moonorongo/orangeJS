@@ -1,3 +1,8 @@
+Que buildPath sea optimizado, para el Tween...
+Mejorar NodeList o demas...
+
+
+
 CONTINUAR CON DOCUMENTACION: Tween, Path
 
 
