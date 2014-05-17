@@ -36,9 +36,11 @@ Orange = ( function( rootApp ){
         
         var _add = function(node, sort) {
             _nodeList.push(node);
+/*            
             if(_.isUndefined(sort) || sort) {
                 _nodeList.sort(function(a,b) { return a.cost - b.cost; });
             }
+*/            
         }
         
 
@@ -47,16 +49,49 @@ Orange = ( function( rootApp ){
         }        
         
         
+        var _getMinCost = function() {
+            return _.min(_nodeList, function(e) {
+                return e.c;
+            });
+        }
+        
+        
+        var _optimize = function(aNodes) {
+            var i,
+                nlength = aNodes.length
+                out = [];
+                
+            if(aNodes.length > 2)  {
+                out.push(aNodes[0]);
+                for(i=1; i<nlength-1; i++) {
+                    if((aNodes[i-1].x == aNodes[i+1].x) || 
+                       (aNodes[i-1].y == aNodes[i+1].y)) {
+                        //aNodes.splice(i,1);
+                    } else {
+                        out.push(aNodes[i]);
+                    }
+                }
+                out.push(aNodes[nlength-1]);
+            }
+            
+            return out.reverse();
+        } // end  optimize
+        
+        
+        
+        
         var _buildPath = function(nFin, nIni) {
             var out = [];
             out.push(nFin);
-            
             var parentNode = _getNode(nFin.parent); 
             
             while(!_nodeEqual(parentNode, nIni)) {
                 out.push(parentNode);
                 parentNode = _getNode(parentNode.parent);
             }
+            
+            out.push(nIni);
+            out = _optimize(out);
             
             return out;
         }
@@ -83,7 +118,8 @@ Orange = ( function( rootApp ){
             },
            
             getMinCost : function() {
-                return (_nodeList.length != 0)? _nodeList[0] : null;
+                //return (_nodeList.length != 0)? _nodeList[0] : null;
+                return _getMinCost();
             },
            
             remove : function(node) {

@@ -1,6 +1,6 @@
 Que buildPath sea optimizado, para el Tween...
 Mejorar NodeList o demas...
-
+NO ESTA FUNCIONANDO OPTIMIZE.... VEEEER
 
 
 CONTINUAR CON DOCUMENTACION: Tween, Path

@@ -115,27 +115,38 @@ Orange = ( function( rootApp ){
 
         var _nearNodes = function(n) {
             
-            
             var out = [];
             // si no hay nada... alamerda!
             if(!_map[n.y][n.x].t) return out;
-  
           
-            if(n.y > 0) {
-                if(_map[n.y-1][n.x].t) out.push({x:n.x, y:n.y-1, c:10}); // el de arriba
+            var adyacente = [
+                {x : 0 , y : -1},
+                {x : -1, y : 0 },
+                {x : 1 , y : 0 },
+                {x : 0 , y : 1 }
+            ];
+            
+            var adDiagonal = [
+                {x : -1, y : -1},
+                {x : 1 , y : -1},
+                {x : -1, y : 1 },
+                {x : 1 , y : 1 }
+            ];
+            
+            
+            var ax,ay; 
+            for(var i=0; i<adyacente.length; i++) {
+                ax = n.x + adyacente[i].x;
+                ay = n.y + adyacente[i].y;
+                
+                var node = _map[ay][ax];
+                if(!_.isUndefined(node) && node.t) {
+                    out.push({x: ax, y: ay, c:10});                
+                }
             }
             
-            if(n.y < _map.length - 1) {
-                if(_map[n.y+1][n.x].t) out.push({x:n.x, y:n.y+1, c:10}); // el de abajo
-            }
-            
-            if(n.x > 0) {
-                if(_map[n.y][n.x-1].t) out.push({x:n.x-1, y:n.y, c:10}); // el de izquierda
-            }
-            
-            if(n.x < _map[0].length - 1) {
-                if(_map[n.y][n.x+1].t) out.push({x:n.x+1, y:n.y, c:10}); // el de derecha
-            }
+            // ver como calculo las diagonales
+            // optimizar esta mierda
 
 /*            
             if(_map[n.y-1][n.x-1].t) { // diagonal arriba-izquierda
@@ -209,8 +220,8 @@ Orange = ( function( rootApp ){
             aStar : function() {
                 // aca obtener unos nodes de prueba (por ej: 4,4)
                 // obtener la posicion del pacman, como nfin, y armar algo que calcule los costos..
-                var nIni = {y:4, x:4};
-                var nFin = {y:9 ,x:9};
+                var nIni = {y:4, x:1};
+                var nFin = {y:8 ,x:4};
                 nIni.c = 0;
                 var _near;
                 var actualNode;
