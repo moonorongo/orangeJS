@@ -19,8 +19,7 @@ Orange = ( function( rootApp ){
         var _layerImageMap = config.layerImageMap || null,
             _boundaryImageMap = config.boundaryImageMap || null,
             _layerCanvas, _boundaryCanvas,_layerContext, _boundaryContext,
-           _showTransitableMap = true, _showGrid = true,
-            //_boundaryMap = config.boundaryMap || null,
+           _showTransitableMap = false, _showGrid = false,
             _map = config.map || null;
 
         if(!_.isNull(_boundaryImageMap)) {
@@ -134,37 +133,33 @@ Orange = ( function( rootApp ){
             ];
             
             
-            var ax,ay; 
+            var ax,ay,node, nodeV, nodeH; 
             for(var i=0; i<adyacente.length; i++) {
                 ax = n.x + adyacente[i].x;
                 ay = n.y + adyacente[i].y;
                 
-                var node = _map[ay][ax];
+                node = _map[ay][ax];
                 if(!_.isUndefined(node) && node.t) {
                     out.push({x: ax, y: ay, c:10});                
                 }
             }
-            
-            // ver como calculo las diagonales
-            // optimizar esta mierda
 
-/*            
-            if(_map[n.y-1][n.x-1].t) { // diagonal arriba-izquierda
-                if((_map[n.y-1][n.x].t) && (_map[n.y][n.x-1].t)) out.push({x:n.x-1, y:n.y-1, c:15});
-            }
-
-            if(_map[n.y-1][n.x+1].t) { // diagonal arriba-derecha
-                if((_map[n.y-1][n.x].t) && (_map[n.y][n.x+1].t)) out.push({x:n.x+1, y:n.y-1, c:15});
+            
+            for(var i=0; i<adDiagonal.length; i++) {
+                ax = n.x + adyacente[i].x;
+                ay = n.y + adyacente[i].y;
+                
+                var node = _map[ay][ax];
+                var nodeH = _map[n.y][ax];
+                var nodeV = _map[ay][n.x];
+                if(!_.isUndefined(node) && node.t) {
+                    if( (!_.isUndefined(nodeH) && nodeH.t) &&
+                        (!_.isUndefined(nodeV) && nodeV.t) ) {
+                        out.push({x: ax, y: ay, c:14});                
+                    }
+                }
             }
             
-            if(_map[n.y+1][n.x+1].t) { // diagonal abajo-derecha
-                if((_map[n.y+1][n.x].t) && (_map[n.y][n.x+1].t)) out.push({x:n.x+1, y:n.y+1, c:15});
-            }
-            
-            if(_map[n.y+1][n.x-1].t) { // diagonal abajo-izquierda
-                if((_map[n.y+1][n.x].t) && (_map[n.y][n.x-1].t)) out.push({x:n.x-1, y:n.y+1, c:15});
-            }
-*/            
             return out;
         };
 
@@ -178,6 +173,7 @@ Orange = ( function( rootApp ){
 
 
         return {
+            
             setLayerMap : function(map) {
                 
             },
@@ -217,11 +213,7 @@ Orange = ( function( rootApp ){
                 return _nearNodes(node);
             },
            
-            aStar : function() {
-                // aca obtener unos nodes de prueba (por ej: 4,4)
-                // obtener la posicion del pacman, como nfin, y armar algo que calcule los costos..
-                var nIni = {y:4, x:1};
-                var nFin = {y:8 ,x:4};
+            aStar : function(nIni, nFin) {
                 nIni.c = 0;
                 var _near;
                 var actualNode;

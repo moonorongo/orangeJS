@@ -1,6 +1,26 @@
-Que buildPath sea optimizado, para el Tween...
-Mejorar NodeList o demas...
-NO ESTA FUNCIONANDO OPTIMIZE.... VEEEER
+
+
+Analisis aStar:
+    el A* me devuelve una lista de nodos del tileMap, que es el camino mas corto.
+    PERO:
+    yo necesito eso en la posicion del Layer
+    
+    El Layer tiene el TileMap asignado, por lo tanto tiene acceso a A*.
+    y los Sprites tienen una referencia al Layer en el que estan 
+    por lo tanto 
+    Sprite.go(node) -> Obtiene un Path, que lo arma Layer, con A* de TileMap...
+    
+    Si un Sprite esta en un Layer que tiene un TileMap, entonces podra utilizar A*
+    
+    Podria aceptar:
+        Node: Posicion X,Y del layer
+        Sprite: obtiene la posicion X,Y del Sprite que le paso.
+        
+    y cuando termina... deberia poder ejecutarse un callback, que seria el callback del Path...
+    y que ese callback... no se... recalcule... 
+    ANALIZAR MAS DESPIERTO
+    
+    
 
 
 CONTINUAR CON DOCUMENTACION: Tween, Path

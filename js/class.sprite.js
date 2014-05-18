@@ -87,6 +87,7 @@ Orange = ( function( rootApp ){
  */
         _path = null,
         _tempPosition,
+        _ignoreBound = customSettings.ignoreBound || false;
         
 /** @property {private int} _muriendo Numero que tiene la cantidad de frames que dura la animacion que se ejecuta cuando destruyo al Sprite. */
         _muriendo = (_src.getType() == "Animation")?  _src._fnGetStatusDieCantFrames() : 1;
@@ -142,27 +143,22 @@ Orange = ( function( rootApp ){
  */    
     var _setX = function(x) {
         var success = false;
-        if(_checkX(x)) { 
+        
+        if(_ignoreBound) {
             _setDirX(x);
             _x = x;
             success = true;
-        } else { 
-            _dirX = Orange.Sprite.MOVE_NONE;
+        } else {
+            if(_checkX(x)) { 
+                _setDirX(x);
+                _x = x;
+                success = true;
+            } else { 
+                _dirX = Orange.Sprite.MOVE_NONE;
+            }
         }
         
         return success;
-/*        
-        else {
-            // si no, veo si puedo ir para arriba o abajo. (la cantidad de _speed pixels...)
-            if(_layer._fnGetBoundaryStatus(x + _pivotX, (_y + _pivotY) - _speed).r != 0) { 
-                _y -= _speed;
-            }
-            
-            if(_layer._fnGetBoundaryStatus(x + _pivotX, (_y + _pivotY) + _speed).r != 0) { 
-                _y += _speed;
-            }
-        } // puedo posicionar
-*/        
     }; // setX
 
     
@@ -172,13 +168,22 @@ Orange = ( function( rootApp ){
  */    
     var _setY = function(y) {
         var success =false;
-        if(_checkY(y)) {
+
+        if(_ignoreBound) {
             _setDirY(y);
             _y = y;
             success = true;
-        } else { 
-            _dirY = Orange.Sprite.MOVE_NONE;
+        } else {
+            if(_checkY(y)) {
+                _setDirY(y);
+                _y = y;
+                success = true;
+            } else { 
+                _dirY = Orange.Sprite.MOVE_NONE;
+            }
         }
+        
+        
         return success;
 /*        
         else {
@@ -199,6 +204,9 @@ Orange = ( function( rootApp ){
     
     // settings por defecto
     var settings = {
+        setIgnoreBound : function(status) {
+            _ignoreBound = status;
+        },
         
         checkX : function(x) {
             return _checkX(x);
@@ -241,7 +249,7 @@ Orange = ( function( rootApp ){
  * @function {public Sprite} setY Posiciona verticalmente el Sprite, devuelve la propia instancia, para encadenar con otros metodos.
  * @param {int} y Posicion vertical donde va a ir el Sprite.
  */    
-        setY : function(y) {
+        setY : function(y, options) {
             _setY(y);
             return this;
         },

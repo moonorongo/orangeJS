@@ -21,24 +21,24 @@ Orange = ( function( rootApp ){
             
                 if(_keyPointer > _keys.length - 1) { 
                     switch(_loopMode) {
-                        case 0 : _keyPointer = _keys.length - 1;
-                                 break;
                         case 1 : _keyPointer = _keys.length - 1;
+                                 break;
+                        case 2 : _keyPointer = _keys.length - 1;
                                  _dir = -_dir;
                                  break;
-                        case 2 : _keyPointer = 0;
+                        case 4 : _keyPointer = 0;
                     }
                     if(!_.isUndefined(_finishCallback)) _finishCallback(this);
                 }
                 
                 if(_keyPointer < 0) { 
                     switch(_loopMode) {
-                        case 0 : _keyPointer = 0;
-                                 break;
                         case 1 : _keyPointer = 0;
+                                 break;
+                        case 2 : _keyPointer = 0;
                                  _dir = -_dir;
                                  break;
-                        case 2 : _keyPointer = _keys.length - 1;
+                        case 4 : _keyPointer = _keys.length - 1;
                     }
                     
                     if(!_.isUndefined(_startCallback)) _startCallback(this);
@@ -167,9 +167,9 @@ Orange = ( function( rootApp ){
         } // end return
     };
  
-    rootApp.Path.NONE = 0;
-    rootApp.Path.PINGPONG = 1;
-    rootApp.Path.LOOP = 2;
+    rootApp.Path.NONE = 1;
+    rootApp.Path.PINGPONG = 2;
+    rootApp.Path.LOOP = 4;
 
     return rootApp;
  

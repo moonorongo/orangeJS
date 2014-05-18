@@ -36,7 +36,7 @@
     
     
     // Primero que nada: inicializar la libreria
-    Orange.init(document.getElementById("main"), {scaleWidth : 1, scaleHeight : 1});
+    Orange.init(document.getElementById("main"), {scaleWidth : 2, scaleHeight : 2});
     
     // agrego las imagenes que quiero utilizar.
     Orange.getImageManager().addImage(["img/boundary_map.png", 
@@ -126,10 +126,9 @@
         
         
         
-        
 
         l.setTileMap(mapaTileMap);
-        l.showBoundary(true);
+        //l.showBoundary(true);
     
     
     
@@ -160,14 +159,15 @@
             src : pacmanAnimation,
             speed : 2,
             pivotX : 7,
-            pivotY : 7
+            pivotY : 7,
+            ignoreBound : false
         });
         
         
         l.addSprite(pacman);
         // ignoreBound : ignora el bound... eso.. FALTA IMPLEMENTAR
         //pacman.showPivotPoint(true);
-        pacman.setX(104, {ignoreBound : true}).setY(204, {ignoreBound : true});
+        pacman.setX(104, {ignoreBound : true}).setY(204);
         pacman.nextDir = 0;
     
         pacman.on("keydown", function(eventData, s) {
@@ -195,6 +195,7 @@
 // esta mierda hay que definirla si o si... ver como evitarla...    
         Orange.preUpdate(function() {
         // aca manejo los movimientos, segun las teclas que pulsé.
+/*        
             switch(pacman.nextDir) {
                 case Orange.Sprite.MOVE_UP :    if(pacman.checkY(pacman.getY() - 1)) {
                                                     dy = -pacman.getSpeed();
@@ -241,16 +242,29 @@
                                                 break;
                                                
             }
-
+*/
         });
     
     
     
-        console.log(mapaTileMap.aStar({x:4, y:4}));
+        var nodes = mapaTileMap.aStar({x:1, y:4}, {x:24, y:32});
+        _.each(nodes, function(n) {
+            n.x = (n.x * 8) - 4;
+            n.y = (n.y * 8) - 4;
+        });
+        
+        var tween1 = new Orange.LinearTween();
+        var path1 = new Orange.Path({
+            tween : tween1,
+            keys : nodes,
+            loopMode : Orange.Path.NONE
+        });
+        
+        pacman.setPath(path1);
         
         // y finalmente, pulso el boton rojo.
         Orange.start();
-        Orange.stop();
+        //Orange.stop();
     }); // FIN PRELOAD
 </script>
 </hmtl>
