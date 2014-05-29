@@ -48,6 +48,14 @@ Orange = ( function( rootApp ){
            
 /** @property {private int} _pivotY Punto utilizado para ver si se puede colocar el sprite en esa posicion.  */
         _pivotY = customSettings.pivotY || Math.floor(_h / 2),
+
+           
+/** @property {private int} _offsetX Pixeles a desplazar para el calculo del camino mas corto (es una variable de ajuste para hacer coincidir el Sprite con lo que armemos con los tiles). */
+        _offsetX = customSettings.offsetX || 0,
+           
+/** @property {private int} _offsetY Idem offset X, para Y.  */
+        _offsetY = customSettings.offsetY || 0,
+           
            
 /** @property {private int} _class Numero interno para clasificar de alguna manera al Sprite. */
         _class = customSettings.class || 0,
@@ -598,8 +606,39 @@ Orange = ( function( rootApp ){
             
             // el callback del evento que se ejecuta, envia eventData, el sprite, y si es collision un array de sprites con los que esta colisionando
             _eventCallback[eventName](eventData, this, aCollision);    
-        } // end notify
-        
+        }, // end notify
+
+        go : function(x,y) {
+            /* todo esto solo lo deberia hacer en el caso de pertenecer a un layer, que tenga asignado un tileMap
+             */
+             
+            var tMap = _layer.getTileMap(),
+                iMap = tMap.getImageMap(),
+                cW = iMap.getSpriteWidth(),
+                cH = iMap.getSpriteHeight(),
+                xIni = Math.floor(_x / cW),
+                xFin = Math.floor(x / cW),
+                yIni = Math.floor(_y / cH),
+                yFin = Math.floor(y / cH);
+            
+            var nodes = tMap.aStar({x:xIni, y:yIni}, {x:xFin, y:yFin});
+            _.each(nodes, function(n) {
+                n.x = (n.x * cW) + _offsetX;
+                n.y = (n.y * cH) + _offsetY;
+            });
+            
+            // Si ya tiene asignado un path, que solo le cargue los nodos.
+            // si esta en proceso de una animacion, entonces que la detenga donde este... ver eso
+            // probar path.reset(), y luego path.addKeys()...
+            
+            var tween = new Orange.LinearTween();
+            _path = new Orange.Path({
+                tween : tween,
+                keys : nodes,
+                loopMode : Orange.Path.NONE
+            });
+            _path.play();
+        } // go
     }
     
 

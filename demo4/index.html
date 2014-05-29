@@ -160,6 +160,8 @@
             speed : 2,
             pivotX : 7,
             pivotY : 7,
+            offsetX : -4,
+            offsetY : -4,
             ignoreBound : false
         });
         
@@ -167,8 +169,11 @@
         l.addSprite(pacman);
         // ignoreBound : ignora el bound... eso.. FALTA IMPLEMENTAR
         //pacman.showPivotPoint(true);
-        pacman.setX(104, {ignoreBound : true}).setY(204);
+        //pacman.setX(104, {ignoreBound : true}).setY(204);
         pacman.nextDir = 0;
+        pacman.setIgnoreBound(true);
+        pacman.setX(8, {ignoreBound : true})
+        pacman.setY(32, {ignoreBound : true});
     
         pacman.on("keydown", function(eventData, s) {
             switch(eventData.e.keyCode) {
@@ -246,7 +251,7 @@
         });
     
     
-    
+/*    
         var nodes = mapaTileMap.aStar({x:1, y:4}, {x:24, y:32});
         _.each(nodes, function(n) {
             n.x = (n.x * 8) - 4;
@@ -259,9 +264,9 @@
             keys : nodes,
             loopMode : Orange.Path.NONE
         });
-        
         pacman.setPath(path1);
-        
+*/        
+        pacman.go(195,260);
         // y finalmente, pulso el boton rojo.
         Orange.start();
         //Orange.stop();

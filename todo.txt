@@ -1,3 +1,13 @@
+Ya tengo a* en tileMap.
+La idea seria que yo le pase una posicion x,y a Sprite, y que vaya para alla.
+tendria q calcular la posicion en el mapa, dividiendo por el ancho de los caracteres del tileMap... si lo tengo.... 
+
+
+para eso, Sprite tendria que tomar esa posicion, y pasarsela a tileMap.aStar
+Sprite pertenece a un Layer, que tiene asignado un TileMap
+
+El sprite no llega directo a TileMap, entonces debe pasar por Layer.... 
+
 
 
 Analisis aStar:

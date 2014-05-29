@@ -190,6 +190,10 @@ Orange = ( function( rootApp ){
                 return _layerContext;
             },
            
+            getImageMap : function() {
+                return _layerImageMap;
+            },
+           
             getImage : function() {
                 var imgTemp = document.createElement("img");
                 imgTemp.src = _layerCanvas.toDataURL();
