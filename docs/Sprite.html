@@ -72,6 +72,17 @@
 
 <div class="summary property">
 <div class="params">
+<h4>private int <em><a href="#_expand">_expand</a></em></h4>
+
+</div>
+
+<p>Aca tengo el factor de expansion del Sprite: 0 > _expand < 1: encoge; _expand = 1: tamaño real; _exp...</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
 <h4>private int <em><a href="#_h">_h</a></em></h4>
 
 </div>
@@ -110,6 +121,39 @@
 </div>
 
 <p>Numero que tiene la cantidad de frames que dura la animacion que se ejecuta cuando destruyo al Sprit...</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_offsetX">_offsetX</a></em></h4>
+
+</div>
+
+<p>Pixeles a desplazar para el calculo del camino mas corto (es una variable de ajuste para hacer coinc...</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private int <em><a href="#_offsetY">_offsetY</a></em></h4>
+
+</div>
+
+<p>Idem offset X, para Y.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Path <em><a href="#_path">_path</a></em></h4>
+
+</div>
+
+<p>Aqui guardo el path que le asigno al sprite.</p>
 </div>
 
 
@@ -303,7 +347,7 @@
 
 <div class="summary function">
 <div class="params">
-<h4>private void <em><a href="#_setX">_setX</a></em></h4>
+<h4>private boolean <em><a href="#_setX">_setX</a></em></h4>
 <p>(int <em>x</em>)</p>
 </div>
 
@@ -319,6 +363,28 @@
 </div>
 
 <p>Posiciona el Sprite en la pantalla.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public boolean <em><a href="#checkX">checkX</a></em></h4>
+<p>(int <em>x</em>)</p>
+</div>
+
+<p>Devuelve true si es posible posicionar el sprite en dicha posicion.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public boolean <em><a href="#checkY">checkY</a></em></h4>
+<p>(int <em>y</em>)</p>
+</div>
+
+<p>Idem checkX.</p>
 </div>
 
 
@@ -380,6 +446,17 @@
 
 <div class="summary function">
 <div class="params">
+<h4>public Path <em><a href="#getPath">getPath</a></em></h4>
+
+</div>
+
+<p>Obtiene el Path asignado al Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
 <h4>public Tween <em><a href="#getTween">getTween</a></em></h4>
 
 </div>
@@ -418,6 +495,17 @@
 </div>
 
 <p>Obtiene la posicion vertical del Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#go">go</a></em></h4>
+<p>(int <em>x</em>, int <em>y</em>)</p>
+</div>
+
+<p>Indica al Sprite que vaya a una determinada posicion, si tiene un TileMap asignado, si no solo tendr...</p>
 </div>
 
 
@@ -468,6 +556,17 @@
 
 <div class="summary function">
 <div class="params">
+<h4>public void <em><a href="#removePath">removePath</a></em></h4>
+
+</div>
+
+<p>Quita el Path al Sprite.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
 <h4>public void <em><a href="#removeTween">removeTween</a></em></h4>
 
 </div>
@@ -490,11 +589,55 @@
 
 <div class="summary function">
 <div class="params">
+<h4>public void <em><a href="#setExpandX">setExpandX</a></em></h4>
+
+</div>
+
+<p>Establece el nivel de expansion a lo ANCHO (1: mantiene igual, 2; ennsancha al doble, .5: encoge a l...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setExpandY">setExpandY</a></em></h4>
+
+</div>
+
+<p>Establece el nivel de expansion a lo ALTO (1: mantiene igual, 2; ennsancha al doble, .5: encoge a la...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
 <h4>public void <em><a href="#setId">setId</a></em></h4>
 <p>(String <em>id</em>)</p>
 </div>
 
 <p>Asigna un identificador de proposito general.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setIgnoreBound">setIgnoreBound</a></em></h4>
+<p>(boolean <em>status</em>)</p>
+</div>
+
+<p>Si es true, ignora el boundary Layer, permitiendo posicionar el Sprite en cualquier parte.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#setPath">setPath</a></em></h4>
+<p>(Path <em>path</em>)</p>
+</div>
+
+<p>Asigna un Path al Sprite.</p>
 </div>
 
 
@@ -528,6 +671,17 @@
 </div>
 
 <p>Posiciona verticalmente el Sprite, devuelve la propia instancia, para encadenar con otros metodos.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#showPivotPoint">showPivotPoint</a></em></h4>
+<p>(boolean <em>status</em>)</p>
+</div>
+
+<p>Especifica si muestra o no el pivot Point asignado al Sprite...</p>
 </div>
 
 <h2 id="details">Details</h2><h3 id="properties">Properties</h3>
@@ -582,6 +736,18 @@
 
 <div class="detail property">
 <div class="params">
+<h4 id="_expand">private int <em>_expand</em></h4>
+
+</div>
+
+<p>Aca tengo el factor de expansion del Sprite: 0 > _expand < 1: encoge; _expand = 1: tamaño real; _expand > 1: agranda.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
 <h4 id="_h">private int <em>_h</em></h4>
 
 </div>
@@ -623,6 +789,42 @@
 </div>
 
 <p>Numero que tiene la cantidad de frames que dura la animacion que se ejecuta cuando destruyo al Sprite.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_offsetX">private int <em>_offsetX</em></h4>
+
+</div>
+
+<p>Pixeles a desplazar para el calculo del camino mas corto (es una variable de ajuste para hacer coincidir el Sprite con lo que armemos con los tiles).</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_offsetY">private int <em>_offsetY</em></h4>
+
+</div>
+
+<p>Idem offset X, para Y.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_path">private Path <em>_path</em></h4>
+
+</div>
+
+<p>Aqui guardo el path que le asigno al sprite.</p>
 
 </div>
 
@@ -879,11 +1081,11 @@
 
 <div class="detail function">
 <div class="params">
-<h4 id="_setX">private void <em>_setX</em></h4>
+<h4 id="_setX">private boolean <em>_setX</em></h4>
 <p>(int <em>x</em>)</p>
 </div>
 
-<p>Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento.</p>
+<p>Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento. Si no lo puede actualizar, entonces retorna FALSE</p>
 
 <h5 id="_setX-parameters">Parameters</h5>
 
@@ -904,7 +1106,7 @@
 <p>(int <em>y</em>)</p>
 </div>
 
-<p>Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento.</p>
+<p>Posiciona el Sprite en la pantalla. Checkea si puede posicionarlo, y actualiza la direccion de movimiento. Si no lo puede actualizar, entonces retorna false.</p>
 
 <h5 id="_setY-parameters">Parameters</h5>
 
@@ -912,6 +1114,48 @@
 
     <dt>int <em>y</em></dt>
     <dd>nueva posicion.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="checkX">public boolean <em>checkX</em></h4>
+<p>(int <em>x</em>)</p>
+</div>
+
+<p>Devuelve true si es posible posicionar el sprite en dicha posicion. AGREGAR UNA FN CHECK(X,Y)</p>
+
+<h5 id="checkX-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>x</em></dt>
+    <dd>Posicion horizontal.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="checkY">public boolean <em>checkY</em></h4>
+<p>(int <em>y</em>)</p>
+</div>
+
+<p>Idem checkX.</p>
+
+<h5 id="checkY-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>y</em></dt>
+    <dd>Posicion vertical.</dd>
 
 </dl>
 
@@ -990,6 +1234,18 @@
 
 <div class="detail function">
 <div class="params">
+<h4 id="getPath">public Path <em>getPath</em></h4>
+
+</div>
+
+<p>Obtiene el Path asignado al Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
 <h4 id="getTween">public Tween <em>getTween</em></h4>
 
 </div>
@@ -1031,6 +1287,30 @@
 </div>
 
 <p>Obtiene la posicion vertical del Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="go">public void <em>go</em></h4>
+<p>(int <em>x</em>, int <em>y</em>)</p>
+</div>
+
+<p>Indica al Sprite que vaya a una determinada posicion, si tiene un TileMap asignado, si no solo tendria que ir a ese punto (mismo comportamiento que moveTo, con tween asignado).</p>
+
+<h5 id="go-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>int <em>x</em></dt>
+    <dd>Posicion Horizontal.</dd>
+
+    <dt>int <em>y</em></dt>
+    <dd>Posicion Vertical.</dd>
+
+</dl>
 
 </div>
 
@@ -1125,6 +1405,18 @@
 
 <div class="detail function">
 <div class="params">
+<h4 id="removePath">public void <em>removePath</em></h4>
+
+</div>
+
+<p>Quita el Path al Sprite.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
 <h4 id="removeTween">public void <em>removeTween</em></h4>
 
 </div>
@@ -1158,6 +1450,30 @@
 
 <div class="detail function">
 <div class="params">
+<h4 id="setExpandX">public void <em>setExpandX</em></h4>
+
+</div>
+
+<p>Establece el nivel de expansion a lo ANCHO (1: mantiene igual, 2; ennsancha al doble, .5: encoge a la mitad).</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setExpandY">public void <em>setExpandY</em></h4>
+
+</div>
+
+<p>Establece el nivel de expansion a lo ALTO (1: mantiene igual, 2; ennsancha al doble, .5: encoge a la mitad).</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
 <h4 id="setId">public void <em>setId</em></h4>
 <p>(String <em>id</em>)</p>
 </div>
@@ -1170,6 +1486,48 @@
 
     <dt>String <em>id</em></dt>
     <dd>El nombre del identificador.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setIgnoreBound">public void <em>setIgnoreBound</em></h4>
+<p>(boolean <em>status</em>)</p>
+</div>
+
+<p>Si es true, ignora el boundary Layer, permitiendo posicionar el Sprite en cualquier parte.</p>
+
+<h5 id="setIgnoreBound-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>boolean <em>status</em></dt>
+    <dd>true/false.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="setPath">public void <em>setPath</em></h4>
+<p>(Path <em>path</em>)</p>
+</div>
+
+<p>Asigna un Path al Sprite.</p>
+
+<h5 id="setPath-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Path <em>path</em></dt>
+    <dd>El Path a asignar.</dd>
 
 </dl>
 
@@ -1233,6 +1591,27 @@
 
     <dt>int <em>y</em></dt>
     <dd>Posicion vertical donde va a ir el Sprite.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="showPivotPoint">public void <em>showPivotPoint</em></h4>
+<p>(boolean <em>status</em>)</p>
+</div>
+
+<p>Especifica si muestra o no el pivot Point asignado al Sprite... util para debuguear</p>
+
+<h5 id="showPivotPoint-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>boolean <em>status</em></dt>
+    <dd>true/false.</dd>
 
 </dl>
 

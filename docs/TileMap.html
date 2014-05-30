@@ -1,0 +1,463 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<title>TileMap - JS Docs</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="header">
+<h5>JS Docs</h5>
+</div>
+
+<h1>TileMap</h1>
+
+
+<div class="detail class">
+<div class="params">
+<h4 id="TileMap"> <em>TileMap</em></h4>
+
+</div>
+
+<p>Un TileMap es un mapa armado con caracteres, como se armaban en las viejas consolas y computadoras, en el que se pueden definir areas transitables las cuales serán utilizadas por A para el calculo del camino mas corto. El TileMap puede recibir un ImageMap para el dibujado del Layer, que contiene la definicion de caracteres utilizados, y un boundaryImageMap, que será el que se utilize para definir por donde podra transitar el sprite.</p>
+
+</div>
+
+<h2 id="summary">Summary</h2><h3 id="properties-summary">Properties</h3>
+
+<div class="summary property">
+<div class="params">
+<h4>private ImageMap <em><a href="#_boundaryImageMap">_boundaryImageMap</a></em></h4>
+
+</div>
+
+<p>ImageMap utilizado para dibujar el Boundary Layer.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private ImageMap <em><a href="#_layerImageMap">_layerImageMap</a></em></h4>
+
+</div>
+
+<p>ImageMap utilizado para dibujar el Layer.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private Array[][] <em><a href="#_map">_map</a></em></h4>
+
+</div>
+
+<p>Array bidimensional que contiene la definicion del mapa.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private boolean <em><a href="#_showGrid">_showGrid</a></em></h4>
+
+</div>
+
+<p>Muestra una grilla para poder visualizar los caracteres.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private boolean <em><a href="#_showTransitableMap">_showTransitableMap</a></em></h4>
+
+</div>
+
+<p>Propiedad para debuguear, muestra las zonas transitables del mapa, en un rojizo.</p>
+</div>
+
+<h3 id="constructors-summary">Constructors</h3>
+
+<div class="summary constructor">
+<div class="params">
+<h4> <em><a href="#TileMap">TileMap</a></em></h4>
+<p>(ImageMap <em>layerImageMap</em>, ImageMap <em>boundaryImageMap</em>, Object <em>map</em>, int <em>width</em>, int <em>height</em>)</p>
+</div>
+
+<p></p>
+</div>
+
+<h3 id="functions-summary">Functions</h3>
+
+<div class="summary function">
+<div class="params">
+<h4>private void <em><a href="#_manhattan">_manhattan</a></em></h4>
+<p>(Node <em>nIni</em>, Node <em>nFin</em>)</p>
+</div>
+
+<p>calcula la distancia total entre el nodo nIni y nFin.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private Array <em><a href="#_nearNodes">_nearNodes</a></em></h4>
+<p>(Node <em>n</em>)</p>
+</div>
+
+<p>Obtiene un Array de nodos vecinos del nodo proporcionado.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>private boolean <em><a href="#_nodeEqual">_nodeEqual</a></em></h4>
+<p>(Node <em>n1</em>, Node <em>n2</em>)</p>
+</div>
+
+<p>Compara 2 nodos si son iguales.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Array <em><a href="#aStar">aStar</a></em></h4>
+<p>(Nodo <em>nIni</em>, Nodo <em>nFin</em>)</p>
+</div>
+
+<p>Calcula el camino mas corto desde nIni a nFin, y retorna un array de nodos.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Canvas <em><a href="#getBoundary">getBoundary</a></em></h4>
+
+</div>
+
+<p>Retorna el Canvas del BoundaryMap.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Canvas <em><a href="#getLayer">getLayer</a></em></h4>
+
+</div>
+
+<p>Retorna el canvas generado.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public LayerContext <em><a href="#getLayerContext">getLayerContext</a></em></h4>
+
+</div>
+
+<p>Retorna el Context del Layer generado.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public ImageMap <em><a href="#getLayerImageMap">getLayerImageMap</a></em></h4>
+
+</div>
+
+<p>retorna el ImageMap asignado a TileMap.</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public Array <em><a href="#getMap">getMap</a></em></h4>
+
+</div>
+
+<p>Retorna el mapa del TileMap .</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public String <em><a href="#getType">getType</a></em></h4>
+
+</div>
+
+<p>Retorna el tipo de objeto.</p>
+</div>
+
+<h2 id="details">Details</h2><h3 id="properties">Properties</h3>
+
+<div class="detail property">
+<div class="params">
+<h4 id="_boundaryImageMap">private ImageMap <em>_boundaryImageMap</em></h4>
+
+</div>
+
+<p>ImageMap utilizado para dibujar el Boundary Layer.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_layerImageMap">private ImageMap <em>_layerImageMap</em></h4>
+
+</div>
+
+<p>ImageMap utilizado para dibujar el Layer.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_map">private Array[][] <em>_map</em></h4>
+
+</div>
+
+<p>Array bidimensional que contiene la definicion del mapa.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_showGrid">private boolean <em>_showGrid</em></h4>
+
+</div>
+
+<p>Muestra una grilla para poder visualizar los caracteres.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_showTransitableMap">private boolean <em>_showTransitableMap</em></h4>
+
+</div>
+
+<p>Propiedad para debuguear, muestra las zonas transitables del mapa, en un rojizo.</p>
+
+</div>
+
+<h3 id="constructors">Constructors</h3>
+
+<div class="detail constructor">
+<div class="params">
+<h4 id="TileMap"> <em>TileMap</em></h4>
+<p>(ImageMap <em>layerImageMap</em>, ImageMap <em>boundaryImageMap</em>, Object <em>map</em>, int <em>width</em>, int <em>height</em>)</p>
+</div>
+
+<p></p>
+
+<h5 id="TileMap-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>ImageMap <em>layerImageMap</em></dt>
+    <dd>El ImageMap que se utilizara para dibujar el Layer.</dd>
+
+    <dt>ImageMap <em>boundaryImageMap</em></dt>
+    <dd>El ImageMap que se utilizara para dibujar el BoundaryLayer.</dd>
+
+    <dt>Object <em>map</em></dt>
+    <dd>El array de array objetos que contiene la definicion del mapeado. El formato de cada elemento es el siguiente: {l:27, b:14}, donde l es el numero de caracter del layerImageMap, y b es el numero de caracter del boundaryImageMap.</dd>
+
+    <dt>int <em>width</em></dt>
+    <dd>el ancho del TileMap.</dd>
+
+    <dt>int <em>height</em></dt>
+    <dd>el alto del TileMap.</dd>
+
+</dl>
+
+</div>
+
+<h3 id="functions">Functions</h3>
+
+<div class="detail function">
+<div class="params">
+<h4 id="_manhattan">private void <em>_manhattan</em></h4>
+<p>(Node <em>nIni</em>, Node <em>nFin</em>)</p>
+</div>
+
+<p>calcula la distancia total entre el nodo nIni y nFin.</p>
+
+<h5 id="_manhattan-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Node <em>nIni</em></dt>
+    <dd>Nodo inicial.</dd>
+
+    <dt>Node <em>nFin</em></dt>
+    <dd>Nodo final.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_nearNodes">private Array <em>_nearNodes</em></h4>
+<p>(Node <em>n</em>)</p>
+</div>
+
+<p>Obtiene un Array de nodos vecinos del nodo proporcionado.</p>
+
+<h5 id="_nearNodes-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Node <em>n</em></dt>
+    <dd>nodo.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="_nodeEqual">private boolean <em>_nodeEqual</em></h4>
+<p>(Node <em>n1</em>, Node <em>n2</em>)</p>
+</div>
+
+<p>Compara 2 nodos si son iguales.</p>
+
+<h5 id="_nodeEqual-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Node <em>n1</em></dt>
+    <dd>Nodo un nodo.</dd>
+
+    <dt>Node <em>n2</em></dt>
+    <dd>Nodo otro nodo.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="aStar">public Array <em>aStar</em></h4>
+<p>(Nodo <em>nIni</em>, Nodo <em>nFin</em>)</p>
+</div>
+
+<p>Calcula el camino mas corto desde nIni a nFin, y retorna un array de nodos.</p>
+
+<h5 id="aStar-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>Nodo <em>nIni</em></dt>
+    <dd>Nodo inicial.</dd>
+
+    <dt>Nodo <em>nFin</em></dt>
+    <dd>Nodo final.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getBoundary">public Canvas <em>getBoundary</em></h4>
+
+</div>
+
+<p>Retorna el Canvas del BoundaryMap.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getLayer">public Canvas <em>getLayer</em></h4>
+
+</div>
+
+<p>Retorna el canvas generado.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getLayerContext">public LayerContext <em>getLayerContext</em></h4>
+
+</div>
+
+<p>Retorna el Context del Layer generado.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getLayerImageMap">public ImageMap <em>getLayerImageMap</em></h4>
+
+</div>
+
+<p>retorna el ImageMap asignado a TileMap.</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getMap">public Array <em>getMap</em></h4>
+
+</div>
+
+<p>Retorna el mapa del TileMap .</p>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="getType">public String <em>getType</em></h4>
+
+</div>
+
+<p>Retorna el tipo de objeto.</p>
+
+</div>
+
+
+</body>
+</html>

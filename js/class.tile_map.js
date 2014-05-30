@@ -2,13 +2,21 @@
  * Declares {@link TileMap} class etc.
  * @file class.tile_map.js
  * @version 0.1
-  */
+ */
 
 /**
  * @class TileMap 
+ * Un TileMap es un mapa armado con caracteres, como se armaban en las viejas consolas y computadoras, en el que se pueden definir areas transitables
+ * las cuales serán utilizadas por A* para el calculo del camino mas corto. El TileMap puede recibir un ImageMap para el dibujado del Layer, que contiene la definicion de caracteres
+ * utilizados, y un boundaryImageMap, que será el que se utilize para definir por donde podra transitar el sprite.
  * 
  * @constructor TileMap
- * @param {optional Object} lalala .
+ * @param {ImageMap} layerImageMap El ImageMap que se utilizara para dibujar el Layer.
+ * @param {ImageMap} boundaryImageMap El ImageMap que se utilizara para dibujar el BoundaryLayer.
+ * @param {Object} map El array de array objetos que contiene la definicion del mapeado. El formato de cada elemento es el siguiente: {l:27, b:14}, donde l es el numero de caracter del layerImageMap,
+ *y b es el numero de caracter del boundaryImageMap.
+ * @param {int} width el ancho del TileMap.
+ * @param {int} height el alto del TileMap.
  */
 Orange = ( function( rootApp ){
     
@@ -16,10 +24,16 @@ Orange = ( function( rootApp ){
 
         // si no se proporciona width y height tratar de obtenerlos del canvas principal (como los Layers)
         
-        var _layerImageMap = config.layerImageMap || null,
+ /** @property {private ImageMap} _layerImageMap ImageMap utilizado para dibujar el Layer. */
+       var _layerImageMap = config.layerImageMap || null,
+ /** @property {private ImageMap} _boundaryImageMap ImageMap utilizado para dibujar el Boundary Layer. */
             _boundaryImageMap = config.boundaryImageMap || null,
             _layerCanvas, _boundaryCanvas,_layerContext, _boundaryContext,
-           _showTransitableMap = false, _showGrid = false,
+ /** @property {private boolean} _showTransitableMap Propiedad para debuguear, muestra las zonas transitables del mapa, en un rojizo. */
+           _showTransitableMap = false,
+ /** @property {private boolean} _showGrid Muestra una grilla para poder visualizar los caracteres. */
+           _showGrid = false,
+ /** @property {private Array[][]} _map Array bidimensional que contiene la definicion del mapa. */
             _map = config.map || null;
 
         if(!_.isNull(_boundaryImageMap)) {
@@ -100,20 +114,32 @@ Orange = ( function( rootApp ){
         }
            
            
-        
+/**
+ * @function {private void} _manhattan calcula la distancia total entre el nodo nIni y nFin.
+ * @param {Node} nIni Nodo inicial.
+ * @param {Node} nFin Nodo final.
+ */            
         var _manhattan = function(nIni, nFin) {
             var h = (Math.abs(nIni.x - nFin.x) + Math.abs(nIni.y - nFin.y)) * 10;
             nIni.c += h;
         };
         
-        
+
+/**
+ * @function {private boolean} _nodeEqual Compara 2 nodos si son iguales.
+ * @param {Node} n1 Nodo un nodo.
+ * @param {Node} n2 Nodo otro nodo.
+ */            
         var _nodeEqual = function(n1,n2) {
             return (n1.x == n2.x) && (n1.y == n2.y);
         }
         
 
+/**
+ * @function {private Array} _nearNodes Obtiene un Array de nodos vecinos del nodo proporcionado.
+ * @param {Node} n nodo.
+ */            
         var _nearNodes = function(n) {
-            
             var out = [];
             // si no hay nada... alamerda!
             if(!_map[n.y][n.x].t) return out;
@@ -173,7 +199,6 @@ Orange = ( function( rootApp ){
 
 
         return {
-            
             setLayerMap : function(map) {
                 
             },
@@ -182,41 +207,67 @@ Orange = ( function( rootApp ){
                 
             },
            
-            getLayer : function() {
+ /**
+ * @function {public Canvas} getLayer Retorna el canvas generado.
+ */    
+           getLayer : function() {
                 return _layerCanvas;
             },
-           
+
+ /**
+ * @function {public LayerContext} getLayerContext Retorna el Context del Layer generado.
+ */    
             getContext : function() {
                 return _layerContext;
             },
            
+ /**
+ * @function {public ImageMap} getLayerImageMap retorna el ImageMap asignado a TileMap.
+ */    
             getImageMap : function() {
                 return _layerImageMap;
             },
            
+ /*
             getImage : function() {
                 var imgTemp = document.createElement("img");
                 imgTemp.src = _layerCanvas.toDataURL();
                 return imgTemp;
             },
+*/           
            
-           
+ /**
+ * @function {public Canvas} getBoundary Retorna el Canvas del BoundaryMap.
+ */    
             getBoundary : function() {
                 return _boundaryCanvas;
             },
            
+ /**
+ * @function {public String} getType Retorna el tipo de objeto.
+ */    
             getType : function () {
                 return "TileMap";
             },
            
+ /**
+ * @function {public Array} getMap Retorna el mapa del TileMap .
+ */    
             getMap : function() {
                 return _map;
             },
         
+ /*
             getNearNodes : function(node) {
                 return _nearNodes(node);
             },
-           
+*/
+ 
+ /**
+ * @function {public Array} aStar Calcula el camino mas corto desde nIni a nFin, y retorna un array de nodos.
+ * @param {Nodo} nIni Nodo inicial.
+ * @param {Nodo} nFin Nodo final.
+ */    
             aStar : function(nIni, nFin) {
                 nIni.c = 0;
                 var _near;

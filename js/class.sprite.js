@@ -2,7 +2,7 @@
  * Declares {@link Sprite} class etc.
  * @file class.sprite.js
  * @version 0.1
-  */
+ */
 
 /**
  * @class Sprite 
@@ -212,18 +212,34 @@ Orange = ( function( rootApp ){
     
     // settings por defecto
     var settings = {
+/**
+ * @function {public void} setIgnoreBound Si es true, ignora el boundary Layer, permitiendo posicionar el Sprite en cualquier parte.
+ * @param {boolean} status true/false.
+ */    
         setIgnoreBound : function(status) {
             _ignoreBound = status;
         },
         
+/**
+ * @function {public boolean} checkX Devuelve true si es posible posicionar el sprite en dicha posicion. AGREGAR UNA FN CHECK(X,Y)
+ * @param {int} x Posicion horizontal.
+ */    
         checkX : function(x) {
             return _checkX(x);
         },
 
+/**
+ * @function {public boolean} checkY Idem checkX.
+ * @param {int} y Posicion vertical.
+ */    
         checkY : function(y) {
             return _checkY(y);
         },
         
+/**
+ * @function {public void} showPivotPoint Especifica si muestra o no el pivot Point asignado al Sprite... util para debuguear
+ * @param {boolean} status true/false.
+ */    
         showPivotPoint : function(status) {
             _showPivotPoint = status;
         },
@@ -608,6 +624,13 @@ Orange = ( function( rootApp ){
             _eventCallback[eventName](eventData, this, aCollision);    
         }, // end notify
 
+        
+/**
+ * @function {public void} go Indica al Sprite que vaya a una determinada posicion, si tiene un TileMap asignado, si no solo tendria que ir a ese punto 
+ * (mismo comportamiento que moveTo, con tween asignado).
+ * @param {int} x Posicion Horizontal.
+ * @param {int} y Posicion Vertical.
+ */    
         go : function(x,y) {
             /* todo esto solo lo deberia hacer en el caso de pertenecer a un layer, que tenga asignado un tileMap
              */

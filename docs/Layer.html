@@ -28,7 +28,7 @@
 
 <div class="summary property">
 <div class="params">
-<h4>private image <em><a href="#__bgLayer">__bgLayer</a></em></h4>
+<h4>private image <em><a href="#_bgLayer">_bgLayer</a></em></h4>
 
 </div>
 
@@ -77,6 +77,17 @@
 </div>
 
 <p>El "canvas context" (interno) del layer, donde seran dibujados los sprites.</p>
+</div>
+
+
+
+<div class="summary property">
+<div class="params">
+<h4>private boolean <em><a href="#_showBoundary">_showBoundary</a></em></h4>
+
+</div>
+
+<p>Muestra el boundary del Layer, para debuguear.</p>
 </div>
 
 
@@ -260,17 +271,28 @@
 <div class="summary function">
 <div class="params">
 <h4>public void <em><a href="#setBoundary">setBoundary</a></em></h4>
-<p>(Image <em>img</em>)</p>
+<p>(Image <em>img</em>, optional <em>x</em>, optional <em>y</em>)</p>
 </div>
 
 <p>Asigna una imagen y genera un canvas, que es utilizado para proporcionar limites de movimiento dentr...</p>
+</div>
+
+
+
+<div class="summary function">
+<div class="params">
+<h4>public void <em><a href="#showBoundary">showBoundary</a></em></h4>
+<p>(boolean <em>status</em>)</p>
+</div>
+
+<p>Especifica si quiero mostrar el boundary del Layer, para testear.</p>
 </div>
 
 <h2 id="details">Details</h2><h3 id="properties">Properties</h3>
 
 <div class="detail property">
 <div class="params">
-<h4 id="__bgLayer">private image <em>__bgLayer</em></h4>
+<h4 id="_bgLayer">private image <em>_bgLayer</em></h4>
 
 </div>
 
@@ -323,6 +345,18 @@
 </div>
 
 <p>El "canvas context" (interno) del layer, donde seran dibujados los sprites.</p>
+
+</div>
+
+
+
+<div class="detail property">
+<div class="params">
+<h4 id="_showBoundary">private boolean <em>_showBoundary</em></h4>
+
+</div>
+
+<p>Muestra el boundary del Layer, para debuguear.</p>
 
 </div>
 
@@ -607,7 +641,7 @@
 <div class="detail function">
 <div class="params">
 <h4 id="setBoundary">public void <em>setBoundary</em></h4>
-<p>(Image <em>img</em>)</p>
+<p>(Image <em>img</em>, optional <em>x</em>, optional <em>y</em>)</p>
 </div>
 
 <p>Asigna una imagen y genera un canvas, que es utilizado para proporcionar limites de movimiento dentro del Layer (util para laberintos, plataformas y casi todo lo que se te ocurra). Por donde este en blanco la imagen se podra posicionar un Sprite, donde este en negro no sera posible.</p>
@@ -618,6 +652,33 @@
 
     <dt>Image <em>img</em></dt>
     <dd>La imagen a asignar.</dd>
+
+    <dt>optional <em>x</em></dt>
+    <dd>Posicion x a dibujar.</dd>
+
+    <dt>optional <em>y</em></dt>
+    <dd>Posicion y a dibujar.</dd>
+
+</dl>
+
+</div>
+
+
+
+<div class="detail function">
+<div class="params">
+<h4 id="showBoundary">public void <em>showBoundary</em></h4>
+<p>(boolean <em>status</em>)</p>
+</div>
+
+<p>Especifica si quiero mostrar el boundary del Layer, para testear.</p>
+
+<h5 id="showBoundary-parameters">Parameters</h5>
+
+<dl>
+
+    <dt>boolean <em>status</em></dt>
+    <dd>true/false activa o desactiva.</dd>
 
 </dl>
 

@@ -36,7 +36,7 @@
     
     
     // Primero que nada: inicializar la libreria
-    Orange.init(document.getElementById("main"), {scaleWidth : 2, scaleHeight : 2});
+    Orange.init(document.getElementById("main"), {scaleWidth : 1, scaleHeight : 1});
     
     // agrego las imagenes que quiero utilizar.
     Orange.getImageManager().addImage(["img/boundary_map.png", 
@@ -190,9 +190,14 @@
                 //dx = -s.getSpeed();
                             break;
             }
-            
         });
 
+
+        
+        pacman.on("mouseup", function(eventData, s) {
+            s.go(eventData.relativeX, eventData.relativeY);
+        });
+        
         
     
     

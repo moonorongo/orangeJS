@@ -1,83 +1,9 @@
-Ya tengo a* en tileMap.
-La idea seria que yo le pase una posicion x,y a Sprite, y que vaya para alla.
-tendria q calcular la posicion en el mapa, dividiendo por el ancho de los caracteres del tileMap... si lo tengo.... 
+DOCUMENTAR PATH, IMAGEMAP,
 
+Hacer un pequeño demo que cliquees en distintos lugares y el pacman vaya para alli...    
+        corregir algo que no anda...
 
-para eso, Sprite tendria que tomar esa posicion, y pasarsela a tileMap.aStar
-Sprite pertenece a un Layer, que tiene asignado un TileMap
-
-El sprite no llega directo a TileMap, entonces debe pasar por Layer.... 
-
-
-
-Analisis aStar:
-    el A* me devuelve una lista de nodos del tileMap, que es el camino mas corto.
-    PERO:
-    yo necesito eso en la posicion del Layer
-    
-    El Layer tiene el TileMap asignado, por lo tanto tiene acceso a A*.
-    y los Sprites tienen una referencia al Layer en el que estan 
-    por lo tanto 
-    Sprite.go(node) -> Obtiene un Path, que lo arma Layer, con A* de TileMap...
-    
-    Si un Sprite esta en un Layer que tiene un TileMap, entonces podra utilizar A*
-    
-    Podria aceptar:
-        Node: Posicion X,Y del layer
-        Sprite: obtiene la posicion X,Y del Sprite que le paso.
-        
-    y cuando termina... deberia poder ejecutarse un callback, que seria el callback del Path...
-    y que ese callback... no se... recalcule... 
-    ANALIZAR MAS DESPIERTO
-    
-    
-
-
-CONTINUAR CON DOCUMENTACION: Tween, Path
-
-
-aStar en TileMap, que sera llamada desde otra funcion, en sprite o donde sea...
-
-aStar : function(nIni, nFin)
-
-esta funcion me devuelve una lista de puntos que es el recorrido... despues esta lista la tendre que pasar a coordenadas x,y. y armar el path con ella. 
-
-if nIni = nFin 
-    retorno nIni como solucion.
-else 
-    listaAbierta.add(nIni)
-    while (listaAbierta.length > 0)
-        nodo = listaAbierta.getMinCost()
-        if(nodo = nFin)
-            retorno listaCerrada
-        else 
-            listaAbierta.remove(nodo)
-            listaCerrada.add(nodo)
-            nearNodes[] = TileMap.getNearNodes(nodo)   // esto obtiene nodos vecinos, NO SOLIDOS
-            each(nearNodes as nearNode)
-                if(!listaCerrada.hasNode(nearNode)) 
-                    listaAbierta.add(nearNode, true) // sobreescribo si tiene costo menor
-
-    end while
-    
-    si llega a este punto, entonces no encontro un camino... retornara null.
-
-    
-en TileMap: 
- 
-getNearNodes(node): metodo, que obtenga una lista de nodos adyacentes. ver de considerar cuando puedo obtener los nodos en diagonal. debe devolver una lista de nodos {x,y, costo}
-
-privado??? 
-_calcCost(n1,n2): calcula la distancia de Manhattan entre los 2 nodos.
-
-n = 4
-0   0
-[   ]
-
-n = 8
-0   1
-[   ]
-4
+Hacer algo que muestre errores, o que los evite de la manera mas elegante...
 
 
 
@@ -94,8 +20,6 @@ modificar el preloader, para que precargue cualquier cosa (entre esas cosas, los
 
 
 
-
-en Sprite, poner algo que ignore el boundary
 
 en Sprite, ver si cuando hago destroy lo remueve del layer...
 
